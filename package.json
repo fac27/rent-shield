@@ -23,7 +23,9 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "@types/eslint": "^8"
+    "@types/eslint": "^8",
+    "husky": "^8.0.3",
+    "pinst": "^3.0.0"
   },
   "volta": {
     "node": "18.17.0"
