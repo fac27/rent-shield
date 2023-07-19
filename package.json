@@ -1,4 +1,19 @@
 {
   "name": "rent-shield",
-  "packageManager": "yarn@4.0.0-rc.48"
+  "packageManager": "yarn@4.0.0-rc.48",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --check --ignore-path .gitignore .",
+    "format:fix": "prettier --write --ignore-path .gitignore .",
+    "test": "jest",
+    "cypress:open": "cypress open",
+    "lint-staged": "lint-staged",
+    "prepare": "husky install"
+  },
+  "volta": {
+    "node": "18.17.0"
+  }
 }
