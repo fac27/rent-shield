@@ -1,7 +1,0 @@
-{
-  "name": "rent-shield",
-  "packageManager": "yarn@4.0.0-rc.48",
-  "dependencies": {
-    "@react-google-maps/api": "^2.19.0"
-  }
-}
