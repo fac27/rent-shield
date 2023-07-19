@@ -24,5 +24,8 @@
   },
   "devDependencies": {
     "@types/eslint": "^8"
+  },
+  "volta": {
+    "node": "18.17.0"
   }
 }
