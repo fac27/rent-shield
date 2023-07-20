@@ -1,3 +1,3 @@
 module.exports = {
-  "extends": ["next/core-web-vitals", "eslint-config-kentcdodds"] 
-}
+  extends: 'next/core-web-vitals',
+};
