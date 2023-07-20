@@ -9,8 +9,8 @@ const Header = () => {
       <Navbar fluid rounded>
         <Navbar.Brand href="/">
           <Image
-          width="30"
-          height="30"
+            width="30"
+            height="30"
             alt="Rent-shield logo"
             className="mr-3 h-6 sm:h-9"
             src="/favicon.svg"
@@ -25,14 +25,13 @@ const Header = () => {
             label={
               <Avatar
                 alt="User settings"
-                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                rounded
+                img="/images/user-image.svg"
               />
             }
           >
             <Dropdown.Header>
-              <span className="block text-sm">Gertrude Pickle</span>
-              <span className="block truncate text-sm font-medium">
+              <span className="block text-lg">Gertrude Pickle</span>
+              <span className="block truncate text-md font-medium">
                 gertrude@pickle.com
               </span>
             </Dropdown.Header>
@@ -43,12 +42,15 @@ const Header = () => {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link active href="#">
-            <p>Home</p>
+          <Navbar.Link href="#">
+            <p className="text-lg">Home</p>
           </Navbar.Link>
-          <Navbar.Link href="#">Home</Navbar.Link>  
-          <Navbar.Link href="#">Search</Navbar.Link>
-          <Navbar.Link href="#">Favourites</Navbar.Link>
+          <Navbar.Link href="#">
+            <p className="text-lg">Search</p>
+          </Navbar.Link>
+          <Navbar.Link href="#">
+            <p className="text-lg">Favourites</p>
+          </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
     </header>

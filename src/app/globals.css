@@ -5,3 +5,8 @@
 :root {
   --variables-go-here: true;
 }
+
+body {
+  @apply bg-gray-100;
+  @apply text-lg;
+}
