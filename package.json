@@ -2,6 +2,7 @@
   "name": "rent-shield",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@types/eslint": "^8",
+    "eslint-config-kentcdodds": "^20.5.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "pinst": "^3.0.0",
@@ -35,6 +37,9 @@
     "node": "18.17.0"
   },
   "lint-staged": {
-    "*.{js,css,md}": ["prettier --write","eslint"]
+    "*.{js,css,md}": [
+      "prettier --write",
+      "eslint"
+    ]
   }
 }
