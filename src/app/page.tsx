@@ -7,5 +7,5 @@ export default function Home() {
       <Map apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} />
       
     </main>
-  )
+  );
 }

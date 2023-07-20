@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install",
+    "prettier": "npx prettier . --write"
   },
   "dependencies": {
     "@react-google-maps/api": "^2.19.0",
@@ -24,9 +26,19 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "@types/eslint": "^8"
+    "@types/eslint": "^8",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "pinst": "^3.0.0",
+    "prettier": "3.0.0"
   },
   "volta": {
     "node": "18.17.0"
+  },
+  "lint-staged": {
+    "*.{js,css,md}": [
+      "prettier --write",
+      "eslint"
+    ]
   }
 }
