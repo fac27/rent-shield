@@ -1,27 +1,25 @@
 "use client"
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { IMapProps } from '../../../types';
 
 const containerStyle = {
   width: '100%',
   height: '400px',
 };
 
-const center = {
-  lat: 37.7749,
-  lng: -122.4194,
+const location = {
+  lat: 51.507351,
+  lng: -0.127758,
 };
 
-interface MapProps {
-  apiKey: string;
-}
 
-const Map: React.FC<MapProps> = ({ apiKey }) => {
+const Map = ({ apiKey }): ReactElement => {
   return (
     <LoadScript googleMapsApiKey={apiKey}>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
+      <GoogleMap mapContainerStyle={containerStyle} center={location} zoom={12}>
         {/* Add markers or additional components as needed */}
-        <Marker position={center} />
+        <Marker position={location} />
       </GoogleMap>
     </LoadScript>
   );
