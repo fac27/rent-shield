@@ -1,3 +1,4 @@
 export interface IMapProps {
-  apiKey: string;
-}
+    apiKey: string;
+  }
+  
