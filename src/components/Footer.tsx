@@ -1,14 +1,9 @@
-"use client"
-
-import { FC } from 'react'
-import { Dropdown, Navbar } from 'flowbite-react';
-
-const Header = ():FC => {
+const Footer = () => {
     return (
-        <div>
-            <h1>Rent shield</h1>
-        </div>
+        <>
+        <h2>This is the footer</h2>
+        </>
     )
 }
 
-export default Header
+export default Footer
