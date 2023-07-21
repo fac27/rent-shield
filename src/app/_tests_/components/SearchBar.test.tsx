@@ -1,5 +1,5 @@
 import SearchBar from "@/components/SearchBar";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 
 describe('SearchBar unit tests', ()=>{
   test('SearchBar renders on the page', ()=>{
