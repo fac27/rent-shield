@@ -2,7 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Quicksand } from 'next/font/google';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Footer from '../components/FooterWithLinks';
 
 const quicksand = Quicksand({ subsets: ['latin'] });
 
