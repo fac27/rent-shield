@@ -94,7 +94,7 @@ export const convertAddress = async (address:string)=>{
     return response.json()
   }).then(jsonData =>{
     console.log('🔥',jsonData.results[0].geometry.location)
-    return jsonData.results[0].geometry.location
+    resolve(jsonData.results[0].geometry.location)
   })
   .catch(error=>{
     console.log(error)
