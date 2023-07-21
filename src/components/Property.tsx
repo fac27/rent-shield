@@ -55,12 +55,12 @@ export default function Property() {
         >
           <Image src={arrow} alt="arrow-right" width={40} height={40} />
         </button>
-        <div className="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
+        <div className="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2 rounded-full bg-slate-300 p-2">
           {images.map((_, index) => (
             <button
               key={crypto.randomUUID()}
               className={`w-3 h-3 rounded-full ${
-                currentSlide === index ? 'bg-white' : 'bg-gray-300'
+                currentSlide === index ? 'bg-white' : 'bg-[#A2A6AD]'
               }`}
               onClick={() => {
                 setCurrentSlide(index);

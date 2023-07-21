@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${quicksand.className} text-lg`}>
+      <body className={`${quicksand.className} text-lg bg-[#EAEAEA]`}>
         <Header />
         {children}
         <Footer />
