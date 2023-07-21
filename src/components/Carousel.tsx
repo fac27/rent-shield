@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import arrow from '../../public/arrow.svg';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Carousel({ images }: { images: string[] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -10,7 +11,7 @@ export default function Carousel({ images }: { images: string[] }) {
       <div className="flex justify-center">
         {images.map((image, i) => (
           <Image
-            key={crypto.randomUUID()}
+            key={uuidv4()}
             src={image}
             alt={`image-${i + 1}`}
             layout="fill"
@@ -42,7 +43,7 @@ export default function Carousel({ images }: { images: string[] }) {
       <div className="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2 rounded-full bg-slate-300 p-2">
         {images.map((_, index) => (
           <button
-            key={crypto.randomUUID()}
+            key={uuidv4()}
             id={`slide-${index + 1}`}
             className={`w-3 h-3 rounded-full ${
               currentSlide === index ? 'bg-white' : 'bg-[#A2A6AD]'
