@@ -24,7 +24,9 @@ export default function Carousel({ images }: { images: string[] }) {
         id="left-arrow"
         className="absolute inset-y-0 left-0 h-96 mx-4 rotate-180"
         onClick={() =>
-          currentSlide !== 0 ? setCurrentSlide(currentSlide - 1) : ''
+          currentSlide !== 0
+            ? setCurrentSlide(currentSlide - 1)
+            : setCurrentSlide(images.length - 1)
         }
       >
         <Image src={arrow} alt="arrow-left" width={40} height={40} />
@@ -35,7 +37,7 @@ export default function Carousel({ images }: { images: string[] }) {
         onClick={() =>
           currentSlide !== images.length - 1
             ? setCurrentSlide(currentSlide + 1)
-            : ''
+            : setCurrentSlide(0)
         }
       >
         <Image src={arrow} alt="arrow-right" width={40} height={40} />
