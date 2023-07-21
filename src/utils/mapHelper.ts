@@ -9,7 +9,7 @@ export const initializeMap = async (center: ILocation) => {
   });
   const mapOptions = {
     center: center,
-    zoom: 4,
+    zoom: 16,
   };
 
   const googleMaps = await loader.importLibrary('maps')
@@ -24,7 +24,7 @@ export const initializeSearch = async () => {
     libraries: ['maps', 'places'],
   });
   const autocompleteOptions = {
-    types: ['establishment'],
+    types: ['geocode'],
     componentRestrictions: {'country': ['GB']},
       fields:['place_id','geometry','name']
   };
@@ -32,7 +32,8 @@ export const initializeSearch = async () => {
 
   const input = document.getElementById('autocomplete')as HTMLInputElement;
   const autocomplete = new googlePlaces.Autocomplete(input, autocompleteOptions)
-  return new Promise((resolve) => {
+  
+  return new Promise((resolve, reject) => {
     autocomplete.addListener('place_changed', ()=>{
       const place = autocomplete.getPlace();
       const center = {
@@ -42,7 +43,7 @@ export const initializeSearch = async () => {
       console.log(center)
       if(place.geometry){
         resolve(center)
-      }
+      } 
       //insert error handling
     })
   })

@@ -6,16 +6,20 @@ const Map = ({ center }) => {
   const [location, setLocation] = useState(null)
   
   useEffect(()=>{
-    initializeSearch().then(selected =>{
-      setLocation(selected)
-      console.log(selected)
-
+    if(typeof window !== 'undefined'){
+      initializeSearch().then(selected =>{
+        setLocation(selected)
+        console.log(selected)
     })
+    .catch(error =>{
+      console.error(error)
+    })
+  }
   },[])
   
   useEffect(() => {
-    initializeMap(center);
-  }, [center]);
+    initializeMap(location);
+  }, [location]);
   return (
     <>
       <h1></h1>
