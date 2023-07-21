@@ -4,6 +4,7 @@
 
 :root {
   --variables-go-here: true;
+  --another-variable: true;
 }
 
 body {
