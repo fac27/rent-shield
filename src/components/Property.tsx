@@ -9,13 +9,11 @@ import heart from '../../public/heart.svg';
 import fullHeart from '../../public/full-heart.svg';
 import transport from '../../public/transport.svg';
 import map from '../../public/images/map-test.png';
-import arrow from '../../public/arrow.svg';
 import { useState } from 'react';
-// import { Carousel } from 'flowbite-react';
+import Carousel from './Carousel';
 
 export default function Property() {
   const [liked, setLiked] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
   //    use props
   //   paths
   const images = ['/images/interior-1.jpeg', '/images/interior-3.jpeg'];
@@ -24,53 +22,7 @@ export default function Property() {
     <div className="flex flex-col">
       {/* images */}
       {/* animate */}
-      <section className="relative h-96">
-        <div className="flex justify-center">
-          {images.map((image, i) => (
-            <Image
-              key={crypto.randomUUID()}
-              src={image}
-              alt="image-1"
-              layout="fill"
-              objectFit="contain"
-              style={currentSlide === i ? {} : { display: 'none' }}
-            />
-          ))}
-        </div>
-        <button
-          className="absolute inset-y-0 left-0 h-96 mx-4 rotate-180"
-          onClick={() =>
-            currentSlide !== 0 ? setCurrentSlide(currentSlide - 1) : ''
-          }
-        >
-          <Image src={arrow} alt="arrow-left" width={40} height={40} />
-        </button>
-        <button
-          className="absolute inset-y-0 right-0 h-96 mx-4"
-          onClick={() =>
-            currentSlide !== images.length - 1
-              ? setCurrentSlide(currentSlide + 1)
-              : ''
-          }
-        >
-          <Image src={arrow} alt="arrow-right" width={40} height={40} />
-        </button>
-        <div className="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2 rounded-full bg-slate-300 p-2">
-          {images.map((_, index) => (
-            <button
-              key={crypto.randomUUID()}
-              className={`w-3 h-3 rounded-full ${
-                currentSlide === index ? 'bg-white' : 'bg-[#A2A6AD]'
-              }`}
-              onClick={() => {
-                setCurrentSlide(index);
-              }}
-              aria-current="true"
-              aria-label="Slide 1"
-            ></button>
-          ))}
-        </div>
-      </section>
+      <Carousel images={images} />
 
       {/* details */}
       <section className="flex justify-evenly bg-[#202A37] py-5">
