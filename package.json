@@ -31,7 +31,6 @@
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.4.10",
     "@types/eslint": "^8",
-    "eslint-config-auto": "^0.7.3",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "pinst": "^3.0.0",
