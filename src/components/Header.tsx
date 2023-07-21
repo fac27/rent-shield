@@ -6,7 +6,7 @@ import { Dropdown, Navbar, Avatar } from 'flowbite-react';
 const Header = () => {
   return (
     <header>
-      <Navbar fluid rounded>
+      <Navbar fluid>
         <Navbar.Brand href="/">
           <Image
             width="30"
@@ -41,7 +41,7 @@ const Header = () => {
           </Dropdown>
           <Navbar.Toggle />
         </div>
-        <Navbar.Collapse>
+        <Navbar.Collapse className='text-red'>
           <Navbar.Link href="#">
             <p className="text-lg">Home</p>
           </Navbar.Link>
