@@ -12,14 +12,15 @@ export default function Carousel({ images }: { images: string[] }) {
           <Image
             key={crypto.randomUUID()}
             src={image}
-            alt="image-1"
+            alt={`image-${i + 1}`}
             layout="fill"
             objectFit="contain"
-            style={currentSlide === i ? {} : { display: 'none' }}
+            className={currentSlide === i ? '' : 'hidden'}
           />
         ))}
       </div>
       <button
+        id="left-arrow"
         className="absolute inset-y-0 left-0 h-96 mx-4 rotate-180"
         onClick={() =>
           currentSlide !== 0 ? setCurrentSlide(currentSlide - 1) : ''
@@ -28,6 +29,7 @@ export default function Carousel({ images }: { images: string[] }) {
         <Image src={arrow} alt="arrow-left" width={40} height={40} />
       </button>
       <button
+        id="right-arrow"
         className="absolute inset-y-0 right-0 h-96 mx-4"
         onClick={() =>
           currentSlide !== images.length - 1
@@ -41,6 +43,7 @@ export default function Carousel({ images }: { images: string[] }) {
         {images.map((_, index) => (
           <button
             key={crypto.randomUUID()}
+            id={`slide-${index + 1}`}
             className={`w-3 h-3 rounded-full ${
               currentSlide === index ? 'bg-white' : 'bg-[#A2A6AD]'
             }`}
