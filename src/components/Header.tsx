@@ -19,7 +19,7 @@ const Header = () => {
             rent shield
           </span>
         </Navbar.Brand>
-        <div className="flex md:order-2">
+        <div className="flex md:order-2 dark:text-white">
           <Dropdown
             inline
             label={
