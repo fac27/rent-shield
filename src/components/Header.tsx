@@ -22,12 +22,7 @@ const Header = () => {
         <div className="flex md:order-2 dark:text-white">
           <Dropdown
             inline
-            label={
-              <Avatar
-                alt="User settings"
-                img="/images/user-image.svg"
-              />
-            }
+            label={<Avatar alt="User settings" img="/images/user-image.svg" />}
           >
             <Dropdown.Header>
               <span className="block text-lg">Gertrude Pickle</span>
@@ -41,7 +36,7 @@ const Header = () => {
           </Dropdown>
           <Navbar.Toggle />
         </div>
-        <Navbar.Collapse className='text-red'>
+        <Navbar.Collapse className="text-red">
           <Navbar.Link href="#">
             <p className="text-lg">Home</p>
           </Navbar.Link>
