@@ -6,7 +6,7 @@ const FooterWithLinks = () => {
     return (
       <Footer>
       <div className="w-full">
-        <div className="w-full px-4 py-6 md:flex items-center justify-center md:justify-between">
+        <div className="w-full px-4 py-6 items-center justify-center md:flex md:justify-between">
           <Footer.Copyright
             by="rent-shield"
             href="/"
