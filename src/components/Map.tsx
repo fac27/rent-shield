@@ -23,7 +23,7 @@ const Map = ({ center }) => {
   }, [location]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined'){
+    if (typeof window !== 'undefined') {
       initializeMap(location);
     }
   }, [location]);

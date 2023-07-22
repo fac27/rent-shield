@@ -56,14 +56,17 @@ export const initializeSearch = async () => {
 };
 
 //function to convert address into lat/long to put into map function above
-export const convertAddress = async (address:string)=>{
-  fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`)
-  .then((response)=>{
-    return response.json()
-  }).then(jsonData =>{
-    resolve(jsonData.results[0].geometry.location)
-  })
-  .catch(error=>{
-    console.log(error)
-  })
-}
+export const convertAddress = async (address: string) => {
+  fetch(
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`,
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((jsonData) => {
+      resolve(jsonData.results[0].geometry.location);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
