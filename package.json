@@ -37,9 +37,10 @@
     "typescript": "^5.1.6"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^13.4.10",
     "@jest/globals": "^29.6.1",
+    "@next/eslint-plugin-next": "^13.4.10",
     "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^14.0.0",
     "@types/eslint": "^8",
     "@types/google.maps": "^3.53.5",
     "cypress": "^12.17.1",
