@@ -12,7 +12,7 @@ const Map = ({ center, markers }) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       initializeMap(center, markers);
-      setLocation(center)
+      setLocation(center);
     }
   }, [location]);
   return (
@@ -23,16 +23,3 @@ const Map = ({ center, markers }) => {
 };
 
 export default Map;
-
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     initializeSearch()
-  //       .then((selected) => {
-  //         setLocation(selected);
-  //         console.log(selected);
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //       });
-  //   }
-  // }, [location]);

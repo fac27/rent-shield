@@ -19,6 +19,7 @@ export const initializeMap = async (center: ILocation, markers: []) => {
     document.getElementById('map') as HTMLElement,
     mapOptions,
   );
+  //added this is so that if we did want a map view with more than one property it is possible :D
   const { Marker } = await loader.importLibrary('marker');
   markers.forEach((markerLocation) => {
     new Marker({
@@ -73,8 +74,6 @@ export const convertAddress = async (address: string) => {
       return jsonData.results[0].geometry.location;
     })
     .catch((error) => {
-      // console.log(error);
+      console.log(error);
     });
 };
-const home = '28 grangemill, nw51xh, london, UK';
-const markers = [convertAddress(home)];
