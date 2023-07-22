@@ -1,7 +1,22 @@
-import { ReactElement, FC } from 'react';
+'use client';
+import { ReactElement, FC, useState, useEffect } from 'react';
 import Link from 'next/link';
+import { initializeSearch } from '@/utils/mapHelper';
 
 const SearchBar: FC = (): ReactElement => {
+  const [location, setLocation] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      initializeSearch()
+        .then((selected) => {
+          setLocation(selected);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [location]);
   return (
     <form>
       <label

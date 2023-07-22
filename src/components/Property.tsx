@@ -11,13 +11,30 @@ import transport from '../../public/transport.svg';
 import map from '../../public/images/map-test.png';
 import { useState } from 'react';
 import Carousel from './Carousel';
+import Map from './Map';
+import { convertAddress } from '@/utils/mapHelper';
 
 export default function Property() {
   const [liked, setLiked] = useState(false);
   //    use props
   //   paths
   const images = ['/images/interior-1.jpeg', '/images/interior-3.jpeg'];
-
+  const center = { lat: -34.397, lng: 150.644 }
+  const markers = [{ lat: -34.397, lng: 150.644 }]
+  // useEffect(()=>{
+  //   const getLocal = async ()=>{
+  //     const location = await convertAddress('28 grangemill, nw51xh, london, UK')
+  //   .then(location =>{
+  //     if(location){
+  //       const markers = []
+  //       markers.push(location)
+  //       console.log(markers)
+  //     }else{
+  //       console.log(error)
+  //     }
+  //   })
+  // }
+  // }, [])
   return (
     <div className="flex flex-col">
       {/* images */}
@@ -80,7 +97,8 @@ export default function Property() {
 
       {/* map */}
       <div className="flex justify-center py-5">
-        <Image src={map} alt="demo of map" width={1000} height={1000} />
+        {/* <Image src={map} alt="demo of map" width={1000} height={1000} /> */}
+        <Map center={center} markers = {markers}/>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ const loader = new Loader({
 });
 
 //function to create a map
-export const initializeMap = async (center: ILocation) => {
+export const initializeMap = async (center: ILocation, markers: []) => {
   const mapOptions = {
     center: center,
     zoom: 16,
@@ -19,6 +19,13 @@ export const initializeMap = async (center: ILocation) => {
     document.getElementById('map') as HTMLElement,
     mapOptions,
   );
+  const { Marker } = await loader.importLibrary('marker');
+  markers.forEach((markerLocation) => {
+    new Marker({
+      position: markerLocation,
+      map,
+    });
+  });
   return map;
 };
 
@@ -31,7 +38,7 @@ export const initializeSearch = async () => {
   };
   const googlePlaces = await loader.importLibrary('places');
 
-  const input = document.getElementById('autocomplete') as HTMLInputElement;
+  const input = document.getElementById('default-search') as HTMLInputElement;
   const autocomplete = new googlePlaces.Autocomplete(
     input,
     autocompleteOptions,
@@ -51,22 +58,23 @@ export const initializeSearch = async () => {
       }
     });
   });
-
   //insert error handing
 };
 
 //function to convert address into lat/long to put into map function above
 export const convertAddress = async (address: string) => {
-  fetch(
+  return fetch(
     `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`,
   )
     .then((response) => {
       return response.json();
     })
     .then((jsonData) => {
-      resolve(jsonData.results[0].geometry.location);
+      return jsonData.results[0].geometry.location;
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
     });
 };
+const home = '28 grangemill, nw51xh, london, UK';
+const markers = [convertAddress(home)];
