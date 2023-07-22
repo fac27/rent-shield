@@ -1,17 +1,19 @@
 import { Loader } from '@googlemaps/js-api-loader';
 import { ILocation } from '../../types';
 
+//using google's API loader feature
+const loader = new Loader({
+  apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+  version: 'weekly',
+  libraries: ['maps', 'places'],
+});
+
+//function to create a map
 export const initializeMap = async (center: ILocation) => {
-  const loader = new Loader({
-    apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-    version: 'weekly',
-    libraries: ['maps', 'places'],
-  });
   const mapOptions = {
     center: center,
     zoom: 16,
   };
-
   const googleMaps = await loader.importLibrary('maps');
   const map = new googleMaps.Map(
     document.getElementById('map') as HTMLElement,
@@ -20,12 +22,8 @@ export const initializeMap = async (center: ILocation) => {
   return map;
 };
 
+//function to create autocomplete when searching for a location
 export const initializeSearch = async () => {
-  const loader = new Loader({
-    apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-    version: 'weekly',
-    libraries: ['maps', 'places'],
-  });
   const autocompleteOptions = {
     types: ['geocode'],
     componentRestrictions: { country: ['GB'] },
@@ -57,43 +55,12 @@ export const initializeSearch = async () => {
   //insert error handing
 };
 
-// export const convertPostCode = async (postcode: string) => {
-//   const loader = new Loader({
-//     apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
-//     version: 'weekly',
-//     libraries: ['maps', 'places'],
-//   });
-//   const address = postcode;
-//   const googleGeoCoder = await loader.importLibrary('geocoding');
-//   const geocoder = new googleGeoCoder.Geocoder();
-
-//   return new Promise((resolve, reject) => {
-//     geocoder.geocode({ address: address }, (results, status) => {
-//       if (status == google.maps.GeocoderStatus.OK) {
-//         const location = {
-//           lat: results[0].geometry.location.lat(),
-//           lng: results[0].geometry.location.lng(),
-//         };
-//         console.log(location);
-//         resolve(location);
-//         // let latitude = results?[0].geometry?.location.lat()
-//         // let longitude = results?[0].geometry?.location.lng()
-//       } else {
-//         console.log(Error);
-//         reject('geocode was no good');
-//       }
-//     });
-//   }).catch((error) => {
-//     reject(error);
-//   });
-// };
-
+//function to convert address into lat/long to put into map function above
 export const convertAddress = async (address:string)=>{
   fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`)
   .then((response)=>{
     return response.json()
   }).then(jsonData =>{
-    console.log('🔥',jsonData.results[0].geometry.location)
     resolve(jsonData.results[0].geometry.location)
   })
   .catch(error=>{

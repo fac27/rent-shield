@@ -20,10 +20,12 @@ const Map = ({ center }) => {
           console.error(error);
         });
     }
-  }, []);
+  }, [location]);
 
   useEffect(() => {
-    initializeMap(location);
+    if (typeof window !== 'undefined'){
+      initializeMap(location);
+    }
   }, [location]);
   return (
     <>
