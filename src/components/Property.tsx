@@ -11,7 +11,7 @@ import transport from '../../public/transport.svg';
 import { useEffect, useState } from 'react';
 import Carousel from './Carousel';
 import Map from './Map';
-import { convertAddress } from '@/utils/mapHelper';
+import { convertAddress } from 'utils/mapHelper';
 
 export default function Property({ propertyProps }) {
   //won't add the type until we have it from the database interface!

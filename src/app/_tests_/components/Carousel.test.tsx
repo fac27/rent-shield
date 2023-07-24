@@ -1,4 +1,4 @@
-import Carousel from '@/components/Carousel';
+import Carousel from 'components/Carousel';
 import { render } from '@testing-library/react';
 
 describe('Carousel unit tests', () => {

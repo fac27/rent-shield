@@ -1,4 +1,4 @@
-import SearchBar from '@/components/SearchBar';
+import SearchBar from 'components/SearchBar';
 import { render } from '@testing-library/react';
 
 describe('SearchBar unit tests', () => {

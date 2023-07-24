@@ -1,8 +1,7 @@
 'use client';
 import { ReactElement, FC, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { initializeSearch } from '@/utils/mapHelper';
-
+import { initializeSearch } from 'utils/mapHelper';
 const SearchBar: FC = (): ReactElement => {
   const [location, setLocation] = useState(null);
 
