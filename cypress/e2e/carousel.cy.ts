@@ -17,9 +17,9 @@ describe('carousel stress tests', () => {
     cy.get('[alt="image-1"]').should('be.visible');
     cy.wait(100);
     cy.get('#slide-2').click();
-    cy.get('[alt="image-2"]').should('be.visible');
+    cy.get('[alt="image-2"]').should('be.visible').then(()=>{});
     cy.wait(100);
     cy.get('#slide-1').click();
-    cy.get('[alt="image-1"]').should('be.visible');
+    cy.get('[alt="image-1"]').should('be.visible').then(()=>{});
   });
 });
