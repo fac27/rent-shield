@@ -12,12 +12,13 @@ import { useEffect, useState } from 'react';
 import Carousel from '../components/Carousel';
 import Map from './Map';
 import { convertAddress } from 'utils/mapHelper';
+import { ILocation } from '../../types';
 
 export default function Property({ propertyProps }: any) {
   //won't add the type until we have it from the database interface!
   const [liked, setLiked] = useState(false);
   const [center, setCenter] = useState({ lat: 51.56506, lng: -0.09763 });
-  const [markers, setMarkers] = useState<Location[]>([]);
+  const [markers, setMarkers] = useState<ILocation[]>([]);
   const [loading, setLoading] = useState(true); // added a loading state in case the map doesn't load...
 
   //    use props
