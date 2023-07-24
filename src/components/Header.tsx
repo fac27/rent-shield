@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import { Dropdown, Navbar, Avatar } from 'flowbite-react';
 
@@ -13,7 +12,7 @@ const Header = () => {
             height="30"
             alt="Rent-shield logo"
             className="mr-3 h-6 sm:h-9"
-            src="/favicon.svg"
+            src="/src/app/favicon.ico"
           />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             rent shield
@@ -22,12 +21,7 @@ const Header = () => {
         <div className="flex md:order-2 dark:text-white">
           <Dropdown
             inline
-            label={
-              <Avatar
-                alt="User settings"
-                img="/images/user-image.svg"
-              />
-            }
+            label={<Avatar alt="User settings" img="/images/user-image.svg" />}
           >
             <Dropdown.Header>
               <span className="block text-lg">Gertrude Pickle</span>
@@ -41,7 +35,7 @@ const Header = () => {
           </Dropdown>
           <Navbar.Toggle />
         </div>
-        <Navbar.Collapse className='text-red'>
+        <Navbar.Collapse className="text-red">
           <Navbar.Link href="#">
             <p className="text-lg">Home</p>
           </Navbar.Link>
