@@ -1,20 +1,13 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import {
-  initializeMap,
-  initializeSearch,
-  convertAddress,
-} from '@/utils/mapHelper';
-
-const Map = ({ center, markers }) => {
-  const [location, setLocation] = useState(null);
-
+import React, { useEffect, FC} from 'react';
+import { initializeMap } from '@/utils/mapHelper';
+import { IMapProps } from '../../types';
+const Map = ( {center, markers}:IMapProps ) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       initializeMap(center, markers);
-      setLocation(center);
     }
-  }, [location]);
+  }, [center, markers]);
   return (
     <>
       <div id="map" style={{ width: '100%', height: '400px' }}></div>

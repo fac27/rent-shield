@@ -1,15 +1,20 @@
 import { Loader } from '@googlemaps/js-api-loader';
 import { ILocation } from '../../types';
 
-//using google's API loader feature
+//added this in because typescript didn't like that it had only a string 
+//plut makes the fetch string cleaner
+const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''
+
+
+//using google's API loader feature to access various libraries
 const loader = new Loader({
-  apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+  apiKey: apiKey,
   version: 'weekly',
   libraries: ['maps', 'places'],
 });
 
 //function to create a map
-export const initializeMap = async (center: ILocation, markers: []) => {
+export const initializeMap = async (center: ILocation, markers: ILocation[]) => {
   const mapOptions = {
     center: center,
     zoom: 16,
@@ -21,7 +26,7 @@ export const initializeMap = async (center: ILocation, markers: []) => {
   );
   //added this is so that if we did want a map view with more than one property it is possible :D
   const { Marker } = await loader.importLibrary('marker');
-  markers.forEach((markerLocation) => {
+  markers.forEach((markerLocation:ILocation) => {
     new Marker({
       position: markerLocation,
       map,
@@ -59,13 +64,12 @@ export const initializeSearch = async () => {
       }
     });
   });
-  //insert error handing
 };
 
 //function to convert address into lat/long to put into map function above
 export const convertAddress = async (address: string) => {
   return fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`,
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`,
   )
     .then((response) => {
       return response.json();

@@ -8,38 +8,33 @@ import price from '../../public/price.svg';
 import heart from '../../public/heart.svg';
 import fullHeart from '../../public/full-heart.svg';
 import transport from '../../public/transport.svg';
-import map from '../../public/images/map-test.png';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Carousel from './Carousel';
 import Map from './Map';
 import { convertAddress } from '@/utils/mapHelper';
 
-
-export default function Property({propertyProps}) {
+export default function Property({ propertyProps }) {
+  //won't add the type until we have it from the database interface!
   const [liked, setLiked] = useState(false);
-  const [center, setCenter] = useState({lat:51.565060,lng:-0.097630})
-  const [markers, setMarkers] = useState([])
+  const [center, setCenter] = useState({ lat: 51.56506, lng: -0.09763 });
+  const [markers, setMarkers] = useState([]);
   const [loading, setLoading] = useState(true); // added a loading state in case the map doesn't load...
 
   //    use props
   //   paths
   const images = ['/images/interior-1.jpeg', '/images/interior-3.jpeg'];
-  //needed use effect to access promise from the convertaddress function 
- // (we should do this before it goes into the database and get the data 
- //from the property object instead of using a useeffect for this.)
-  useEffect(()=>{
+  //needed use effect to access promise from the convertaddress function
+  // (we should do this before it goes into the database and get the data
+  //from the property object instead of using a useeffect for this.)
+  useEffect(() => {
     convertAddress(propertyProps.address)
-    .then(location => {
-      setCenter(location)
-      setMarkers([location])
-      setLoading(false)
-    })
-    .catch(error => console.error("something has gone wrong"));
-  },[propertyProps.address])
-  
-  if(loading){
-    return <div>loading...</div>
-  }
+      .then((location) => {
+        setCenter(location);
+        setMarkers([location]);
+        setLoading(false);
+      })
+      .catch((error) => console.error('something has gone wrong'));
+  }, [propertyProps.address]);
 
   return (
     <div className="flex flex-col">
@@ -104,8 +99,12 @@ export default function Property({propertyProps}) {
       {/* map */}
       <div className="flex justify-center py-5">
         {/* <Image src={map} alt="demo of map" width={1000} height={1000} /> */}
-        
-        {loading === false ? <Map center={center} markers={markers} /> : <div>loading...</div>}
+
+        {loading === false ? (
+          <Map center={center} markers={markers} />
+        ) : (
+          <div>loading...</div>
+        )}
       </div>
     </div>
   );
