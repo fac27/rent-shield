@@ -62,9 +62,9 @@
     "node": "18.17.0"
   },
   "lint-staged": {
-    "*.{js,css,md}": [
+    "*.{js,css,md,ts,tsx,jsx}": [
       "prettier --write",
-      "eslint"
+      "eslint . --fix"
     ]
   }
 }

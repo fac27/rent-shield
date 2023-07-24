@@ -9,11 +9,9 @@ export default function Home() {
     pets: false,
   };
   return (
-    <>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <SearchBar />
-        <Property propertyProps={propertyProps} />
-      </main>
-    </>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <SearchBar />
+      <Property propertyProps={propertyProps} />
+    </main>
   );
 }
