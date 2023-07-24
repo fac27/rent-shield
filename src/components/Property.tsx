@@ -9,7 +9,7 @@ import heart from '../../public/heart.svg';
 import fullHeart from '../../public/full-heart.svg';
 import transport from '../../public/transport.svg';
 import { useEffect, useState } from 'react';
-import Carousel from './Carousel';
+import Carousel from '../components/Carousel';
 import Map from './Map';
 import { convertAddress } from 'utils/mapHelper';
 
