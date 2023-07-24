@@ -13,7 +13,7 @@ const Header = () => {
             height="30"
             alt="Rent-shield logo"
             className="mr-3 h-6 sm:h-9"
-            src="/favicon.svg"
+            src="/src/app/favicon.ico"
           />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             rent shield
