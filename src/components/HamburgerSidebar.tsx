@@ -1,15 +1,7 @@
 'use client';
 
 import { Sidebar } from 'flowbite-react';
-import {
-  HiArrowSmRight,
-  HiChartPie,
-  HiInbox,
-  HiShoppingBag,
-  HiTable,
-  HiUser,
-  HiViewBoards,
-} from 'react-icons/hi';
+import { AiFillHome, AiOutlineSearch, AiOutlineHeart } from 'react-icons/ai';
 
 export default function HamburgerSidebar() {
   return (
@@ -19,13 +11,13 @@ export default function HamburgerSidebar() {
     >
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Sidebar.Item href="#" icon={HiChartPie}>
+          <Sidebar.Item href="#" icon={AiFillHome}>
             <p className="text-lg">Home</p>
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiInbox}>
+          <Sidebar.Item href="#" icon={AiOutlineSearch}>
             <p className="text-lg">Search</p>
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiUser}>
+          <Sidebar.Item href="#" icon={AiOutlineHeart}>
             <p className="text-lg">Favourites</p>
           </Sidebar.Item>
         </Sidebar.ItemGroup>
