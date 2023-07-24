@@ -13,7 +13,7 @@ import Carousel from '../components/Carousel';
 import Map from './Map';
 import { convertAddress } from 'utils/mapHelper';
 
-export default function Property({ propertyProps }) {
+export default function Property({ propertyProps }: any) {
   //won't add the type until we have it from the database interface!
   const [liked, setLiked] = useState(false);
   const [center, setCenter] = useState({ lat: 51.56506, lng: -0.09763 });
