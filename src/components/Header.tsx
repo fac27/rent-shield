@@ -35,9 +35,7 @@ const Header = () => {
             </span>
           </Navbar.Brand>
         </div>
-        <div className="max-w-15 md:w-1/2 ml-auto">
-          {showSearch ? <SearchBar /> : null}
-        </div>
+        <span className="w-6/12">{showSearch ? <SearchBar /> : null}</span>
         <div className="flex ">
           <button
             className="scale-100 md:scale-150 invert ml-2 md:mx-5 "
