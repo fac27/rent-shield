@@ -3,7 +3,7 @@ export interface ILocation {
   lng: number;
 }
 
-interface IMapProps{
+interface IMapProps {
   center: ILocation;
   markers: ILocation[];
 }

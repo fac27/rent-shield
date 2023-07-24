@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import { Dropdown, Navbar, Avatar } from 'flowbite-react';
 

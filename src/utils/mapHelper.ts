@@ -1,10 +1,9 @@
 import { Loader } from '@googlemaps/js-api-loader';
 import { ILocation } from '../../types';
 
-//added this in because typescript didn't like that it had only a string 
+//added this in because typescript didn't like that it had only a string
 //plut makes the fetch string cleaner
-const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''
-
+const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
 //using google's API loader feature to access various libraries
 const loader = new Loader({
@@ -14,7 +13,10 @@ const loader = new Loader({
 });
 
 //function to create a map
-export const initializeMap = async (center: ILocation, markers: ILocation[]) => {
+export const initializeMap = async (
+  center: ILocation,
+  markers: ILocation[],
+) => {
   const mapOptions = {
     center: center,
     zoom: 16,
@@ -26,7 +28,7 @@ export const initializeMap = async (center: ILocation, markers: ILocation[]) => 
   );
   //added this is so that if we did want a map view with more than one property it is possible :D
   const { Marker } = await loader.importLibrary('marker');
-  markers.forEach((markerLocation:ILocation) => {
+  markers.forEach((markerLocation: ILocation) => {
     new Marker({
       position: markerLocation,
       map,
