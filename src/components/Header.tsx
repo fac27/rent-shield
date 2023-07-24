@@ -45,7 +45,7 @@ const Header = () => {
           </button>
           <Dropdown
             inline
-            theme={{ arrowIcon: 'ml-0' }}
+            theme={{ arrowIcon: 'ml-0 mb-0' }}
             label={
               <Avatar
                 alt="User settings"
