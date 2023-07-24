@@ -9,7 +9,8 @@
     "lint": "next lint",
     "prepare": "husky install",
     "prettier": "npx prettier . --write",
-    "test": "npx cypress run -- --watchAll=false",
+    "test": "npx cypress run",
+    "ci": "start-server-and-test http://localhost:3000 test",
     "cy:run": "start-test 3000",
     "cy:open": "cypress open",
     "jest": "jest"
