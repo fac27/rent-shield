@@ -6,6 +6,8 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
+export type favouriteTable = Database['public']['Tables']['favourite']
+
 export interface Database {
   public: {
     Tables: {
