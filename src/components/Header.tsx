@@ -8,17 +8,19 @@ const Header = () => {
   return (
     <header>
       <Navbar fluid rounded>
-        <Navbar.Brand href="/" className="flex gap-3">
-          <Image
-            width="30"
-            height="30"
-            alt="Rent-shield logo"
-            className="h-6 sm:h-9"
-            src="/favicon.svg"
-          />
-          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-            rent shield
-          </span>
+        <div className="flex gap-3">
+          <Navbar.Brand href="/">
+            <Image
+              width="30"
+              height="30"
+              alt="Rent-shield logo"
+              className="h-6 sm:h-9"
+              src="/favicon.svg"
+            />
+            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+              rent shield
+            </span>
+          </Navbar.Brand>
           <Dropdown
             inline
             label={<Avatar alt="User settings" img="/images/user-image.svg" />}
@@ -33,22 +35,22 @@ const Header = () => {
             <Dropdown.Divider />
             <Dropdown.Item>Sign out</Dropdown.Item>
           </Dropdown>
-        </Navbar.Brand>
-        <div className="flex gap-4 items-center">
-          <SearchBar />
-          <Navbar.Collapse className="text-red">
-            <Navbar.Link href="#">
-              <p className="text-lg">Home</p>
-            </Navbar.Link>
-            <Navbar.Link href="#">
-              <p className="text-lg">Search</p>
-            </Navbar.Link>
-            <Navbar.Link href="#">
-              <p className="text-lg">Favourites</p>
-            </Navbar.Link>
-          </Navbar.Collapse>
-          <Navbar.Toggle />
         </div>
+        <div className="ml-auto mr-10">
+          <SearchBar />
+        </div>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="text-red">
+          <Navbar.Link href="#">
+            <p className="text-lg">Home</p>
+          </Navbar.Link>
+          <Navbar.Link href="#">
+            <p className="text-lg">Search</p>
+          </Navbar.Link>
+          <Navbar.Link href="#">
+            <p className="text-lg">Favourites</p>
+          </Navbar.Link>
+        </Navbar.Collapse>
       </Navbar>
     </header>
   );
