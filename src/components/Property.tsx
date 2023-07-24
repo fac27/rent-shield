@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import Carousel from '../components/Carousel';
 import Map from './Map';
 import { convertAddress } from 'utils/mapHelper';
-import { ILocation } from '../../types';
+import { ILocation } from '../../types/types';
 
 export default function Property({ propertyProps }: any) {
   //won't add the type until we have it from the database interface!

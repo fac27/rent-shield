@@ -1,5 +1,5 @@
 import { Loader } from '@googlemaps/js-api-loader';
-import { ILocation } from '../../types';
+import { ILocation } from '../../types/types';
 
 //added this in because typescript didn't like that it had only a string
 //plut makes the fetch string cleaner
