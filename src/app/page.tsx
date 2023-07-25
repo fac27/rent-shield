@@ -1,14 +1,11 @@
 import ListingsContainer from 'components/ListingsContainter';
+import { getAllProperties } from 'lib/models';
 
-import { exampleListings } from './listings/page';
-//added in some dummy data so pass down props to property componens
-
-
-
-export default function Home() {
+export default async function Home() {
+  const listings = await getAllProperties()
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <ListingsContainer listings={exampleListings}/>
+      <ListingsContainer listings={listings}/>
     </main>
   );
 }
