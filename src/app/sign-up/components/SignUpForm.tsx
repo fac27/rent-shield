@@ -14,7 +14,7 @@ export default function SignUpForm() {
             </div>
             <TextInput
               id="email2"
-              placeholder="name@flowbite.com"
+              placeholder="Email"
               required
               shadow
               type="email"
@@ -33,7 +33,7 @@ export default function SignUpForm() {
             <TextInput id="repeat-password" required shadow type="password" />
           </div>
           <Button className="self-end" color="purple">
-            <Link href="/sign-in"> Already have an account? </Link>
+            <Link href="/log-in"> Already have an account? </Link>
           </Button>
           <Button type="submit">Register new account</Button>
         </form>

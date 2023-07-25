@@ -10,10 +10,10 @@ export default function SignInForm() {
         <form className="flex flex-col w-full placeholder:flex-col gap-4">
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="email2" value="Your email" />
+              <Label htmlFor="email1" value="Your email" />
             </div>
             <TextInput
-              id="email2"
+              id="email1"
               placeholder="name@flowbite.com"
               required
               shadow
@@ -29,7 +29,7 @@ export default function SignInForm() {
           <Button className="self-end" color="purple">
             <Link href="/sign-up"> Don&apos;t have an account yet? </Link>
           </Button>
-          <Button type="submit">Sign In</Button>
+          <Button type="submit">Log In</Button>
         </form>
       </Card>
     </main>
