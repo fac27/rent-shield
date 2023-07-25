@@ -22,7 +22,6 @@ export default function Property({ propertyProps }: any) {
   const [loading, setLoading] = useState(true); // added a loading state in case the map doesn't load...
 
   //    use props
-  //   paths
   const images = ['/images/interior-1.jpeg', '/images/interior-3.jpeg'];
   //needed use effect to access promise from the convertaddress function
   // (we should do this before it goes into the database and get the data

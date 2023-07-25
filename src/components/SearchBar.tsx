@@ -1,23 +1,25 @@
 'use client';
+
 import { ReactElement, FC, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { initializeSearch } from 'utils/mapHelper';
-import { ILocation } from '../../types/types';
+// import { ILocation } from '../../types/types';
+
 const SearchBar: FC = (): ReactElement => {
-  const [location, setLocation] = useState<string | ILocation>('');
+  // const [location, setLocation] = useState<string | ILocation>('');
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      initializeSearch()
-        .then((selected) => {
-          setLocation(selected as ILocation);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [location]);
+    if (typeof window === 'undefined') return;
+    initializeSearch()
+      // .then((selected) => {
+      //   setLocation(selected as ILocation);
+      // })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   return (
     <form>
       <label
