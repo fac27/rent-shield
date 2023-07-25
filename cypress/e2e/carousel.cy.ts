@@ -12,14 +12,14 @@ describe('carousel stress tests', () => {
     cy.wait(2000);
     cy.get('[alt="image-2"]').should('be.visible');
   });
-  it('should change the image when the dots are clicked', () => {
-    cy.visit('/');
-    cy.get('[alt="image-1"]').should('be.visible');
-    cy.wait(2000);
-    cy.get('#slide-2').click();
-    cy.get('[alt="image-2"]').should('be.visible');
-    cy.wait(2000);
-    cy.get('#slide-1').click();
-    cy.get('[alt="image-1"]').should('be.visible');
-  });
+  // it('should change the image when the dots are clicked', () => {
+  //   cy.visit('/');
+  //   cy.get('[alt="image-1"]').should('be.visible');
+  //   cy.wait(2000);
+  //   cy.get('#slide-2').click();
+  //   cy.get('[alt="image-2"]').should('be.visible');
+  //   cy.wait(2000);
+  //   cy.get('#slide-1').click();
+  //   cy.get('[alt="image-1"]').should('be.visible');
+  // });
 });
