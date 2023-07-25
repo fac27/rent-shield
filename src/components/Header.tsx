@@ -50,7 +50,7 @@ const Header = () => {
               <Avatar
                 alt="User settings"
                 img="/images/user-image.svg"
-                className="scale-75 md:scale-100"
+                className="scale-75 md:w-16 md:h-16 md:scale-100"
               />
             }
           >
