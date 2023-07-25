@@ -7,7 +7,7 @@ const Map = ({ center, markers, id }: IMapProps) => {
     if (typeof window !== 'undefined') {
       initializeMap({id, center, markers});
     }
-  }, [center, markers]);
+  }, [center, markers, id]);
   return <div className='map' id={id} style={{ width: '100%', height: '400px' }}></div>;
 };
 

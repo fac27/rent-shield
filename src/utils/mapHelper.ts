@@ -14,9 +14,6 @@ const loader = new Loader({
 
 //function to create a map
 export const initializeMap = async ({id, center, markers}: IMapProps
-  // id: IMapProps.id
-  // center: ILocation,
-  // markers: ILocation[],
 ) => {
   const mapOptions = {
     center: center,
@@ -27,7 +24,6 @@ export const initializeMap = async ({id, center, markers}: IMapProps
 
   const map = new googleMaps.Map(
     mapElement,
-    // document.getElementsByClassName('map') as HTMLElement,
     mapOptions,
   );
   //added this is so that if we did want a map view with more than one property it is possible :D

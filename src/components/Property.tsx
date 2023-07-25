@@ -27,20 +27,12 @@ const Property = ({ listing }: { listing: PropertyType }) => {
   //needed use effect to access promise from the convertaddress function
   // (we should do this before it goes into the database and get the data
   //from the property object instead of using a useeffect for this.)
-  const fullAddress = `${listing.address1}, ${!listing.address2 ? '' : listing.address2 && listing.address2 + ', '
+  const fullAddress = `${listing.address1}, ${!listing.address2 ? '' : listing.address2 + ', '
   }${listing.postcode}, ${listing.city}, UK`;
   useEffect(() => {
     setCenter(center);
     setMarkers([center]);
     setLoading(false);
-    // convertAddress(fullAddress)
-    //   .then((location) => {
-    //     console.log('🎯',location)
-    //     setCenter(location);
-    //     setMarkers([location]);
-    //     setLoading(false);
-    //   })
-    //   .catch((error) => console.error('something has gone wrong'));
   }, [center]);
 
   return (
