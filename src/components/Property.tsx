@@ -27,18 +27,13 @@ const Property = ({ listing }: { listing: PropertyType }) => {
   //needed use effect to access promise from the convertaddress function
   // (we should do this before it goes into the database and get the data
   //from the property object instead of using a useeffect for this.)
-  const fullAddress = `${listing.address1}, ${
-    listing.address2 && listing.address2 + ', '
-  }${listing.city}, ${listing.postcode}`;
+  const fullAddress = `${listing.address1}, ${!listing.address2 ? '' : listing.address2 + ', '
+  }${listing.postcode}, ${listing.city}, UK`;
   useEffect(() => {
-    convertAddress(fullAddress)
-      .then((location) => {
-        setCenter(location);
-        setMarkers([location]);
-        setLoading(false);
-      })
-      .catch((error) => console.error('something has gone wrong'));
-  }, [fullAddress]);
+    setCenter(center);
+    setMarkers([center]);
+    setLoading(false);
+  }, [center]);
 
   return (
     <div className="flex flex-col test-class-property">
@@ -95,7 +90,7 @@ const Property = ({ listing }: { listing: PropertyType }) => {
         {loading ? (
           <div>loading...</div>
         ) : (
-          <Map center={center} markers={markers} />
+          <Map id={listing.id} center={center} markers={markers} />
         )}
       </div>
     </div>
