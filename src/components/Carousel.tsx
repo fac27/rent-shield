@@ -14,9 +14,9 @@ export default function Carousel({ images }: { images: string[] }) {
             key={uuidv4()}
             src={image}
             alt={`image-${i + 1}`}
-            layout="fill"
-            // objectFit="contain"
-            className={currentSlide === i ? 'absolute inset-0 w-full h-full object-contain' : 'hidden'}
+            width={500}
+            height={500}
+            className={`absolute inset-o w-full h-full object-contain ${currentSlide === i ? '' : 'hidden'}`}
           />
         ))}
       </div>
