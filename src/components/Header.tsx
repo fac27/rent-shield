@@ -18,10 +18,9 @@ const Header = () => {
       <Navbar fluid rounded>
         {showSidebar ? <HamburgerSidebar /> : null}
         <div className="flex gap-3 items-center">
-          <RxHamburgerMenu
-            className="invert scale-125 mx-2"
-            onClick={() => setShowSidebar(!showSidebar)}
-          />
+          <button onClick={() => setShowSidebar(!showSidebar)}>
+            <RxHamburgerMenu className="invert scale-125 mx-2" />
+          </button>
           <Navbar.Brand href="/" className="flex gap-3 items-center">
             {/* <Image
               width="30"
