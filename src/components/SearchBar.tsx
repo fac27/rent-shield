@@ -1,6 +1,6 @@
 'use client';
-import { ReactElement, FC, useState, useEffect, useRouter } from 'react';
-import {useNavigate} from 'react-router-dom'
+import { ReactElement, FC, useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import { initializeSearch } from 'utils/mapHelper';
