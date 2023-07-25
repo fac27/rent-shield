@@ -1,11 +1,9 @@
-import ListingsContainer from 'components/ListingsContainter';
-import { getAllProperties } from 'lib/models';
+import Link from 'next/link';
 
 export default async function Home() {
-  const listings = await getAllProperties()
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <ListingsContainer listings={listings}/>
+      <Link href={'/listings'}>View listings</Link>
     </main>
   );
 }

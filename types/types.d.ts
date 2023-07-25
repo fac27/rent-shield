@@ -35,6 +35,7 @@ export type Images = {id: number, url: string}[]
 export type Status = {id: number, description: string}[]
 export type Type = {id: number, description: string}[]
 
+
 export interface ContainerProps {
   listings: PropertyType[];
 }
