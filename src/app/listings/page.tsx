@@ -3,7 +3,7 @@ import { PropertyType } from '../../../types/types';
 
 export const exampleListings: PropertyType[] = [
   {
-    address1: '3 Finsbury Road',
+    address1: '10 Finsbury Rd',
     address2: null,
     attributes: null,
     bathrooms: 1,
@@ -13,9 +13,9 @@ export const exampleListings: PropertyType[] = [
     created_at: '25-07-2023 09:21:03',
     description: 'This is house number one',
     id: 1,
-    latitude: '1.2353',
-    longitude: '2.4312',
-    postcode: 'N3 45Z',
+    latitude: 51.60224597531299, 
+    longitude: -0.11589617199445305,
+    postcode: 'N22 8PD',
     rent: 1500,
     status_id: 1,
     type_id: 2,
@@ -24,7 +24,7 @@ export const exampleListings: PropertyType[] = [
     favourited: true
   },
   {
-    address1: '5 Finsbury Road',
+    address1: '41 Finsbury Rd',
     address2: null,
     attributes: null,
     bathrooms: 2,
@@ -33,10 +33,10 @@ export const exampleListings: PropertyType[] = [
     county: 'Essex',
     created_at: '25-07-2023 09:22:15',
     description: 'Das ist WG nummer zwei',
-    id: 1,
-    latitude: '1.2353',
-    longitude: '2.4312',
-    postcode: 'N3 45Z',
+    id: 2,
+    latitude: 51.60261166130303, 
+    longitude: -0.11637162162817101,
+    postcode: 'N22 8PA',
     rent: 3750,
     status_id: 3,
     type_id: 2,
