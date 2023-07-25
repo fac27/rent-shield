@@ -33,7 +33,7 @@ export default function SignUpForm() {
             <TextInput id="repeat-password" required shadow type="password" />
           </div>
           <Button className="self-end" color="purple">
-            <Link href="/user/sign-In"> Already have an account? </Link>
+            <Link href="/sign-in"> Already have an account? </Link>
           </Button>
           <Button type="submit">Register new account</Button>
         </form>

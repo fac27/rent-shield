@@ -66,11 +66,11 @@ const Header = () => {
             <Dropdown.Item>Sign out</Dropdown.Item>
             {/* temporary */}
             <Dropdown.Divider />
-            <Link href="/user/sign-in">
+            <Link href="/sign-in">
               <Dropdown.Item>Sign In</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Link href="/user/sign-up">
+            <Link href="/sign-up">
               <Dropdown.Item>Sign Up</Dropdown.Item>
             </Link>
           </Dropdown>

@@ -27,7 +27,7 @@ export default function SignInForm() {
             <TextInput id="password2" required shadow type="password" />
           </div>
           <Button className="self-end" color="purple">
-            <Link href="/user/sign-up"> Don&apos;t have an account yet? </Link>
+            <Link href="/sign-up"> Don&apos;t have an account yet? </Link>
           </Button>
           <Button type="submit">Sign In</Button>
         </form>
