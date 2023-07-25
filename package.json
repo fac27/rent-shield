@@ -54,6 +54,7 @@
     "lint-staged": "^13.2.3",
     "pinst": "^3.0.0",
     "prettier": "3.0.0",
+    "react-router-dom": "^6.14.2",
     "start-server-and-test": "^2.0.0",
     "supabase": "^1.77.9",
     "ts-jest": "^29.1.1",

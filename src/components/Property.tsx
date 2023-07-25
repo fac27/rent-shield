@@ -1,4 +1,5 @@
 'use client';
+import { FC } from 'react';
 
 import Image from 'next/image';
 import location from '../../public/location.svg';
@@ -12,50 +13,52 @@ import { useEffect, useState } from 'react';
 import Carousel from '../components/Carousel';
 import Map from './Map';
 import { convertAddress } from 'utils/mapHelper';
-import { ILocation } from '../../types/types';
+import { ILocation, PropertyType } from '../../types/types';
 
-export default function Property({ propertyProps }: any) {
-  //won't add the type until we have it from the database interface!
-  const [liked, setLiked] = useState(false);
-  const [center, setCenter] = useState({ lat: 51.56506, lng: -0.09763 });
+const Property = ({ listing }: { listing: PropertyType }) => {
+  const [liked, setLiked] = useState(listing.favourited);
+  const [center, setCenter] = useState({
+    lat: Number(listing.latitude),
+    lng: Number(listing.longitude),
+  });
   const [markers, setMarkers] = useState<ILocation[]>([]);
   const [loading, setLoading] = useState(true); // added a loading state in case the map doesn't load...
 
-  //    use props
-  //   paths
-  const images = ['/images/interior-1.jpeg', '/images/interior-3.jpeg'];
   //needed use effect to access promise from the convertaddress function
   // (we should do this before it goes into the database and get the data
   //from the property object instead of using a useeffect for this.)
+  const fullAddress = `${listing.address1}, ${
+    listing.address2 && listing.address2 + ', '
+  }${listing.city}, ${listing.postcode}`;
   useEffect(() => {
-    convertAddress(propertyProps.address)
+    convertAddress(fullAddress)
       .then((location) => {
         setCenter(location);
         setMarkers([location]);
         setLoading(false);
       })
       .catch((error) => console.error('something has gone wrong'));
-  }, [propertyProps.address]);
+  }, [fullAddress]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col test-class-property">
       {/* images */}
       {/* animate */}
-      <Carousel images={images} />
+      <Carousel images={listing.images} />
 
       {/* details */}
       <section className="flex justify-evenly bg-[#202A37] py-5">
         <span className="flex gap-2 text-xl">
           <Image src={price} alt="price" width={20} height={20} />
-          <p className="text-slate-200"> $1,500/Month</p>
+          <p className="text-slate-200"> {listing.rent}</p>
         </span>
         <span className="flex gap-2 text-xl">
           <Image src={bed} alt="bed" width={20} height={20} />
-          <p className="text-slate-200"> 1 </p>
+          <p className="text-slate-200"> {listing.bedrooms} </p>
         </span>
         <span className="flex gap-2 text-xl">
           <Image src={bath} alt="bath" width={20} height={20} />
-          <p className="text-slate-200"> 2 </p>
+          <p className="text-slate-200"> {listing.bathrooms} </p>
         </span>
         <button onClick={() => setLiked(!liked)}>
           {liked ? (
@@ -67,17 +70,7 @@ export default function Property({ propertyProps }: any) {
       </section>
 
       {/* description */}
-      <p className="p-10">
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-        illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-        explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-        odit aut fugit, sed quia consequuntur magni dolores os qui ratione
-        voluptatem sequi nesciunt. Neque porro quisquam est. Lorem, ipsum dolor
-        sit amet consectetur adipisicing elit. Quis saepe at possimus, expedita
-        commodi voluptates, iusto illo sint architecto veritatis consectetur
-        placeat porro libero adipisci quam ad, incidunt consequuntur excepturi.
-      </p>
+      <p className="p-10">{listing.description}</p>
 
       {/* location info */}
       <section className="flex justify-around lg:justify-center lg:gap-60">
@@ -99,14 +92,14 @@ export default function Property({ propertyProps }: any) {
 
       {/* map */}
       <div className="flex justify-center py-5">
-        {/* <Image src={map} alt="demo of map" width={1000} height={1000} /> */}
-
-        {loading === false ? (
-          <Map center={center} markers={markers} />
-        ) : (
+        {loading ? (
           <div>loading...</div>
+        ) : (
+          <Map center={center} markers={markers} />
         )}
       </div>
     </div>
   );
-}
+};
+
+export default Property;
