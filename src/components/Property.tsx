@@ -18,8 +18,8 @@ import { ILocation, PropertyType } from '../../types/types';
 const Property = ({ listing }: { listing: PropertyType }) => {
   const [liked, setLiked] = useState(listing.favourited);
   const [center, setCenter] = useState({
-    lat: listing.latitude,
-    lng: listing.longitude,
+    lat: Number(listing.latitude),
+    lng: Number(listing.longitude),
   });
   const [markers, setMarkers] = useState<ILocation[]>([]);
   const [loading, setLoading] = useState(true); // added a loading state in case the map doesn't load...
