@@ -15,7 +15,7 @@ import Map from './Map';
 import { convertAddress } from 'utils/mapHelper';
 import { ILocation, PropertyType } from '../../types/types';
 
-const Property: FC<PropertyType> = ({ listing }) => {
+const Property = ({ listing }: { listing: PropertyType }) => {
   const [liked, setLiked] = useState(listing.favourited);
   const [center, setCenter] = useState({
     lat: listing.latitude,
