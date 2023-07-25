@@ -1,9 +1,9 @@
 import { ReactElement, FC } from 'react';
 
 import Property from './Property';
-import { ContainerProps } from '../../types/supabase';
+import { ContainerProps } from '../../types/types';
 
-const ListingsContainer: FC<ContainerProps> = ({listings}):ReactElement => {
+const ListingsContainer: FC<ContainerProps> = ({listings}) => {
   // console.log(listings)
   return (
     <div>

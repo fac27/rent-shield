@@ -1,4 +1,5 @@
 'use client';
+import { FC } from 'react';
 
 import Image from 'next/image';
 import location from '../../public/location.svg';
@@ -8,14 +9,36 @@ import price from '../../public/price.svg';
 import heart from '../../public/heart.svg';
 import fullHeart from '../../public/full-heart.svg';
 import transport from '../../public/transport.svg';
-import map from '../../public/images/map-test.png';
-import { useState, FC } from 'react';
-import Carousel from './Carousel';
-import { PropertyType } from '../../types/supabase';
+import { useEffect, useState } from 'react';
+import Carousel from '../components/Carousel';
+import Map from './Map';
+import { convertAddress } from 'utils/mapHelper';
+import { ILocation, PropertyType } from '../../types/types';
 
-
-const Property: FC<PropertyType> = ({listing}) => {
+const Property: FC<PropertyType> = ({ listing }) => {
   const [liked, setLiked] = useState(listing.favourited);
+  const [center, setCenter] = useState({
+    lat: listing.latitude,
+    lng: listing.longitude,
+  });
+  const [markers, setMarkers] = useState<ILocation[]>([]);
+  const [loading, setLoading] = useState(true); // added a loading state in case the map doesn't load...
+
+  //needed use effect to access promise from the convertaddress function
+  // (we should do this before it goes into the database and get the data
+  //from the property object instead of using a useeffect for this.)
+  const fullAddress = `${listing.address1}, ${
+    listing.address2 && listing.address2 + ', '
+  }${listing.city}, ${listing.postcode}`;
+  useEffect(() => {
+    convertAddress(fullAddress)
+      .then((location) => {
+        setCenter(location);
+        setMarkers([location]);
+        setLoading(false);
+      })
+      .catch((error) => console.error('something has gone wrong'));
+  }, [fullAddress]);
 
   return (
     <div className="flex flex-col">
@@ -47,9 +70,7 @@ const Property: FC<PropertyType> = ({listing}) => {
       </section>
 
       {/* description */}
-      <p className="p-10">
-        {listing.description}
-      </p>
+      <p className="p-10">{listing.description}</p>
 
       {/* location info */}
       <section className="flex justify-around lg:justify-center lg:gap-60">
@@ -71,10 +92,14 @@ const Property: FC<PropertyType> = ({listing}) => {
 
       {/* map */}
       <div className="flex justify-center py-5">
-        <Image src={map} alt="demo of map" width={1000} height={1000} />
+        {loading ? (
+          <div>loading...</div>
+        ) : (
+          <Map center={center} markers={markers} />
+        )}
       </div>
     </div>
   );
-}
+};
 
-export default Property
+export default Property;
