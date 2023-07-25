@@ -5,10 +5,16 @@ import { IMapProps } from '../../types/types';
 const Map = ({ center, markers, id }: IMapProps) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      initializeMap({id, center, markers});
+      initializeMap({ id, center, markers });
     }
   }, [center, markers, id]);
-  return <div className='map' id={id} style={{ width: '100%', height: '400px' }}></div>;
+  return (
+    <div
+      className="map"
+      id={id}
+      style={{ width: '100%', height: '400px' }}
+    ></div>
+  );
 };
 
 export default Map;

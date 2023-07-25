@@ -9,7 +9,7 @@ import { ILocation } from '../../types/types';
 
 const SearchBar: FC = (): ReactElement => {
   const [location, setLocation] = useState<string | ILocation>('');
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -54,8 +54,10 @@ const SearchBar: FC = (): ReactElement => {
         />
         <button
           type="submit"
-          className="text-white rounded-md text-sm px-2 py-1 absolute right-1.5 bottom-1.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"       
-          onClick={()=>{router.push('/listings')}}
+          className="text-white rounded-md text-sm px-2 py-1 absolute right-1.5 bottom-1.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          onClick={() => {
+            router.push('/listings');
+          }}
         >
           Search
         </button>
