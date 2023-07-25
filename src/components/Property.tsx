@@ -41,7 +41,7 @@ const Property = ({ listing }: { listing: PropertyType }) => {
   }, [fullAddress]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col test-class-property">
       {/* images */}
       {/* animate */}
       <Carousel images={listing.images} />
