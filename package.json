@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.2",
+    "@supabase/auth-helpers-nextjs": "^0.7.3",
+    "@supabase/supabase-js": "^2.29.0",
     "@types/node": "20.4.2",
     "@types/uuid": "^9.0.2",
     "autoprefixer": "10.4.14",
