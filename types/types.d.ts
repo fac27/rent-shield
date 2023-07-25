@@ -1,3 +1,5 @@
+import type { Json } from "./supabase";
+
 export interface ILocation {
   lat: number;
   lng: number;
@@ -19,16 +21,19 @@ export type PropertyType = {
   created_at: string;
   description: string;
   id: number;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   postcode: string;
   rent: number;
-  status_id: number;
-  type_id: number;
-  user_id: string;
-  images: string[];
-  favourited: boolean;
+  status: Status;
+  type: Type;
+  user_id?: string;
+  image: Images;
 };
+
+export type Images = {id: number, url: string}[]
+export type Status = {id: number, description: string}[]
+export type Type = {id: number, description: string}[]
 
 export interface ContainerProps {
   listings: PropertyType[];

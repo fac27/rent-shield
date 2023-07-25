@@ -2,8 +2,9 @@ import Image from 'next/image';
 import { useState } from 'react';
 import arrow from '../../public/arrow.svg';
 import { v4 as uuidv4 } from 'uuid';
+import type { Images } from '../../types/types';
 
-export default function Carousel({ images }: { images: string[] }) {
+export default function Carousel({ images }: { images: Images }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   return (
@@ -12,10 +13,10 @@ export default function Carousel({ images }: { images: string[] }) {
         {images.map((image, i) => (
           <Image
             key={uuidv4()}
-            src={image}
+            src={image.url}
             alt={`image-${i + 1}`}
-            layout="fill"
-            objectFit="contain"
+            fill
+            style={{objectFit: "contain"}}
             className={currentSlide === i ? '' : 'hidden'}
           />
         ))}

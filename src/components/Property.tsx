@@ -16,7 +16,8 @@ import { convertAddress } from 'utils/mapHelper';
 import { ILocation, PropertyType } from '../../types/types';
 
 const Property = ({ listing }: { listing: PropertyType }) => {
-  const [liked, setLiked] = useState(listing.favourited);
+  // const [liked, setLiked] = useState(listing.favourited);
+  const [liked, setLiked] = useState(false);
   const [center, setCenter] = useState({
     lat: Number(listing.latitude),
     lng: Number(listing.longitude),
@@ -44,7 +45,7 @@ const Property = ({ listing }: { listing: PropertyType }) => {
     <div className="flex flex-col test-class-property">
       {/* images */}
       {/* animate */}
-      <Carousel images={listing.images} />
+      <Carousel images={listing.image} />
 
       {/* details */}
       <section className="flex justify-evenly bg-[#202A37] py-5">
