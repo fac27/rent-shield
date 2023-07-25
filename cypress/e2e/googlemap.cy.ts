@@ -14,6 +14,7 @@ describe('Google Maps API', ()=>{
 
     it('correctly locates center', ()=>{
         cy.visit('/')
+        cy.get('#monocle').click()
         cy.get('#default-search')
         .should('be.visible')
         .type('london')
