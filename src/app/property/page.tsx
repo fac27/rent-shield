@@ -2,8 +2,8 @@ import { getPropertyById } from '../../lib/models';
 import Image from 'next/image';
 
 // eslint-disable-next-line react/display-name
-const Property = async () => {
-  const property = await getPropertyById('1');
+const Property = async (id: string) => {
+  const property = await getPropertyById(id);
   console.log(`property: ${JSON.stringify(property)}`);
   const images = property[0].image;
   return property ? (
