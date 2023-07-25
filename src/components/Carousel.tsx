@@ -8,15 +8,14 @@ export default function Carousel({ images }: { images: string[] }) {
 
   return (
     <section className="relative h-96 bg-[#CAC4CE]">
-      <div className="flex justify-center">
+      <div className="relative flex justify-center w-screen h-96">
         {images.map((image, i) => (
           <Image
             key={uuidv4()}
             src={image}
             alt={`image-${i + 1}`}
-            layout="fill"
-            objectFit="contain"
-            className={currentSlide === i ? '' : 'hidden'}
+            layout='fill'
+            className={`absolute inset-o w-full h-full object-contain ${currentSlide === i ? '' : 'hidden'}`}
           />
         ))}
       </div>

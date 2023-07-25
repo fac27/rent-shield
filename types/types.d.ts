@@ -4,6 +4,7 @@ export interface ILocation {
 }
 
 interface IMapProps {
+  id: PropertyType.id;
   center: ILocation;
   markers: ILocation[];
 }
@@ -19,8 +20,8 @@ export type PropertyType = {
   created_at: string;
   description: string;
   id: number;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   postcode: string;
   rent: number;
   status_id: number;
