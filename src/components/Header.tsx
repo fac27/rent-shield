@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Dropdown, Navbar, Avatar } from 'flowbite-react';
 import SearchBar from './SearchBar';
 import { RxHamburgerMenu } from 'react-icons/rx';
@@ -63,6 +64,15 @@ const Header = () => {
             <Dropdown.Item>Settings</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item>Sign out</Dropdown.Item>
+            {/* temporary */}
+            <Dropdown.Divider />
+            <Link href="/user/sign-in">
+              <Dropdown.Item>Sign In</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Link href="/user/sign-up">
+              <Dropdown.Item>Sign Up</Dropdown.Item>
+            </Link>
           </Dropdown>
         </div>
       </Navbar>

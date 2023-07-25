@@ -4,7 +4,7 @@ import { BsFacebook, BsGithub, BsInstagram, BsTwitter } from 'react-icons/bs';
 
 const FooterWithLinks = () => {
   return (
-    <Footer>
+    <Footer className="absolute bottom-0">
       <div className="w-full">
         <div className="w-full px-4 py-6 items-center justify-center md:flex md:justify-between">
           <Footer.Copyright by="rent-shield" href="/" year={2023} />
