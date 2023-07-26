@@ -1,4 +1,6 @@
 import {getPropertyById, getAllProperties, getAllPropertyStatuses, getAllPropertyTypes} from '../src/lib/models';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
 
 describe('Model function tests', () => {
     describe('getPropertyById', () => {
