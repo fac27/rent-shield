@@ -6,6 +6,7 @@ export interface ILocation {
 }
 
 interface IMapProps {
+  id: PropertyType.id;
   center: ILocation;
   markers: ILocation[];
 }

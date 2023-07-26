@@ -1,5 +1,5 @@
 import { Loader } from '@googlemaps/js-api-loader';
-import { ILocation } from '../../types/types';
+import { ILocation, IMapProps } from '../../types/types';
 
 //added this in because typescript didn't like that it had only a string
 //plut makes the fetch string cleaner
@@ -13,17 +13,17 @@ const loader = new Loader({
 });
 
 //function to create a map
-export const initializeMap = async (
-  center: ILocation,
-  markers: ILocation[],
+export const initializeMap = async ({id, center, markers}: IMapProps
 ) => {
   const mapOptions = {
     center: center,
     zoom: 16,
   };
   const googleMaps = await loader.importLibrary('maps');
+  const mapElement =     document.getElementById(id) as HTMLElement;
+
   const map = new googleMaps.Map(
-    document.getElementById('map') as HTMLElement,
+    mapElement,
     mapOptions,
   );
   //added this is so that if we did want a map view with more than one property it is possible :D
@@ -71,12 +71,13 @@ export const initializeSearch = async () => {
 //function to convert address into lat/long to put into map function above
 export const convertAddress = async (address: string) => {
   return fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`,
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`,
   )
     .then((response) => {
       return response.json();
     })
     .then((jsonData) => {
+      console.log(jsonData)
       return jsonData.results[0].geometry.location;
     })
     .catch((error) => {

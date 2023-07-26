@@ -9,7 +9,7 @@ export default function Carousel({ images }: { images: Images }) {
 
   return (
     <section className="relative h-96 bg-[#CAC4CE]">
-      <div className="flex justify-center">
+      <div className="relative flex justify-center w-screen h-96">
         {images.map((image, i) => (
           <Image
             key={uuidv4()}
