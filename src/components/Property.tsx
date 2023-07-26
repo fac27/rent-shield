@@ -16,7 +16,7 @@ import { convertAddress } from 'utils/mapHelper';
 import { ILocation, ListingType } from '../../types/types';
 import { Json } from '../../types/supabase';
 
-const Property = ({ id, listing }: { id: string; listing: PropertyType }) => {
+const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
   // const [liked, setLiked] = useState(listing.favourited);
   const [liked, setLiked] = useState(false);
   const [center, setCenter] = useState({
