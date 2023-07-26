@@ -2,16 +2,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Dropdown, Navbar, Avatar } from 'flowbite-react';
-// import SearchBar from './SearchBar';
 import { RxHamburgerMenu } from 'react-icons/rx';
-// import { BiLogoApple } from 'react-icons/bi';
 import HamburgerSidebar from './HamburgerSidebar';
-// import { AiOutlineSearch } from 'react-icons/ai';
 import { useState } from 'react';
 
 const Header = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-  // const [showSearch, setShowSearch] = useState(false);
 
   return (
     <header>
@@ -36,15 +32,7 @@ const Header = () => {
             </span>
           </Navbar.Brand>
         </div>
-        {/* <span className="w-6/12">{showSearch ? <SearchBar /> : null}</span> */}
         <div className="flex ">
-          {/*  <button
-            id="monocle"
-            className="scale-100 md:scale-150 invert ml-2 md:mx-5 "
-            onClick={() => setShowSearch(!showSearch)}
-          > */}
-          {/* <AiOutlineSearch /> */}
-          {/* </button> */}
           <Dropdown
             inline
             theme={{ arrowIcon: 'ml-0 mb-0' }}
@@ -65,7 +53,6 @@ const Header = () => {
             <Dropdown.Item>Settings</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item>Sign out</Dropdown.Item>
-            {/* temporary */}
             <Dropdown.Divider />
             <Link href="/log-in">
               <Dropdown.Item>Log In</Dropdown.Item>
