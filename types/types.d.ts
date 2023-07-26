@@ -42,6 +42,11 @@ export type StatusType = {
   description: string;
 }
 
+export type RentRangeType = {
+  min_rent: number;
+  max_rent: number;
+}
+
 export type Images = {id: number, url: string}[]
 export type Status = {id: number, description: string}[]
 export type Type = {id: number, description: string}[]
