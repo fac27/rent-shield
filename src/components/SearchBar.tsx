@@ -12,6 +12,11 @@ const SearchBar = () => {
   const router = useRouter();
   initializeSearch().catch(console.error);
 
+  /**
+   * Description
+   * @param {React.FormEvent<HTMLFormElement>} e Form submit event
+   * @returns {void} redirects to listings page with the lat + lng as query params.
+   */
   const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const value: any = e.nativeEvent?.target;
