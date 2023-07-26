@@ -11,7 +11,7 @@ interface IMapProps {
   markers: ILocation[];
 }
 
-export type PropertyType = {
+export type ListingType = {
   address1: string;
   address2: string | null;
   attributes: Json | null;
@@ -32,11 +32,21 @@ export type PropertyType = {
   image: Images;
 };
 
+export type PropertyType = {
+  id: number;
+  description: string;
+};
+
+export type StatusType = {
+  id: number,
+  description: string;
+}
+
 export type Images = {id: number, url: string}[]
 export type Status = {id: number, description: string}[]
 export type Type = {id: number, description: string}[]
 
 
 export interface ContainerProps {
-  listings: PropertyType[];
+  listings: ListingType[];
 }

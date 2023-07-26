@@ -1,7 +1,7 @@
 import supabaseClient from '../lib/supabaseClient';
-import { PropertyType } from '../../types/types';
+import { ListingType, PropertyType, StatusType } from '../../types/types';
 
-const getPropertyById = async (id: number): Promise<PropertyType[]> => {
+const getPropertyById = async (id: number): Promise<ListingType[]> => {
   const { data, error } = await supabaseClient
     .from('property')
     .select(
@@ -34,7 +34,7 @@ const getPropertyById = async (id: number): Promise<PropertyType[]> => {
   return data;
 };
 
-const getAllProperties = async (): Promise<PropertyType[]> => {
+const getAllProperties = async (): Promise<ListingType[]> => {
     const { data, error } = await supabaseClient
       .from('property')
       .select(
@@ -66,4 +66,30 @@ const getAllProperties = async (): Promise<PropertyType[]> => {
     return data;
   };
 
-export { getPropertyById, getAllProperties };
+const getAllPropertyTypes = async (): Promise<PropertyType[]> => {
+  const { data, error } = await supabaseClient
+    .from('type')
+    .select('id, description')
+
+  if (error) {
+    console.log(`Error getting property types: ${error.message}`);
+    throw error;
+  }
+
+  return data;
+}
+
+const getAllPropertyStatuses = async (): Promise<StatusType[]> => {
+  const { data, error } = await supabaseClient
+    .from('status')
+    .select('id, description')
+
+  if (error) {
+    console.log(`Error getting property statuses: ${error.message}`);
+    throw error;
+  }
+
+  return data;
+}
+
+export { getPropertyById, getAllProperties, getAllPropertyStatuses, getAllPropertyTypes };
