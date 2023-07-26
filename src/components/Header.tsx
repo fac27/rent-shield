@@ -2,16 +2,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Dropdown, Navbar, Avatar } from 'flowbite-react';
-import SearchBar from './SearchBar';
+// import SearchBar from './SearchBar';
 import { RxHamburgerMenu } from 'react-icons/rx';
-import { BiLogoApple } from 'react-icons/bi';
+// import { BiLogoApple } from 'react-icons/bi';
 import HamburgerSidebar from './HamburgerSidebar';
-import { AiOutlineSearch } from 'react-icons/ai';
+// import { AiOutlineSearch } from 'react-icons/ai';
 import { useState } from 'react';
 
 const Header = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
+  // const [showSearch, setShowSearch] = useState(false);
 
   return (
     <header>
@@ -22,27 +22,29 @@ const Header = () => {
             <RxHamburgerMenu className="invert scale-125 mx-2" />
           </button>
           <Navbar.Brand href="/" className="flex gap-3 items-center">
-            {<Image
-              width="30"
-              height="30"
-              alt="Rent-shield logo"
-              className="h-6 sm:h-9"
-              src="/rs-logo.svg"
-            /> }
+            {
+              <Image
+                width="30"
+                height="30"
+                alt="Rent-shield logo"
+                className="h-6 sm:h-9"
+                src="/rs-logo.svg"
+              />
+            }
             <span className="hidden whitespace-nowrap text-xl font-semibold dark:text-white md:block">
               rent shield
             </span>
           </Navbar.Brand>
         </div>
-        <span className="w-6/12">{showSearch ? <SearchBar /> : null}</span>
+        {/* <span className="w-6/12">{showSearch ? <SearchBar /> : null}</span> */}
         <div className="flex ">
-          <button
+          {/*  <button
             id="monocle"
             className="scale-100 md:scale-150 invert ml-2 md:mx-5 "
             onClick={() => setShowSearch(!showSearch)}
-          >
-            <AiOutlineSearch />
-          </button>
+          > */}
+          {/* <AiOutlineSearch /> */}
+          {/* </button> */}
           <Dropdown
             inline
             theme={{ arrowIcon: 'ml-0 mb-0' }}
