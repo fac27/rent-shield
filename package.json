@@ -50,7 +50,6 @@
     "cypress": "^12.17.1",
     "dotenv": "^16.3.1",
     "husky": "^8.0.3",
-    "jest": "^29.6.1",
     "jest-environment-jsdom": "^29.6.1",
     "lint-staged": "^13.2.3",
     "pinst": "^3.0.0",
