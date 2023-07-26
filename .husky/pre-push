@@ -2,4 +2,4 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npm run ci
-# npm run jest
+npm run jest

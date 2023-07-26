@@ -13,10 +13,10 @@ import { useEffect, useState } from 'react';
 import Carousel from '../components/Carousel';
 import Map from './Map';
 import { convertAddress } from 'utils/mapHelper';
-import { ILocation, PropertyType } from '../../types/types';
+import { ILocation, ListingType } from '../../types/types';
 import { Json } from '../../types/supabase';
 
-const Property = ({ id, listing }: { id: string; listing: PropertyType }) => {
+const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
   // const [liked, setLiked] = useState(listing.favourited);
   const [liked, setLiked] = useState(false);
   const [center, setCenter] = useState({
