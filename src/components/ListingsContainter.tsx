@@ -9,7 +9,7 @@ const ListingsContainer: FC<ContainerProps> = ({ listings }) => {
     <div>
       {listings.map((listing, index) => (
         <Property
-          data-id={`listing-${index + 1}`}
+          id={`listing-${index + 1}`}
           listing={listing}
           key={listing.id}
         />
