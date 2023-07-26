@@ -22,14 +22,13 @@ const Header = () => {
             <RxHamburgerMenu className="invert scale-125 mx-2" />
           </button>
           <Navbar.Brand href="/" className="flex gap-3 items-center">
-            {/* <Image
+            {<Image
               width="30"
               height="30"
               alt="Rent-shield logo"
               className="h-6 sm:h-9"
-              src="/favicon.svg"
-            /> */}
-            <BiLogoApple className="scale-150 invert" />
+              src="/rs-logo.svg"
+            /> }
             <span className="hidden whitespace-nowrap text-xl font-semibold dark:text-white md:block">
               rent shield
             </span>
