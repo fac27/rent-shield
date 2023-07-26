@@ -15,10 +15,9 @@
 // status_id: number | null;
 // type_id: number | null;
 // user_id: string;
-import AddPropertyForm from 'components/addPropertyForm';
-
+import AddListingForm from "components/addListing";
 const page = () => {
-  return <AddPropertyForm />;
+  return <AddListingForm />;
 };
 
 export default page;

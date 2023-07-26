@@ -1,15 +1,16 @@
 'use client';
 import { Card, TextInput, Label } from 'flowbite-react';
 import { formFields } from 'utils/formFields';
+import { FormFields } from '../../types/types';
 
-const AddPropertyForm = () => {
+const AddListingForm = () => {
 
   return (
     <main className="flex h-full w-screen pb-20 dark:text-white">
       <Card className="w-8/12 p-4 m-auto">
         <form className="flex flex-col w-full placeholder:flex-col gap-4">
         {Object.keys(formFields).map((field) => {
-  const fieldData = formFields[field];
+  const fieldData = formFields[field as FormFields];
   const sharedClasses = "block mb-2 text-sm font-medium text-gray-900 dark:text-white";
 
   switch (fieldData.inputType) {
@@ -89,7 +90,7 @@ const AddPropertyForm = () => {
       return (
         <div>
           <label htmlFor={field} className={sharedClasses}>{fieldData.label}</label>
-          <input type={fieldData.inputType} id={field} name={field} placeholder={fieldData.placeholder} className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+          <TextInput type={fieldData.inputType} id={field} name={field} placeholder={fieldData.placeholder} className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
         </div>
       );
   }
@@ -100,6 +101,6 @@ const AddPropertyForm = () => {
   );
 };
 
-export default AddPropertyForm;
+export default AddListingForm;
 
  

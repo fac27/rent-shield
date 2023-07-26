@@ -34,3 +34,28 @@ export type PropertyType = {
 export interface ContainerProps {
   listings: PropertyType[];
 }
+
+type InputType = 'number' | 'radio' | 'select' | 'date' | 'text' | 'textarea' | 'file' | 'checkbox';
+
+interface BaseField {
+  label: string;
+  inputType: InputType;
+  placeholder?: string;
+  pattern?: string;
+}
+
+interface OptionField extends BaseField {
+  options: string[];
+}
+
+interface FileField extends BaseField {
+  inputType: 'file';
+}
+
+type FieldType = BaseField | OptionField | FileField;
+
+export type FormFieldKey = keyof typeof formFields;
+
+export type FormFields = {
+  [key in FormFieldKey]: FieldType;
+};

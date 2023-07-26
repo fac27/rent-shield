@@ -149,46 +149,19 @@ export const formFields = {
     label: 'Address line 1',
     inputType: 'text',
   },
-  addressLine2: {
+  landlordAddressLine2: {
     label: 'Address line 2',
     inputType: 'text',
   },
-  addressLine3: {
+  landlordAddressLine3: {
     label: 'Address line 3 (optional)',
     inputType: 'text',
   },
-  town: {
+  landlordTown: {
     label: 'Town',
     inputType: 'text',
   }
   };
-  
-
-  // {
-  //   Object.keys(formFields).map((field) => {
-  //     const fieldData = formFields[field];
-  //     if (fieldData.inputType === 'radio') {
-  //       return (
-  //         <fieldset>
-  //           <legend>{fieldData.label}</legend>
-  //           {fieldData.options.map((option, index) => (
-  //             <div key={index}>
-  //               <input type="radio" id={`${field}-${index}`} name={field} value={option} />
-  //               <label htmlFor={`${field}-${index}`}>{option}</label>
-  //             </div>
-  //           ))}
-  //         </fieldset>
-  //       );
-  //     } else {
-  //       return (
-  //         <div>
-  //           <label htmlFor={field}>{fieldData.label}</label>
-  //           <input type={fieldData.inputType} id={field} name={field} placeholder={fieldData.placeholder} />
-  //         </div>
-  //       );
-  //     }
-  //   })
-  // }
   
   
   
