@@ -1,27 +1,26 @@
 'use client';
-import { ReactElement, FC, useState, useEffect } from 'react';
-// import { useRouter } from 'next/router';
+
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { initializeSearch } from 'utils/mapHelper';
-import { ILocation } from '../../types/types';
+// import { ILocation } from '../../types/types';
 
-const SearchBar: FC = (): ReactElement => {
-  const [location, setLocation] = useState<string | ILocation>('');
-  const router = useRouter()
+const SearchBar = () => {
+  // const [location, setLocation] = useState<string | ILocation>('');
+  const router = useRouter();
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      initializeSearch()
-        .then((selected) => {
-          setLocation(selected as ILocation);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [location]);
+    if (typeof window === 'undefined') return;
+    initializeSearch()
+      // .then((selected) => {
+      //   setLocation(selected as ILocation);
+      // })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <form>
@@ -54,8 +53,10 @@ const SearchBar: FC = (): ReactElement => {
         />
         <button
           type="submit"
-          className="text-white rounded-md text-sm px-2 py-1 absolute right-1.5 bottom-1.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"       
-          onClick={()=>{router.push('/listings')}}
+          className="text-white rounded-md text-sm px-2 py-1 absolute right-1.5 bottom-1.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          onClick={() => {
+            router.push('/listings');
+          }}
         >
           Search
         </button>
