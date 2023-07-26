@@ -1,12 +1,9 @@
-import ListingsContainer from 'components/ListingsContainter';
+import Link from 'next/link';
 
-import { exampleListings } from './listings/page';
-//added in some dummy data so pass down props to property componens
-
-export default function Home() {
+export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <ListingsContainer listings={exampleListings}/>
+      <Link href={'/listings'}>View listings</Link>
     </main>
   );
 }
