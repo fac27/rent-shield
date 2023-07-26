@@ -1,29 +1,33 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEventHandler } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { initializeSearch } from 'utils/mapHelper';
-// import { ILocation } from '../../types/types';
+import { convertAddress } from 'utils/mapHelper';
+import { ILocation } from '../../types/types';
 
 const SearchBar = () => {
-  // const [location, setLocation] = useState<string | ILocation>('');
   const router = useRouter();
+  initializeSearch().catch(console.error);
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    initializeSearch()
-      // .then((selected) => {
-      //   setLocation(selected as ILocation);
-      // })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  /**
+   * Description
+   * @param {React.FormEvent<HTMLFormElement>} e Form submit event
+   * @returns {void} redirects to listings page with the lat + lng as query params.
+   */
+  const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const value: any = e.nativeEvent?.target;
+    if (!value) return;
+    const address = value[0].value;
+    let { lat, lng } = await convertAddress(address);
+    router.push('/listings?lat=' + lat + '&lng=' + lng);
+  };
 
   return (
-    <form>
+    <form onSubmit={redirect}>
       <label
         htmlFor="default-search"
         className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -54,9 +58,6 @@ const SearchBar = () => {
         <button
           type="submit"
           className="text-white rounded-md text-sm px-2 py-1 absolute right-1.5 bottom-1.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          onClick={() => {
-            router.push('/listings');
-          }}
         >
           Search
         </button>

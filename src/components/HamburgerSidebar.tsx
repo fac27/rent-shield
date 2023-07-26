@@ -11,13 +11,13 @@ export default function HamburgerSidebar() {
     >
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Sidebar.Item href="#" icon={AiFillHome}>
+          <Sidebar.Item href="/" icon={AiFillHome}>
             <p className="text-lg">Home</p>
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={AiOutlineSearch}>
+          <Sidebar.Item href="/searchpreferences" icon={AiOutlineSearch}>
             <p className="text-lg">Search</p>
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={AiOutlineHeart}>
+          <Sidebar.Item href="/favourites" icon={AiOutlineHeart}>
             <p className="text-lg">Favourites</p>
           </Sidebar.Item>
         </Sidebar.ItemGroup>

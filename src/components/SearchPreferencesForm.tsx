@@ -14,7 +14,7 @@ import { SearchFormProps } from '../../types/types';
 
 const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   return (
-    <Card className="w-8/12 p-4 m-auto">
+    <Card className="w-8/12 p-4 m-auto dark:text-white">
       <form className="flex max-w-md flex-col mx-20 my-8 gap-4">
         <fieldset className="mt-4">
           <legend>Location</legend>
