@@ -1,8 +1,9 @@
 'use client';
 import SearchPreferencesForm from 'components/SearchPreferencesForm';
+import { useSearchParams } from 'next/navigation';
 
 const preferences = {
-  location: 'Hackney',
+  location: '',
   cost: {
     max: 2300,
     min: 965,
@@ -23,5 +24,15 @@ const preferences = {
 };
 
 export default function SearchPreferences() {
+  const searchParams = useSearchParams();
+
+  const location = searchParams.get('location');
+
+  if (!location) return;
+  preferences.location = location;
+
+  // account for null in search form, dont let it get to this route without a lat and lng
+  // const lat = parseInt(searchParams.get('lat') as string);
+  // const lng = parseInt(searchParams.get('lng') as string);
   return <SearchPreferencesForm preferences={preferences} />;
 }
