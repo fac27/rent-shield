@@ -6,151 +6,150 @@ import {
   TextInput,
   RangeSlider,
   Select,
-  ToggleSwitch
+  ToggleSwitch,
+  Card,
 } from 'flowbite-react';
 
-const SearchPreferencesForm: FC = () => {
+import { SearchFormProps } from '../../types/types';
+
+const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   return (
-    <form className="flex max-w-md flex-col mx-20 my-8 gap-4">
-      <fieldset className="mt-4">
-        <legend>Location</legend>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="email1" value="Area" />
+    <Card className="w-8/12 p-4 m-auto">
+      <form className="flex max-w-md flex-col mx-20 my-8 gap-4">
+        <fieldset className="mt-4">
+          <legend>Location</legend>
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="email1" value="Area" />
+            </div>
+            <TextInput
+              id="email1"
+              placeholder="Search area or postcode"
+              required
+              type="text"
+              value={preferences.location && preferences.location}
+            />
           </div>
-          <TextInput
-            id="email1"
-            placeholder="Search area or postcode"
-            required
-            type="text"
+        </fieldset>
+
+        <fieldset className="mt-4">
+          <legend>Cost</legend>
+          <div>
+            <div className="mb-1 block">
+              <Label htmlFor="default-range" value="Maximum Rent" />
+            </div>
+            <RangeSlider
+              id="default-range"
+              max={preferences.cost.max}
+              min={preferences.cost.min}
+            />
+          </div>
+          <ToggleSwitch
+            checked
+            label="Bills included only"
+            onChange={() => {
+              console.log('FILTER FOR BILLS INCLUDED');
+            }}
           />
-        </div>
-      </fieldset>
+        </fieldset>
 
-      <fieldset className="mt-4">
-        <legend>Cost</legend>
-        <div>
-          <div className="mb-1 block">
-            <Label htmlFor="default-range" value="Maximum Rent" />
-          </div>
-          <RangeSlider id="default-range" />
-        </div>
-        <ToggleSwitch
-          checked
-          label="Bills included only"
-          onChange={() => {
-            console.log('FILTER FOR BILLS INCLUDED');
-          }}
-        />
-      </fieldset>
-
-      <fieldset className="mt-4">
-        <legend>Property Details</legend>
-        <div className="flex gap-4 mt-4">
-          <div className="max-w-md flex items-center gap-2" id="select">
-            <div className="mb-2 block">
-              <Label htmlFor="roomsMin" value="Min" />
+        <fieldset className="mt-4">
+          <legend>Property Details</legend>
+          <div className="flex gap-4 mt-4">
+            <div className="max-w-md flex items-center gap-2" id="select">
+              <div className="mb-2 block">
+                <Label htmlFor="roomsMin" value="Min" />
+              </div>
+              <Select id="roomsMin" required>
+                {preferences.propertyDetails.rooms.map((number) => {
+                  return <option key={`${number}-rooms`}>{number}</option>;
+                })}
+              </Select>
             </div>
-            <Select id="roomsMin" required>
-              <option>Studio</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
+            <div className="max-w-md flex items-center gap-2" id="select">
+              <div className="mb-2 block">
+                <Label htmlFor="roomsMax" value="Max" />
+              </div>
+              <Select id="roomsMax" required>
+                {preferences.propertyDetails.rooms.map((number) => {
+                  return <option key={`${number}-rooms`}>{number}</option>;
+                })}
+              </Select>
+            </div>
+          </div>
+          <div className="max-w-md flex items-center gap-2 mt-4" id="select">
+            <div className="mb-2 block">
+              <Label htmlFor="tenancyMin" value="Minimum Tenancy" />
+            </div>
+            <Select id="tenancyMin" required>
+              {preferences.propertyDetails.tenancyMin.map((duration) => {
+                return <option key={`${duration}-duration`}>{duration}</option>;
+              })}
             </Select>
           </div>
-          <div className="max-w-md flex items-center gap-2" id="select">
-            <div className="mb-2 block">
-              <Label htmlFor="roomsMax" value="Max" />
-            </div>
-            <Select id="roomsMax" required>
-              <option>Studio</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-            </Select>
-          </div>
-        </div>
-        <div className="max-w-md flex items-center gap-2 mt-4" id="select">
-          <div className="mb-2 block">
-            <Label htmlFor="tenancyMin" value="Minimum Tenancy" />
-          </div>
-          <Select id="tenancyMin" required>
-            <option>6 months</option>
-            <option>1 year</option>
-            <option>2 years</option>
-          </Select>
-        </div>
 
-        <div className="flex-row space-y-2 mt-4">
-          <div className="flex-col items-center space-x-2">
-            <Checkbox id="studio" name="studio" value="studio" />
-            <Label>Studio Flat</Label>
+          <div className="flex-row space-y-2 mt-4">
+            {preferences.propertyDetails.type.map((type) => {
+              const typeValue = type.replace(' ', '-');
+              return (
+                <div
+                  key={`${typeValue}-type`}
+                  className="flex-col items-center space-x-2"
+                >
+                  <Checkbox id={typeValue} name={typeValue} value={typeValue} />
+                  <Label>{type}</Label>
+                </div>
+              );
+            })}
           </div>
-          <div className="flex-col items-center space-x-2">
-            <Checkbox id="bedsit" name="bedsit" value="bedsit" />
-            <Label>Bedsit</Label>
-          </div>
-          <div className="flex-col items-center space-x-2">
-            <Checkbox id="detached" name="detached" value="detached" />
-            <Label>Detached House</Label>
-          </div>
-        </div>
-      </fieldset>
+        </fieldset>
 
-      <fieldset>
-        <legend>Extras</legend>
-        <div className="flex-row space-y-2 mt-4">
-          <div className="flex-col items-center space-x-2">
-            <Checkbox id="pets" name="pets" value="pets" />
-            <Label>Pets allowed</Label>
+        <fieldset>
+          <legend>Features</legend>
+          <div className="flex-row space-y-2 mt-4">
+            {preferences.features.map((feature) => {
+              const featureValue = feature.replace(' ', '-');
+              return (
+                <div
+                  key={`${featureValue}-feature`}
+                  className="flex-col items-center space-x-2"
+                >
+                  <Checkbox
+                    id={featureValue}
+                    name={featureValue}
+                    value={featureValue}
+                  />
+                  <Label>{feature}</Label>
+                </div>
+              );
+            })}
           </div>
-          <div className="flex-col items-center space-x-2">
-            <Checkbox id="smokers" name="smokers" value="smokers" />
-            <Label>Smokers allowed</Label>
-          </div>
-          <div className="flex-col items-center space-x-2">
-            <Checkbox id="bike-storage" name="bike-storage" value="bike-storage" />
-            <Label>Bike Storage</Label>
-          </div>
-          <div className="flex-col items-center space-x-2">
-            <Checkbox id="garden" name="garden" value="garden" />
-            <Label>Garden</Label>
-          </div>
-          <div className="flex-col items-center space-x-2">
-            <Checkbox id="fireplace" name="fireplace" value="fireplace" />
-            <Label>Fireplace</Label>
-          </div>
-          <div className="flex-col items-center space-x-2">
-            <Checkbox id="elevator" name="elevator" value="elevator" />
-            <Label>Elevator</Label>
-          </div>
-          <div className="flex-col items-center space-x-2">
-            <Checkbox
-              id="electric-heating"
-              name="electric-heating"
-              value="electric-heating"
-            />
-            <Label>Electric Heating</Label>
-          </div>
-          <div className="flex-col items-center space-x-2">
-            <Checkbox id="gas-heating" name="gas-heating" value="gas-heating" />
-            <Label>Gas Heating</Label>
-          </div>
-          <div className="flex-col items-center space-x-2">
-            <Checkbox
-              id="visitor-parking"
-              name="visitor-parking"
-              value="visitor-parking"
-            />
-            <Label>Visitor Parking</Label>
-          </div>
-        </div>
-      </fieldset>
+        </fieldset>
+        <fieldset>
+          <legend>Parking</legend>
+          {preferences.parking.map((option) => {
+            const optionValue = option.replace(' ', '-');
+            return (
+              <div
+                key={`${optionValue}-feature`}
+                className="flex-col items-center space-x-2"
+              >
+                <Checkbox
+                  id={optionValue}
+                  name={optionValue}
+                  value={optionValue}
+                />
+                <Label>{option}</Label>
+              </div>
+            );
+          })}
+        </fieldset>
 
-      <Button className="mt-6" type="submit">
-        Submit
-      </Button>
-    </form>
+        <Button className="mt-6" type="submit">
+          Submit
+        </Button>
+      </form>
+    </Card>
   );
 };
 
