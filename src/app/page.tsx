@@ -1,6 +1,5 @@
 import SearchBar from 'components/SearchBar';
 import Link from 'next/link';
-import { Card } from 'flowbite-react';
 
 export default async function Home() {
   return (
