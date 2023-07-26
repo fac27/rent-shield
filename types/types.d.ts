@@ -1,4 +1,4 @@
-import type { Json } from "./supabase";
+import type { Json } from './supabase';
 
 export interface ILocation {
   lat: number;
@@ -32,11 +32,60 @@ export type PropertyType = {
   image: Images;
 };
 
-export type Images = {id: number, url: string}[]
-export type Status = {id: number, description: string}[]
-export type Type = {id: number, description: string}[]
-
+export type Images = { id: number; url: string }[];
+export type Status = { id: number; description: string }[];
+export type Type = { id: number; description: string }[];
 
 export interface ContainerProps {
   listings: PropertyType[];
+}
+
+export interface SearchFormProps {
+  preferences: {
+    location: string;
+    cost: {
+      max: number;
+      min: number;
+    };
+    propertyDetails: {
+      type: string[];
+      rooms: number[];
+      tenancyMin: string[];
+    };
+    features: string[];
+    parking: string[];
+  };
+}
+export interface SearchPreferenceProps {
+  preferences: {
+    location: string;
+    cost: {
+      max: number;
+      min: number;
+      billsIncluded: boolean;
+    };
+    propertyDetails: {
+      type: string;
+      rooms: {
+        min: number;
+        max: number;
+      };
+      tenancyMin: string;
+    };
+    features: {
+      pets: boolean;
+      smokers: boolean;
+      bikeStorage: boolean;
+      garden: boolean;
+      fireplace: boolean;
+      elevator: boolean;
+      electric_heating: boolean;
+      gas_heating: boolean;
+      visitor_parking: boolean;
+      parking: {
+        allocated: boolean;
+        street: boolean;
+      };
+    };
+  };
 }

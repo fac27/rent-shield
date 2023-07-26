@@ -1,4 +1,4 @@
-import { ReactElement, FC } from 'react';
+import { FC } from 'react';
 
 import Property from './Property';
 import { ContainerProps } from '../../types/types';
