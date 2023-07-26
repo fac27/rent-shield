@@ -36,13 +36,13 @@ const Header = () => {
         </div>
         <span className="w-6/12">{showSearch ? <SearchBar /> : null}</span>
         <div className="flex ">
-          <button
+          {/* <button
             id="monocle"
             className="scale-100 md:scale-150 invert ml-2 md:mx-5 "
             onClick={() => setShowSearch(!showSearch)}
           >
             <AiOutlineSearch />
-          </button>
+          </button> */}
           <Dropdown
             inline
             theme={{ arrowIcon: 'ml-0 mb-0' }}
