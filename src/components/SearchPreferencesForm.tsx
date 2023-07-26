@@ -16,25 +16,30 @@ import { useRouter } from 'next/navigation';
 const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   const router = useRouter();
 
-  /**
-   * Description
-   * @param {React.FormEvent<HTMLFormElement>} e Form submit event
-   * @returns {void} redirects to listings page with the lat + lng as query params.
-   */
-  const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(e.nativeEvent?.target);
-    const value: any = e.nativeEvent?.target;
-    if (!value) return;
-    const address = value[0].value;
-    let { lat, lng } = await convertAddress(address);
-    router.push('/listings?lat=' + lat + '&lng=' + lng);
-  };
+  // /**
+  //  * Description
+  //  * @param {React.FormEvent<HTMLFormElement>} e Form submit event
+  //  * @returns {void} redirects to listings page with the lat + lng as query params.
+  //  */
+  // const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   console.log(e);
+  //   const value: any = e.nativeEvent?.target;
+  //   console.log(value[0]);
+  //   // if (!value) return;
+  //   // const address = value[0].value;
+  //   // let { lat, lng } = await convertAddress(address);
+  //   // for (const element of value) {
+  //   // console.log(element);
+  //   // element.value;
+  //   // }
+  //   // router.push('/listings?lat=' + lat + '&lng=' + lng);
+  // };
 
   return (
     <Card className="w-8/12 p-4 m-auto">
       <form
-        onSubmit={redirect}
+        action="/listings"
         className="flex max-w-md flex-col mx-20 my-8 gap-4"
       >
         <fieldset className="mt-4">
@@ -48,7 +53,8 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               placeholder="Search area or postcode"
               required
               type="text"
-              value={preferences.location && preferences.location}
+              name="location"
+              defaultValue={preferences.location && preferences.location}
             />
           </div>
         </fieldset>

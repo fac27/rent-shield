@@ -14,7 +14,7 @@ export default function HamburgerSidebar() {
           <Sidebar.Item href="/" icon={AiFillHome}>
             <p className="text-lg">Home</p>
           </Sidebar.Item>
-          <Sidebar.Item href="/searchpreferences" icon={AiOutlineSearch}>
+          <Sidebar.Item href="/search-preferences" icon={AiOutlineSearch}>
             <p className="text-lg">Search</p>
           </Sidebar.Item>
           <Sidebar.Item href="/favourites" icon={AiOutlineHeart}>

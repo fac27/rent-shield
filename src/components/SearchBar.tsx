@@ -39,7 +39,7 @@ const SearchBar = () => {
       <div className="relative">
         <Link
           href={{
-            pathname: '/searchpreferences',
+            pathname: '/search-preferences',
             query: { location: inputValue },
           }}
           passHref={true}
