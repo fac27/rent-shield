@@ -16,7 +16,7 @@ import { convertAddress } from 'utils/mapHelper';
 import { ILocation, ListingType } from '../../types/types';
 import { Json } from '../../types/supabase';
 
-const Property = ({ listing }: { listing: ListingType }) => {
+const Property = ({ id, listing }: { id: string; listing: PropertyType }) => {
   // const [liked, setLiked] = useState(listing.favourited);
   const [liked, setLiked] = useState(false);
   const [center, setCenter] = useState({
@@ -40,7 +40,7 @@ const Property = ({ listing }: { listing: ListingType }) => {
   }, [center]);
 
   return (
-    <div className="flex flex-col test-class-property">
+    <div data-id={id} className="flex flex-col test-class-property">
       {/* images */}
       {/* animate */}
       <Carousel images={listing.image} />
