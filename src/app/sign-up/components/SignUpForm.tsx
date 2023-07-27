@@ -15,7 +15,6 @@ export default function SignUpForm() {
   const supabase = createClientComponentClient<Database>()
   
   const handleSignUp = async () => {
-    e.preventDefault();
     const {data, error} = await supabase.auth.signUp({
       email,
       password,
