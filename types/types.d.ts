@@ -47,6 +47,21 @@ export type RentRangeType = {
   max_rent: number;
 }
 
+export type AttributesType = {
+  id: number,
+  bills: string,
+  garden: string
+}
+
+export type TransportDataType = {
+  id: number,
+  transport: {
+    name: string,
+    type: string,
+    distance: number,
+  }
+}
+
 export type Images = { id: number; url: string }[];
 export type Status = { id: number; description: string }[];
 export type Type = { id: number; description: string }[];

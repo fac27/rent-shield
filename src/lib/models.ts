@@ -4,6 +4,8 @@ import {
   PropertyType,
   StatusType,
   RentRangeType,
+  AttributesType,
+  TransportDataType,
 } from '../../types/types';
 
 const getPropertyById = async (id: number): Promise<ListingType[]> => {
@@ -105,6 +107,66 @@ const getRentRange = async (): Promise<RentRangeType[]> => {
 
   return data;
 };
+
+const getAttributesById = async (id: number): Promise<AttributesType[] | string[]> => {
+  const { data, error } = await supabaseClient
+    .from('property')
+    .select(
+      `
+        id,
+        bills: attributes->bills,
+        garden: attributes->garden,
+    `,
+    )
+    .eq('id', id);
+
+  if (error) {
+    console.log(`Error getting attributes: ${error.message}`);
+    throw error;
+  }
+
+  return data;
+};
+
+// THURSDAY: FIX TYPE FOR TRANSPORT
+const GetTransportDataById = async (
+  id: number,
+): Promise<TransportDataType[]> => {
+  const { data, error } = await supabaseClient
+    .from('property')
+    .select(
+      `
+    id,
+    transport: attributes->transport
+  `,
+    )
+    .eq('id', id);
+
+  if (error) {
+    console.log(`Error getting attributes: ${error.message}`);
+    throw error;
+  }
+
+  return data;
+};
+/*
+{
+  "bills": "included",
+  "garden": "yes",
+  "transport": [
+    {
+      "name": "Clapton",
+      "type": "overground",
+      "distance": "6 minutes"
+    },
+    {
+      "name": "Rectory Road",
+      "type": "overground",
+      "distance": "17 minutes"
+    }
+  ]
+}
+*/
 
 export {
   getPropertyById,
