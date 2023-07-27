@@ -124,7 +124,7 @@ const GetTransportDataById = async (
     .from('property')
     .select(`
     id,
-    transport: attributes->>transport
+    transport: attributes->transport
   `,
     )
     .eq('id', id);
