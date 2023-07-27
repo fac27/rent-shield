@@ -37,25 +37,19 @@ export interface ContainerProps {
 
 type InputType = 'number' | 'radio' | 'select' | 'date' | 'text' | 'textarea' | 'file' | 'checkbox';
 
-interface BaseField {
+export interface BaseField {
   label: string;
   inputType: InputType;
   placeholder?: string;
   pattern?: string;
+  options?: string[];
 }
 
-interface OptionField extends BaseField {
-  options: string[];
-}
 
-interface FileField extends BaseField {
-  inputType: 'file';
-}
-
-type FieldType = BaseField | OptionField | FileField;
+export type FieldType = BaseField | OptionField | FileField;
 
 export type FormFieldKey = keyof typeof formFields;
 
-export type FormFields = {
+export type FormFieldTypes = {
   [key in FormFieldKey]: FieldType;
 };

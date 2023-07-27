@@ -1,4 +1,6 @@
-export const formFields = {
+import { FormFieldTypes } from "../../types/types";
+
+export const formFields: FormFieldTypes = {
     rent: {
       label: 'Monthly rent',
       inputType: 'number',

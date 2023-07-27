@@ -1,7 +1,7 @@
 'use client';
 import { Card, TextInput, Label } from 'flowbite-react';
 import { formFields } from 'utils/formFields';
-import { FormFields } from '../../types/types';
+import { FormFieldKey, FormFieldTypes } from '../../types/types';
 
 const AddListingForm = () => {
 
@@ -10,7 +10,7 @@ const AddListingForm = () => {
       <Card className="w-8/12 p-4 m-auto">
         <form className="flex flex-col w-full placeholder:flex-col gap-4">
         {Object.keys(formFields).map((field) => {
-  const fieldData = formFields[field as FormFields];
+  const fieldData = formFields[field as FormFieldKey];
   const sharedClasses = "block mb-2 text-sm font-medium text-gray-900 dark:text-white";
 
   switch (fieldData.inputType) {
