@@ -26,7 +26,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 
 ## Deployment
-Rent Shied is deployed on ```Vercel```. The Main branch is continuously deployed and can be visited on (this link)[https://rent-shield.vercel.app/].
+Rent Shied is deployed on ```Vercel```. The Main branch is continuously deployed and can be visited on [this link](https://rent-shield.vercel.app/).
 
 All Pull Requests must meet the following requirements before being merged into the main branch:
 - Two collaborating developers have reviewed and approved the request
@@ -34,7 +34,7 @@ All Pull Requests must meet the following requirements before being merged into 
 - The pull request includes running and passing tests for any new functionalities in the code (every developer is responsible for testing their code)
 
 ## Planning
-Development of Rent Shield is tracked using github projects. (This project board)[https://github.com/orgs/fac27/projects/36/views/1] is updated regularly and informs the roadmap for new features and code base improvements.
+Development of Rent Shield is tracked using github projects. [This project board](https://github.com/orgs/fac27/projects/36/views/) is updated regularly and informs the roadmap for new features and code base improvements.
 
 ### MVP
 The development of Rent Shield is currently in early stages and is guided towards fullfiling the following user stories:
