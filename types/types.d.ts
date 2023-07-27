@@ -155,3 +155,29 @@ export interface SearchPreferenceProps {
     };
   };
 }
+
+type InputType =
+  | 'number'
+  | 'radio'
+  | 'select'
+  | 'date'
+  | 'text'
+  | 'textarea'
+  | 'file'
+  | 'checkbox';
+
+export interface BaseField {
+  label: string;
+  inputType: InputType;
+  placeholder?: string;
+  pattern?: string;
+  options?: string[];
+}
+
+export type FieldType = BaseField | OptionField | FileField;
+
+export type FormFieldKey = keyof typeof formFields;
+
+export type FormFieldTypes = {
+  [key in FormFieldKey]: FieldType;
+};

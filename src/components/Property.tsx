@@ -30,9 +30,8 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
   // (we should do this before it goes into the database and get the data
   //from the property object instead of using a useeffect for this.)
   const fullAddress = `${listing.address1}, ${
-    listing.address2 && listing.address2 + ', '
-  }${listing.city}, ${listing.postcode}`;
-
+    !listing.address2 ? '' : listing.address2 + ', '
+  }${listing.postcode}, ${listing.city}, UK`;
   useEffect(() => {
     setCenter(center);
     setMarkers([center]);
