@@ -2,27 +2,48 @@
 
 import { Button, Card, Label, TextInput } from 'flowbite-react';
 import Link from 'next/link';
-// import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-// import type { Database } from '../../../../types/supabase';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import supabaseCompClient from 'lib/supabaseCompClient';
 
 export default function SignInForm() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const router = useRouter()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+  const router = useRouter();
 
+  // check before rendering that the user is logged in
+  useEffect(() => {
+    const checkSession = async () => {
+      const {
+        data: { session },
+      } = await supabaseCompClient.auth.getSession();
+      console.log(session);
+      if (session) setLoggedIn(true);
+    };
+    checkSession();
+  }, []);
 
+  // redirect if the user is logged in
+  useEffect(() => {
+    if (loggedIn) router.push('/listings');
+  }, [router, loggedIn]);
 
-  const handleLogin = async () => {
-    await supabaseCompClient.auth.signInWithPassword({
+  // login
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const {
+      data: { session },
+      error: errorLoggingIn,
+    } = await supabaseCompClient.auth.signInWithPassword({
       email,
       password,
-    })
-    router.refresh()
-  }
+    });
 
+    if (!errorLoggingIn && session) setLoggedIn(true);
+
+    router.refresh();
+  };
 
   return (
     <main className="fixed flex h-full w-screen pb-20">
@@ -38,8 +59,8 @@ export default function SignInForm() {
               required
               shadow
               type="email"
-              name='email'
-              onChange={(e)=>setEmail(e.target.value)}
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
               value={email}
             />
           </div>
@@ -47,12 +68,22 @@ export default function SignInForm() {
             <div className="mb-2 block">
               <Label htmlFor="password2" value="Your password" />
             </div>
-            <TextInput name='password' value={password} onChange={(e)=> setPassword(e.target.value)} id="password2" required shadow type="password" />
+            <TextInput
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              id="password2"
+              required
+              shadow
+              type="password"
+            />
           </div>
-          <Button className="self-end" color="purple" >
+          <Button className="self-end" color="purple">
             <Link href="/sign-up"> Don&apos;t have an account yet? </Link>
           </Button>
-          <Button type="submit" onClick={handleLogin}>Log In</Button>
+          <Button type="submit" onClick={handleLogin}>
+            Log In
+          </Button>
         </form>
       </Card>
     </main>
