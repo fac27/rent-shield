@@ -1,18 +1,18 @@
-'use client';
+'use client'
 
-import { useState, useEffect, FormEventHandler } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
-import { initializeSearch } from 'utils/mapHelper';
-import { convertAddress } from 'utils/mapHelper';
-import { ILocation } from '../../types/types';
+import { useState, useEffect, FormEventHandler } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import Image from 'next/image'
+import { initializeSearch } from 'utils/mapHelper'
+import { convertAddress } from 'utils/mapHelper'
+import { ILocation } from '../../types/types'
 
 const SearchBar = () => {
-  const router = useRouter();
-  const [inputValue, setInputValue] = useState('');
+  const router = useRouter()
+  const [inputValue, setInputValue] = useState('')
 
-  initializeSearch().catch(console.error);
+  initializeSearch().catch(console.error)
 
   /**
    * Description
@@ -20,13 +20,13 @@ const SearchBar = () => {
    * @returns {void} redirects to listings page with the lat + lng as query params.
    */
   const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const value: any = e.nativeEvent?.target;
-    if (!value) return;
-    const address = value[0].value;
-    let { lat, lng } = await convertAddress(address);
-    router.push('/listings?lat=' + lat + '&lng=' + lng);
-  };
+    e.preventDefault()
+    const value: any = e.nativeEvent?.target
+    if (!value) return
+    const address = value[0].value
+    let { lat, lng } = await convertAddress(address)
+    router.push('/listings?lat=' + lat + '&lng=' + lng)
+  }
 
   return (
     <form onSubmit={redirect}>
@@ -70,7 +70,7 @@ const SearchBar = () => {
         </button>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default SearchBar

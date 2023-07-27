@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import SearchPreferencesForm from 'components/SearchPreferencesForm';
-import { useSearchParams } from 'next/navigation';
+import SearchPreferencesForm from 'components/SearchPreferencesForm'
+import { useSearchParams } from 'next/navigation'
 
 const preferences = {
   location: '',
@@ -22,13 +22,13 @@ const preferences = {
     'fireplace',
   ],
   parking: ['allocated parking', 'no parking', 'exterior parking'],
-};
+}
 
 export default function SearchPreferences() {
-  const searchParams = useSearchParams();
-  const location = searchParams.get('location');
+  const searchParams = useSearchParams()
+  const location = searchParams.get('location')
 
-  if (location) preferences.location = location;
+  if (location) preferences.location = location
 
-  return <SearchPreferencesForm preferences={preferences} />;
+  return <SearchPreferencesForm preferences={preferences} />
 }

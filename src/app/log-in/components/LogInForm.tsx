@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { Button, Card, Label, TextInput } from 'flowbite-react';
-import Link from 'next/link';
+import { Button, Card, Label, TextInput } from 'flowbite-react'
+import Link from 'next/link'
 
 export default function SignInForm() {
   return (
@@ -33,5 +33,5 @@ export default function SignInForm() {
         </form>
       </Card>
     </main>
-  );
+  )
 }

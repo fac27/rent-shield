@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC } from 'react'
 import {
   Button,
   Checkbox,
@@ -8,8 +8,8 @@ import {
   Select,
   ToggleSwitch,
   Card,
-} from 'flowbite-react';
-import { SearchFormProps } from '../../types/types';
+} from 'flowbite-react'
+import { SearchFormProps } from '../../types/types'
 
 const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   return (
@@ -51,7 +51,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
             checked
             label="Bills included only"
             onChange={() => {
-              console.log('FILTER FOR BILLS INCLUDED');
+              console.log('FILTER FOR BILLS INCLUDED')
             }}
           />
         </fieldset>
@@ -65,7 +65,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               </div>
               <Select id="roomsMin" required>
                 {preferences.propertyDetails.rooms.map((number) => {
-                  return <option key={`${number}-rooms`}>{number}</option>;
+                  return <option key={`${number}-rooms`}>{number}</option>
                 })}
               </Select>
             </div>
@@ -75,7 +75,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               </div>
               <Select id="roomsMax" required>
                 {preferences.propertyDetails.rooms.map((number) => {
-                  return <option key={`${number}-rooms`}>{number}</option>;
+                  return <option key={`${number}-rooms`}>{number}</option>
                 })}
               </Select>
             </div>
@@ -86,14 +86,14 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
             </div>
             <Select id="tenancyMin" required>
               {preferences.propertyDetails.tenancyMin.map((duration) => {
-                return <option key={`${duration}-duration`}>{duration}</option>;
+                return <option key={`${duration}-duration`}>{duration}</option>
               })}
             </Select>
           </div>
 
           <div className="flex-row space-y-2 mt-4">
             {preferences.propertyDetails.type.map((type) => {
-              const typeValue = type.replace(' ', '-');
+              const typeValue = type.replace(' ', '-')
               return (
                 <div
                   key={`${typeValue}-type`}
@@ -102,7 +102,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                   <Checkbox id={typeValue} name={typeValue} value={typeValue} />
                   <Label>{type}</Label>
                 </div>
-              );
+              )
             })}
           </div>
         </fieldset>
@@ -111,7 +111,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
           <legend>Features</legend>
           <div className="flex-row space-y-2 mt-4">
             {preferences.features.map((feature) => {
-              const featureValue = feature.replace(' ', '-');
+              const featureValue = feature.replace(' ', '-')
               return (
                 <div
                   key={`${featureValue}-feature`}
@@ -124,14 +124,14 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                   />
                   <Label>{feature}</Label>
                 </div>
-              );
+              )
             })}
           </div>
         </fieldset>
         <fieldset>
           <legend>Parking</legend>
           {preferences.parking.map((option) => {
-            const optionValue = option.replace(' ', '-');
+            const optionValue = option.replace(' ', '-')
             return (
               <div
                 key={`${optionValue}-feature`}
@@ -144,7 +144,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                 />
                 <Label>{option}</Label>
               </div>
-            );
+            )
           })}
         </fieldset>
 
@@ -153,7 +153,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
         </Button>
       </form>
     </Card>
-  );
-};
+  )
+}
 
-export default SearchPreferencesForm;
+export default SearchPreferencesForm

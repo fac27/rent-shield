@@ -1,13 +1,13 @@
-'use client';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Dropdown, Navbar, Avatar } from 'flowbite-react';
-import { RxHamburgerMenu } from 'react-icons/rx';
-import HamburgerSidebar from './HamburgerSidebar';
-import { useState } from 'react';
+'use client'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Dropdown, Navbar, Avatar } from 'flowbite-react'
+import { RxHamburgerMenu } from 'react-icons/rx'
+import HamburgerSidebar from './HamburgerSidebar'
+import { useState } from 'react'
 
 const Header = () => {
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false)
 
   return (
     <header>
@@ -65,7 +65,7 @@ const Header = () => {
         </div>
       </Navbar>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

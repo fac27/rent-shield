@@ -1,42 +1,42 @@
-'use client';
-import { FC } from 'react';
+'use client'
+import { FC } from 'react'
 
-import Image from 'next/image';
-import location from '../../public/location.svg';
-import bed from '../../public/bed.svg';
-import bath from '../../public/bath.svg';
-import price from '../../public/price.svg';
-import heart from '../../public/heart.svg';
-import fullHeart from '../../public/full-heart.svg';
-import transportIcon from '../../public/transport.svg';
-import { useEffect, useState } from 'react';
-import Carousel from '../components/Carousel';
-import Map from './Map';
-import { convertAddress } from 'utils/mapHelper';
-import { ILocation, ListingType } from '../../types/types';
-import { Json } from '../../types/supabase';
+import Image from 'next/image'
+import location from '../../public/location.svg'
+import bed from '../../public/bed.svg'
+import bath from '../../public/bath.svg'
+import price from '../../public/price.svg'
+import heart from '../../public/heart.svg'
+import fullHeart from '../../public/full-heart.svg'
+import transportIcon from '../../public/transport.svg'
+import { useEffect, useState } from 'react'
+import Carousel from '../components/Carousel'
+import Map from './Map'
+import { convertAddress } from 'utils/mapHelper'
+import { ILocation, ListingType } from '../../types/types'
+import { Json } from '../../types/supabase'
 
 const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
   // const [liked, setLiked] = useState(listing.favourited);
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(false)
   const [center, setCenter] = useState({
     lat: Number(listing.latitude),
     lng: Number(listing.longitude),
-  });
-  const [markers, setMarkers] = useState<ILocation[]>([]);
-  const [loading, setLoading] = useState(true); // added a loading state in case the map doesn't load...
+  })
+  const [markers, setMarkers] = useState<ILocation[]>([])
+  const [loading, setLoading] = useState(true) // added a loading state in case the map doesn't load...
 
   //needed use effect to access promise from the convertaddress function
   // (we should do this before it goes into the database and get the data
   //from the property object instead of using a useeffect for this.)
   const fullAddress = `${listing.address1}, ${
     !listing.address2 ? '' : listing.address2 + ', '
-  }${listing.postcode}, ${listing.city}, UK`;
+  }${listing.postcode}, ${listing.city}, UK`
   useEffect(() => {
-    setCenter(center);
-    setMarkers([center]);
-    setLoading(false);
-  }, [center]);
+    setCenter(center)
+    setMarkers([center])
+    setLoading(false)
+  }, [center])
 
   return (
     <div data-id={id} className="flex flex-col test-class-property">
@@ -97,7 +97,7 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Property;
+export default Property
