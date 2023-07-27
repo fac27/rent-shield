@@ -15,7 +15,7 @@
 // status_id: number | null;
 // type_id: number | null;
 // user_id: string;
-import AddListingForm from "components/addListing";
+import AddListingForm from 'components/addListing';
 const page = () => {
   return <AddListingForm />;
 };

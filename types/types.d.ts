@@ -35,7 +35,15 @@ export interface ContainerProps {
   listings: PropertyType[];
 }
 
-type InputType = 'number' | 'radio' | 'select' | 'date' | 'text' | 'textarea' | 'file' | 'checkbox';
+type InputType =
+  | 'number'
+  | 'radio'
+  | 'select'
+  | 'date'
+  | 'text'
+  | 'textarea'
+  | 'file'
+  | 'checkbox';
 
 export interface BaseField {
   label: string;
@@ -44,7 +52,6 @@ export interface BaseField {
   pattern?: string;
   options?: string[];
 }
-
 
 export type FieldType = BaseField | OptionField | FileField;
 
