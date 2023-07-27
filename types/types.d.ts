@@ -38,19 +38,18 @@ export type PropertyType = {
 };
 
 export type StatusType = {
-  id: number,
+  id: number;
   description: string;
-}
+};
 
 export type RentRangeType = {
   min_rent: number;
   max_rent: number;
-}
+};
 
 export type Images = { id: number; url: string }[];
 export type Status = { id: number; description: string }[];
 export type Type = { id: number; description: string }[];
-
 
 export interface ContainerProps {
   listings: ListingType[];
@@ -127,11 +126,10 @@ export interface SearchPreferenceProps {
     location: string;
     cost: {
       max: number;
-      min: number;
       billsIncluded: boolean;
     };
     propertyDetails: {
-      type: string;
+      type: string[];
       rooms: {
         min: number;
         max: number;
@@ -141,10 +139,11 @@ export interface SearchPreferenceProps {
     features: {
       pets: boolean;
       smokers: boolean;
-      bikeStorage: boolean;
+      bike_storage: boolean;
       garden: boolean;
       fireplace: boolean;
       elevator: boolean;
+      wheelchair_accessible: boolean;
       electric_heating: boolean;
       gas_heating: boolean;
       visitor_parking: boolean;
