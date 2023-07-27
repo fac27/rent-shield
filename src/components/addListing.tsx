@@ -1,7 +1,7 @@
-'use client';
-import { Card, TextInput, Label, Button} from 'flowbite-react';
-import { formFields } from 'utils/formFields';
-import { FormFieldKey, FormFieldTypes } from '../../types/types';
+'use client'
+import { Card, TextInput, Label, Button } from 'flowbite-react'
+import { formFields } from 'utils/formFields'
+import { FormFieldKey, FormFieldTypes } from '../../types/types'
 
 const AddListingForm = () => {
   return (
@@ -9,9 +9,9 @@ const AddListingForm = () => {
       <Card className="w-full p-4 m-auto">
         <form className="flex flex-col w-full placeholder:flex-col gap-4">
           {Object.keys(formFields).map((field) => {
-            const fieldData = formFields[field as FormFieldKey];
+            const fieldData = formFields[field as FormFieldKey]
             const sharedClasses =
-              'block mb-2 text-sm font-medium text-gray-900 dark:text-white';
+              'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
 
             switch (fieldData.inputType) {
               case 'radio':
@@ -36,7 +36,7 @@ const AddListingForm = () => {
                       </div>
                     ))}
                   </fieldset>
-                );
+                )
               case 'select':
                 return (
                   <div>
@@ -57,7 +57,7 @@ const AddListingForm = () => {
                       )}
                     </select>
                   </div>
-                );
+                )
               case 'checkbox':
                 return (
                   <fieldset>
@@ -124,7 +124,7 @@ const AddListingForm = () => {
                       </div>
                     )}
                   </fieldset>
-                );
+                )
               default:
                 return (
                   <div>
@@ -139,14 +139,14 @@ const AddListingForm = () => {
                       className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
                   </div>
-                );
+                )
             }
           })}
-          <Button type='submit'>Advertise Listing</Button>
+          <Button type="submit">Advertise Listing</Button>
         </form>
       </Card>
     </main>
-  );
-};
+  )
+}
 
-export default AddListingForm;
+export default AddListingForm
