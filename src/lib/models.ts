@@ -122,10 +122,9 @@ const GetTransportDataById = async (
 ): Promise<TransportDataType[]> => {
   const { data, error } = await supabaseClient
     .from('property')
-    .select(
-      `
+    .select(`
     id,
-    transport: attributes->transport
+    transport: attributes->>transport
   `,
     )
     .eq('id', id);
