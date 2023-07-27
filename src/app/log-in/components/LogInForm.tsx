@@ -2,27 +2,26 @@
 
 import { Button, Card, Label, TextInput } from 'flowbite-react';
 import Link from 'next/link';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+// import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+// import type { Database } from '../../../../types/supabase';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import type { Database } from '../../../../types/supabase';
+import supabaseCompClient from 'lib/supabaseCompClient';
 
 export default function SignInForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
-  const supabase = createClientComponentClient<Database>()
 
 
 
   const handleLogin = async () => {
-    await supabase.auth.signInWithPassword({
+    await supabaseCompClient.auth.signInWithPassword({
       email,
       password,
     })
-    router.push('/')
+    router.refresh()
   }
-
 
 
   return (
