@@ -35,10 +35,8 @@ const getPropertyById = async (id: number): Promise<PropertyType[]> => {
 };
 
 const getAllProperties = async (): Promise<PropertyType[]> => {
-    const { data, error } = await supabaseClient
-      .from('property')
-      .select(
-        `
+  const { data, error } = await supabaseClient.from('property').select(
+    `
           id,
           created_at,
           postcode,
@@ -56,14 +54,41 @@ const getAllProperties = async (): Promise<PropertyType[]> => {
           status (id, description),
           attributes,
           image (id, url)`,
-      )
-  
-    if (error) {
-      console.log(`Error getting property: ${error.message}`);
-      throw error;
-    }
-  
-    return data;
-  };
+  );
 
-export { getPropertyById, getAllProperties };
+  if (error) {
+    console.log(`Error getting property: ${error.message}`);
+    throw error;
+  }
+
+  return data;
+};
+
+const getAllRoles = async (): Promise<Role[]> => {
+  const { data, error } = await supabaseClient
+    .from('role')
+    .select('id, description');
+
+  if (error) {
+    console.log(`Error getting roles: ${error.message}`);
+    throw error;
+  }
+
+  return data;
+};
+
+const getRoleByDescription = async (description: string): Promise<Role[]> => {
+  const { data, error } = await supabaseClient
+    .from('role')
+    .select('id')
+    .eq('description', description);
+
+  if (error) {
+    console.log(`Error getting roles: ${error.message}`);
+    throw error;
+  }
+
+  return data;
+};
+
+export { getPropertyById, getAllProperties, getRoleByDescription, getAllRoles };
