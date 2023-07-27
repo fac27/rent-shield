@@ -9,13 +9,15 @@ import {
   ToggleSwitch,
   Card,
 } from 'flowbite-react';
-
 import { SearchFormProps } from '../../types/types';
 
 const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   return (
-    <Card className="w-8/12 p-4 m-auto dark:text-white">
-      <form className="flex max-w-md flex-col mx-20 my-8 gap-4">
+    <Card className="w-8/12 p-4 m-auto">
+      <form
+        action="/listings"
+        className="flex max-w-md flex-col mx-20 my-8 gap-4"
+      >
         <fieldset className="mt-4">
           <legend>Location</legend>
           <div>
@@ -27,7 +29,8 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               placeholder="Search area or postcode"
               required
               type="text"
-              value={preferences.location && preferences.location}
+              name="location"
+              defaultValue={preferences.location && preferences.location}
             />
           </div>
         </fieldset>

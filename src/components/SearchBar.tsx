@@ -10,6 +10,8 @@ import { ILocation } from '../../types/types';
 
 const SearchBar = () => {
   const router = useRouter();
+  const [inputValue, setInputValue] = useState('');
+
   initializeSearch().catch(console.error);
 
   /**
@@ -36,7 +38,10 @@ const SearchBar = () => {
       </label>
       <div className="relative">
         <Link
-          href="/searchpreferences"
+          href={{
+            pathname: '/search-preferences',
+            query: { location: inputValue },
+          }}
           passHref={true}
           className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none pointer-events-auto"
         >
@@ -54,6 +59,8 @@ const SearchBar = () => {
           className="block w-full p-2 pl-9 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Location..."
           required
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
         />
         <button
           type="submit"

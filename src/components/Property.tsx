@@ -13,10 +13,10 @@ import { useEffect, useState } from 'react';
 import Carousel from '../components/Carousel';
 import Map from './Map';
 import { convertAddress } from 'utils/mapHelper';
-import { ILocation, PropertyType } from '../../types/types';
+import { ILocation, ListingType } from '../../types/types';
 import { Json } from '../../types/supabase';
 
-const Property = ({ id, listing }: { id: string; listing: PropertyType }) => {
+const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
   // const [liked, setLiked] = useState(listing.favourited);
   const [liked, setLiked] = useState(false);
   const [center, setCenter] = useState({
@@ -30,9 +30,8 @@ const Property = ({ id, listing }: { id: string; listing: PropertyType }) => {
   // (we should do this before it goes into the database and get the data
   //from the property object instead of using a useeffect for this.)
   const fullAddress = `${listing.address1}, ${
-    listing.address2 && listing.address2 + ', '
-  }${listing.city}, ${listing.postcode}`;
-
+    !listing.address2 ? '' : listing.address2 + ', '
+  }${listing.postcode}, ${listing.city}, UK`;
   useEffect(() => {
     setCenter(center);
     setMarkers([center]);

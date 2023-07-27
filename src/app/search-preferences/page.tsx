@@ -1,8 +1,10 @@
 'use client';
+
 import SearchPreferencesForm from 'components/SearchPreferencesForm';
+import { useSearchParams } from 'next/navigation';
 
 const preferences = {
-  location: 'Hackney',
+  location: '',
   cost: {
     max: 2300,
     min: 965,
@@ -23,5 +25,10 @@ const preferences = {
 };
 
 export default function SearchPreferences() {
+  const searchParams = useSearchParams();
+  const location = searchParams.get('location');
+
+  if (location) preferences.location = location;
+
   return <SearchPreferencesForm preferences={preferences} />;
 }

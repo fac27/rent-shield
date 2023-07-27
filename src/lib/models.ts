@@ -1,7 +1,13 @@
 import supabaseClient from '../lib/supabaseClient';
-import { PropertyType } from '../../types/types';
+import {
+  ListingType,
+  PropertyType,
+  StatusType,
+  RentRangeType,
+  Role,
+} from '../../types/types';
 
-const getPropertyById = async (id: number): Promise<PropertyType[]> => {
+const getPropertyById = async (id: number): Promise<ListingType[]> => {
   const { data, error } = await supabaseClient
     .from('property')
     .select(
@@ -34,7 +40,7 @@ const getPropertyById = async (id: number): Promise<PropertyType[]> => {
   return data;
 };
 
-const getAllProperties = async (): Promise<PropertyType[]> => {
+const getAllProperties = async (): Promise<ListingType[]> => {
   const { data, error } = await supabaseClient.from('property').select(
     `
           id,
@@ -77,7 +83,22 @@ const getAllRoles = async (): Promise<Role[]> => {
   return data;
 };
 
-const getRoleByDescription = async (description: string): Promise<Role[]> => {
+const getAllPropertyTypes = async (): Promise<PropertyType[]> => {
+  const { data, error } = await supabaseClient
+    .from('type')
+    .select('id, description');
+
+  if (error) {
+    console.log(`Error getting property types: ${error.message}`);
+    throw error;
+  }
+
+  return data;
+};
+
+const getRoleByDescription = async (
+  description: string,
+): Promise<Partial<Role[]>> => {
   const { data, error } = await supabaseClient
     .from('role')
     .select('id')
@@ -88,7 +109,39 @@ const getRoleByDescription = async (description: string): Promise<Role[]> => {
     throw error;
   }
 
+  return data as Role[]; //handled undefined;
+};
+
+const getAllPropertyStatuses = async (): Promise<StatusType[]> => {
+  const { data, error } = await supabaseClient
+    .from('status')
+    .select('id, description');
+
+  if (error) {
+    console.log(`Error getting property statuses: ${error.message}`);
+    throw error;
+  }
+
   return data;
 };
 
-export { getPropertyById, getAllProperties, getRoleByDescription, getAllRoles };
+const getRentRange = async (): Promise<RentRangeType[]> => {
+  const { data, error } = await supabaseClient.rpc('get_min_max_rent');
+
+  if (error) {
+    console.log(`Error getting rent range: ${error.message}`);
+    throw error;
+  }
+
+  return data;
+};
+
+export {
+  getPropertyById,
+  getAllProperties,
+  getAllPropertyStatuses,
+  getAllPropertyTypes,
+  getRentRange,
+  getRoleByDescription,
+  getAllRoles,
+};
