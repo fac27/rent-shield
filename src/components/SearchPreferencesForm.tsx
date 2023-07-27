@@ -56,12 +56,10 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
       },
     };
 
-    const {lat, lng} = await convertAddress(search.preferences.location)
+    const { lat, lng } = await convertAddress(search.preferences.location);
 
-    router.push(`/listings?=${lat && 'lat='+lat}${lng && 'lng='+lng}`)
-
+    router.push(`/listings?=${lat && 'lat=' + lat}${lng && 'lng=' + lng}`);
   };
-
 
   return (
     <Card className="w-8/12 p-4 m-auto">
