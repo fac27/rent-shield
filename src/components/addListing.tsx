@@ -41,7 +41,7 @@ const AddListingForm = () => {
       return (
         <fieldset>
           <legend className="sr-only">{fieldData.label}</legend>
-          {fieldData.options.map((option, index) => (
+          {fieldData.options.map((option: string, index: number) => (
             <div key={index} className="flex items-center mb-4">
               <input
                 type="checkbox"
