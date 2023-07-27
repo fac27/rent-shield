@@ -1,12 +1,11 @@
-import ListingsContainer from 'components/ListingsContainter';
+import SearchBar from 'components/SearchBar';
 
-import { exampleListings } from './listings/page';
-//added in some dummy data so pass down props to property componens
-
-export default function Home() {
+export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <ListingsContainer listings={exampleListings} />
+      <div className="bg-slate-900 flex h-screen justify-center items-center w-full">
+        <SearchBar/>
+      </div>
     </main>
   );
 }

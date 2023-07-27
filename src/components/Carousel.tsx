@@ -2,22 +2,22 @@ import Image from 'next/image';
 import { useState } from 'react';
 import arrow from '../../public/arrow.svg';
 import { v4 as uuidv4 } from 'uuid';
+import type { Images } from '../../types/types';
 
-export default function Carousel({ images }: { images: string[] }) {
+export default function Carousel({ images }: { images: Images }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   return (
     <section className="relative h-96 bg-[#CAC4CE]">
-      <div className="relative flex justify-center w-screen h-96">
+      <div id="carousel" className="relative flex justify-center w-screen h-96">
         {images.map((image, i) => (
           <Image
             key={uuidv4()}
-            src={image}
+            src={image.url}
             alt={`image-${i + 1}`}
-            layout="fill"
-            className={`absolute inset-o w-full h-full object-contain ${
-              currentSlide === i ? '' : 'hidden'
-            }`}
+            fill
+            style={{ objectFit: 'contain' }}
+            className={currentSlide === i ? '' : 'hidden'}
           />
         ))}
       </div>

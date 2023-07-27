@@ -8,15 +8,17 @@ import bath from '../../public/bath.svg';
 import price from '../../public/price.svg';
 import heart from '../../public/heart.svg';
 import fullHeart from '../../public/full-heart.svg';
-import transport from '../../public/transport.svg';
+import transportIcon from '../../public/transport.svg';
 import { useEffect, useState } from 'react';
 import Carousel from '../components/Carousel';
 import Map from './Map';
 import { convertAddress } from 'utils/mapHelper';
-import { ILocation, PropertyType } from '../../types/types';
+import { ILocation, ListingType } from '../../types/types';
+import { Json } from '../../types/supabase';
 
-const Property = ({ listing }: { listing: PropertyType }) => {
-  const [liked, setLiked] = useState(listing.favourited);
+const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
+  // const [liked, setLiked] = useState(listing.favourited);
+  const [liked, setLiked] = useState(false);
   const [center, setCenter] = useState({
     lat: Number(listing.latitude),
     lng: Number(listing.longitude),
@@ -37,10 +39,10 @@ const Property = ({ listing }: { listing: PropertyType }) => {
   }, [center]);
 
   return (
-    <div className="flex flex-col test-class-property">
+    <div data-id={id} className="flex flex-col test-class-property">
       {/* images */}
       {/* animate */}
-      <Carousel images={listing.images} />
+      <Carousel images={listing.image} />
 
       {/* details */}
       <section className="flex justify-evenly bg-[#202A37] py-5">
@@ -81,7 +83,7 @@ const Property = ({ listing }: { listing: PropertyType }) => {
           2 mi from desired location
         </b>
         <b className="flex items-center gap-2 text-sm">
-          <Image src={transport} alt="transport" width={20} height={20} />
+          <Image src={transportIcon} alt="transport" width={20} height={20} />
           Piccadilly Circus
         </b>
       </section>

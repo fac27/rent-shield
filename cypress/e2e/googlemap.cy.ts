@@ -1,5 +1,6 @@
 describe('Google Maps API', () => {
   beforeEach(() => {
+    cy.visit('/');
     cy.intercept('GET', '**/autocomplete/**', (req) => {
       if (req.url.includes('london')) {
         req.reply([
@@ -13,8 +14,6 @@ describe('Google Maps API', () => {
   });
 
   it('correctly locates center', () => {
-    cy.visit('/');
-    cy.get('#monocle').click().wait(2000);
     cy.get('#default-search')
       .should('be.visible')
       .type('london')

@@ -1,13 +1,15 @@
 'use client';
+
 import React, { useEffect, FC } from 'react';
 import { initializeMap } from 'utils/mapHelper';
 import { IMapProps } from '../../types/types';
+
 const Map = ({ center, markers, id }: IMapProps) => {
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      initializeMap({ id, center, markers });
-    }
+    if (typeof window === 'undefined') return;
+    initializeMap({ id, center, markers });
   }, [center, markers, id]);
+
   return (
     <div
       className="map"
