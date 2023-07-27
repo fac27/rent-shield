@@ -18,7 +18,7 @@ export default function SignUpForm() {
   const router = useRouter();
   const supabase = createClientComponentClient<Database>();
 
-  const handleSignUp = async (e) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const roleId = await getRoleByDescription(role);
@@ -30,13 +30,13 @@ export default function SignUpForm() {
         data: {
           role_id: roleId,
         },
+        emailRedirectTo: `${location.origin}/auth/callback`,
       },
-      // options: {
-      //   emailRedirectTo: `${location.origin}/auth/callback`,
-      // },
     });
     console.log(data, error);
-    if (error) return; // revisit
+    if (error) return; // revisit (error handling)
+
+    //  KEEP THIS FOR NOW
 
     // const user = data.user as any; // revisit
     // const uid = user.identities[0]?.user_id;
