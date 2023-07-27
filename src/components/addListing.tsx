@@ -1,12 +1,12 @@
 'use client';
-import { Card, TextInput, Label } from 'flowbite-react';
+import { Card, TextInput, Label} from 'flowbite-react';
 import { formFields } from 'utils/formFields';
 import { FormFieldKey, FormFieldTypes } from '../../types/types';
 
 const AddListingForm = () => {
   return (
     <main className="flex h-full w-screen pb-20 dark:text-white">
-      <Card className="w-8/12 p-4 m-auto">
+      <Card className="w-full p-4 m-auto">
         <form className="flex flex-col w-full placeholder:flex-col gap-4">
           {Object.keys(formFields).map((field) => {
             const fieldData = formFields[field as FormFieldKey];
@@ -27,12 +27,12 @@ const AddListingForm = () => {
                           value={option}
                           className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                         />
-                        <label
+                        <Label
                           htmlFor={`${field}-${index}`}
                           className={sharedClasses}
                         >
                           {option}
-                        </label>
+                        </Label>
                       </div>
                     ))}
                   </fieldset>
@@ -40,9 +40,9 @@ const AddListingForm = () => {
               case 'select':
                 return (
                   <div>
-                    <label htmlFor={field} className={sharedClasses}>
+                    <Label htmlFor={field} className={sharedClasses}>
                       {fieldData.label}
-                    </label>
+                    </Label>
                     <select
                       id={field}
                       name={field}
@@ -71,12 +71,12 @@ const AddListingForm = () => {
                           value={option}
                           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                         />
-                        <label
+                        <Label
                           htmlFor={`${field}-${index}`}
                           className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                         >
                           {option}
-                        </label>
+                        </Label>
                       </div>
                     ))}
                     {fieldData.helperText && (
@@ -91,12 +91,12 @@ const AddListingForm = () => {
                           />
                         </div>
                         <div className="ml-2 text-sm">
-                          <label
+                          <Label
                             htmlFor={`${field}-helper`}
                             className="font-medium text-gray-900 dark:text-gray-300"
                           >
                             {fieldData.helperTitle}
-                          </label>
+                          </Label>
                           <p
                             id={`${field}-helper-text`}
                             className="text-xs font-normal text-gray-500 dark:text-gray-400"
@@ -115,12 +115,12 @@ const AddListingForm = () => {
                           className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
                           disabled
                         />
-                        <label
+                        <Label
                           htmlFor={`${field}-disabled`}
                           className="ml-2 text-sm font-medium text-gray-400 dark:text-gray-500"
                         >
                           {fieldData.disabledOption}
-                        </label>
+                        </Label>
                       </div>
                     )}
                   </fieldset>
@@ -128,9 +128,9 @@ const AddListingForm = () => {
               default:
                 return (
                   <div>
-                    <label htmlFor={field} className={sharedClasses}>
+                    <Label htmlFor={field} className={sharedClasses}>
                       {fieldData.label}
-                    </label>
+                    </Label>
                     <TextInput
                       type={fieldData.inputType}
                       id={field}
