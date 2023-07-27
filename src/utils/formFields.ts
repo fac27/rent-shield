@@ -55,6 +55,11 @@ export const formFields: FormFieldTypes = {
     label: 'Address Line 3 (Optional)',
     inputType: 'text',
   },
+  postCode: {
+    label: 'Your Address - Post Code',
+    inputType: 'text',
+    pattern: '[A-Za-z]{3}',
+  },
   town: {
     label: 'Town',
     inputType: 'text',
@@ -165,30 +170,5 @@ export const formFields: FormFieldTypes = {
       'Are the images newly taken as part of the current property listing process?',
     inputType: 'radio',
     options: ['Yes', 'No'],
-  },
-  phoneNumber: {
-    label: 'Phone number',
-    inputType: 'text',
-  },
-  addressPostCode: {
-    label: 'Your Address - Post Code',
-    inputType: 'text',
-    pattern: '[A-Za-z]{3}',
-  },
-  addressLine1: {
-    label: 'Address line 1',
-    inputType: 'text',
-  },
-  landlordAddressLine2: {
-    label: 'Address line 2',
-    inputType: 'text',
-  },
-  landlordAddressLine3: {
-    label: 'Address line 3 (optional)',
-    inputType: 'text',
-  },
-  landlordTown: {
-    label: 'Town',
-    inputType: 'text',
-  },
+  }
 };
