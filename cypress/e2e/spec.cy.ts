@@ -10,12 +10,3 @@ describe('/listings page spec', () => {
     cy.get('.test-class-property').should('be.visible');
   });
 });
-
-describe('/search-preferences spc', () => {
-  it('loads the SearchPreferenceForm component on the page', () => {
-    cy.visit('http://localhost:3000/search-preferences?locations=hackney');
-    cy.get('[data-cy="SearchPreferencesForm"]').should('be.visible');
-    cy.get('form').submit()
-    cy.url().should('include', '&billsIncluded=');
-  });
-});

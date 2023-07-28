@@ -47,6 +47,11 @@ export type RentRangeType = {
   max_rent: number;
 };
 
+export type Role = {
+  id: number;
+  description: string;
+};
+
 export type Images = { id: number; url: string }[];
 export type Status = { id: number; description: string }[];
 export type Type = { id: number; description: string }[];
@@ -122,3 +127,29 @@ export interface SearchPreferenceProps {
     };
   };
 }
+
+type InputType =
+  | 'number'
+  | 'radio'
+  | 'select'
+  | 'date'
+  | 'text'
+  | 'textarea'
+  | 'file'
+  | 'checkbox';
+
+export interface BaseField {
+  label: string;
+  inputType: InputType;
+  placeholder?: string;
+  pattern?: string;
+  options?: string[];
+}
+
+export type FieldType = BaseField | OptionField | FileField;
+
+export type FormFieldKey = keyof typeof formFields;
+
+export type FormFieldTypes = {
+  [key in FormFieldKey]: FieldType;
+};
