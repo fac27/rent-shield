@@ -15,8 +15,8 @@ export default function SignUpForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [role, setRole] = useState('renter')
-  const router = useRouter()
   const supabase = createClientComponentClient<Database>()
+  const router = useRouter()
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -33,7 +33,6 @@ export default function SignUpForm() {
         emailRedirectTo: `${location.origin}/auth/callback`,
       },
     })
-    console.log(data, error)
     if (error) return // revisit (error handling)
 
     //  KEEP THIS FOR NOW
