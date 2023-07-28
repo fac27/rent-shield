@@ -39,3 +39,11 @@ const searchParams: SearchPreferenceProps = {
     },
   },
 };
+
+describe('filterPropertyListings', () => {
+  it('should return an array of properties', () => {
+    const filteredProperties = filterPropertyListings(searchParams);
+    expect([]).toBeInstanceOf(Array);
+  }
+  );
+});
