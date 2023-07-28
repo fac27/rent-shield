@@ -4,6 +4,7 @@ import {
   PropertyType,
   StatusType,
   RentRangeType,
+  Role,
 } from '../../types/types';
 
 const getPropertyById = async (id: number): Promise<ListingType[]> => {
@@ -69,6 +70,19 @@ const getAllProperties = async (): Promise<ListingType[]> => {
   return data;
 };
 
+const getAllRoles = async (): Promise<Role[]> => {
+  const { data, error } = await supabaseClient
+    .from('role')
+    .select('id, description');
+
+  if (error) {
+    console.log(`Error getting roles: ${error.message}`);
+    throw error;
+  }
+
+  return data;
+};
+
 const getAllPropertyTypes = async (): Promise<PropertyType[]> => {
   const { data, error } = await supabaseClient
     .from('type')
@@ -80,6 +94,22 @@ const getAllPropertyTypes = async (): Promise<PropertyType[]> => {
   }
 
   return data;
+};
+
+const getRoleByDescription = async (
+  description: string,
+): Promise<Partial<Role[]>> => {
+  const { data, error } = await supabaseClient
+    .from('role')
+    .select('id')
+    .eq('description', description);
+
+  if (error) {
+    console.log(`Error getting roles: ${error.message}`);
+    throw error;
+  }
+
+  return data as Role[]; //handled undefined;
 };
 
 const getAllPropertyStatuses = async (): Promise<StatusType[]> => {
@@ -112,4 +142,6 @@ export {
   getAllPropertyStatuses,
   getAllPropertyTypes,
   getRentRange,
+  getRoleByDescription,
+  getAllRoles,
 };

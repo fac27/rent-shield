@@ -38,19 +38,23 @@ export type PropertyType = {
 };
 
 export type StatusType = {
-  id: number,
+  id: number;
   description: string;
-}
+};
 
 export type RentRangeType = {
   min_rent: number;
   max_rent: number;
-}
+};
+
+export type Role = {
+  id: number;
+  description: string;
+};
 
 export type Images = { id: number; url: string }[];
 export type Status = { id: number; description: string }[];
 export type Type = { id: number; description: string }[];
-
 
 export interface ContainerProps {
   listings: ListingType[];
