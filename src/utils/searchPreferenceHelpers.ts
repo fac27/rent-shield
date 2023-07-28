@@ -1,5 +1,10 @@
 import { SearchPreferenceProps } from '../../types/types';
 
+/**
+ * @returns a query string from all key:value pairs in a nested Object
+ * @param data - should be the prop object received from your query to be turned into a url
+ * @remarks This function is a helper for the filter functionality or our app. It allows us to send search preferences from the SearchPreferencesForm to the /listings route
+ */
 export const makeIntoQuery = (data: { [key: string]: any }) => {
   return Object.keys(data)
     .map((key) => {
@@ -11,6 +16,11 @@ export const makeIntoQuery = (data: { [key: string]: any }) => {
     .join('&');
 };
 
+/**
+ * @returns a props object suited for the search preference functionality of our page.
+ * @remarks this function is a helper for the filter functionality in our app
+ * @param submitted should be the event.target object from your submission event.
+ */
 export const makeIntoProps = (submitted: any): SearchPreferenceProps => {
   return {
     preferences: {
