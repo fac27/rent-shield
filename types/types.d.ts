@@ -81,23 +81,23 @@ export interface SearchPreferenceProps {
     location: string;
     proximity?: {
       lat: number;
-      lon:  number;
+      lon: number;
       radius: number;
-    },
+    };
     cost: {
       max: number;
       min: number;
-      billsIncluded: boolean;
     };
-    propertyDetails?: {
-      type?: string[];
-      rooms?: {
-        min?: number;
-        max?: number;
-      };
-      tenancyMin?: string;
+    propertyType?: {
+      type: string[];
     };
+    rooms?: {
+      min: number;
+      max: number;
+    };
+    tenancyMin?: string;
     features?: {
+      billsIncluded?: boolean;
       pets?: boolean;
       smokers?: boolean;
       bikeStorage?: boolean;

@@ -1,5 +1,6 @@
 import { SearchPreferenceProps } from '../../types/types';
 import { filterPropertyListings } from '../../src/utils/filterHelper';
+import { getAllProperties } from '../../src/lib/models';
 
 // Mock data for search test
 const searchParams: SearchPreferenceProps = {
@@ -8,7 +9,6 @@ const searchParams: SearchPreferenceProps = {
     cost: {
       min: 1000,
       max: 2000,
-      billsIncluded: true,
     },
     proximity: {
       lat: 0,
@@ -24,6 +24,7 @@ const searchParams: SearchPreferenceProps = {
     // tenancyMin: submitted.tenancy.value,
     features: {
       pets: true,
+      // billsIncluded: true,
       // smokers: submitted.smokers.value,
       // bike_storage: submitted.bike_storage.value,
       garden: true,
@@ -40,9 +41,15 @@ const searchParams: SearchPreferenceProps = {
   },
 };
 
+let listings: any[];
+
+beforeAll(async () => {
+  listings = await getAllProperties();
+});
+
 describe('filterPropertyListings', () => {
   it('should return an array of properties', () => {
-    const filteredProperties = filterPropertyListings(searchParams);
+    const filteredProperties = filterPropertyListings(searchParams, listings);
     expect([]).toBeInstanceOf(Array);
   }
   );
