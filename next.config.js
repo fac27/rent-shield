@@ -8,8 +8,15 @@ const nextConfig = {
         port: '',
         pathname: '/storage/v1/object/public/images/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'media4.giphy.com',
+        port: '',
+        pathname: '/media/**/*.gif',
+      },
     ],
   },
+  compress: false,
 }
 
 module.exports = nextConfig

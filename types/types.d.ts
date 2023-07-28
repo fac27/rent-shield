@@ -47,6 +47,11 @@ export type RentRangeType = {
   max_rent: number
 }
 
+export type Role = {
+  id: number
+  description: string
+}
+
 export type Images = { id: number; url: string }[]
 export type Status = { id: number; description: string }[]
 export type Type = { id: number; description: string }[]
