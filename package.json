@@ -38,6 +38,17 @@
     "tailwindcss": "3.3.3",
     "uuid": "^9.0.0"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,md,ts,tsx,jsx}": [
+      "prettier --write",
+      "eslint"
+    ]
+  },
   "devDependencies": {
     "@jest/globals": "^29.6.1",
     "@next/eslint-plugin-next": "^13.4.10",
@@ -63,11 +74,5 @@
   },
   "volta": {
     "node": "18.17.0"
-  },
-  "lint-staged": {
-    "*.{js,css,md,ts,tsx,jsx}": [
-      "prettier --write",
-      "eslint"
-    ]
   }
 }
