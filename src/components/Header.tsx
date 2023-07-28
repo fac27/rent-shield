@@ -4,21 +4,34 @@ import Link from 'next/link';
 import { Dropdown, Navbar, Avatar } from 'flowbite-react';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import HamburgerSidebar from './HamburgerSidebar';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useState, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import supabaseCompClient from 'lib/supabaseCompClient';
 import { Database } from '../../types/supabase';
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 
 const Header = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const router = useRouter()
-  const supabase = createClientComponentClient<Database>()
+  const [loggedIn, setLoggedIn] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const browser = createPagesBrowserClient();
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const {
+        data: { session },
+      } = await browser.auth.getSession();
+      if (session) setLoggedIn(true);
+    };
+    checkSession();
+  }, []);
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
-    router.refresh()
-  }
-
+    await supabaseCompClient.auth.signOut();
+    setLoggedIn(false);
+    router.refresh();
+  };
 
   return (
     <header>
@@ -43,6 +56,7 @@ const Header = () => {
             </span>
           </Navbar.Brand>
         </div>
+
         <div className="flex ">
           <Dropdown
             inline
@@ -63,15 +77,8 @@ const Header = () => {
             </Dropdown.Header>
             <Dropdown.Item>Settings</Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
+            <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
             <Dropdown.Divider />
-            <Link href="/log-in">
-              <Dropdown.Item>Log In</Dropdown.Item>
-            </Link>
-            <Dropdown.Divider />
-            <Link href="/sign-up">
-              <Dropdown.Item>Sign Up</Dropdown.Item>
-            </Link>
           </Dropdown>
         </div>
       </Navbar>
