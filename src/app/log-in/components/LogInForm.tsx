@@ -4,12 +4,14 @@ import { Button, Card, Label, TextInput } from 'flowbite-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import supabaseCompClient from 'lib/supabaseCompClient'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Database } from '../../../../types/supabase'
 
 export default function SignInForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loggedIn, setLoggedIn] = useState(false)
+  const supabase = createClientComponentClient<Database>()
   const router = useRouter()
 
   // check before rendering that the user is logged in
@@ -17,7 +19,7 @@ export default function SignInForm() {
     const checkSession = async () => {
       const {
         data: { session },
-      } = await supabaseCompClient.auth.getSession()
+      } = await supabase.auth.getSession()
       console.log(session)
       if (session) setLoggedIn(true)
     }
@@ -35,7 +37,7 @@ export default function SignInForm() {
     const {
       data: { session },
       error: errorLoggingIn,
-    } = await supabaseCompClient.auth.signInWithPassword({
+    } = await supabase.auth.signInWithPassword({
       email,
       password,
     })

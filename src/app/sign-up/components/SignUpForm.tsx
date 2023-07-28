@@ -9,7 +9,6 @@ import { ReactEventHandler, useState } from 'react'
 import { BsHouseHeartFill, BsFillPersonFill } from 'react-icons/bs'
 import supabaseClient from 'lib/supabaseClient'
 import { getRoleByDescription } from 'lib/models'
-// import supabaseCompClient from 'lib/supabaseCompClient';
 
 export default function SignUpForm() {
   const [email, setEmail] = useState('')
