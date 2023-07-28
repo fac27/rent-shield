@@ -21,10 +21,11 @@ const ListingsContainer = ({ listings }: ContainerProps) => {
       isWithin(
         { lat: parseInt(lat), lng: parseInt(lng) },
         { lat: listing.latitude, lng: listing.longitude },
-        20, // radius needs to be  validated
+        parseInt(radius), // radius needs to be  validated
       ),
     );
   }
+
   return (
     <div>
       {filteredListings.map((listing, index) => (
