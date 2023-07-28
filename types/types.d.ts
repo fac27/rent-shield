@@ -117,7 +117,7 @@ export interface SearchPreferenceProps {
       visitor_parking: boolean;
       parking: {
         allocated: boolean;
-        street: boolean;
+        exterior_parking: boolean;
       };
     };
   };

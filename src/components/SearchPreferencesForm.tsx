@@ -16,14 +16,14 @@ import { convertAddress } from 'utils/mapHelper';
 
 const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   const router = useRouter();
-  const [maxRent, setMaxRent] = useState<number>(preferences.cost.max - preferences.cost.min)
+  const [maxRent, setMaxRent] = useState<number>(
+    preferences.cost.max - preferences.cost.min,
+  );
 
   const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const submitted: any = e.nativeEvent?.target;
-    const test = submitted
-    console.log({test})
-    if (!submitted) return console.log('💩');
+    if (!submitted) return;
 
     const search: SearchPreferenceProps = {
       preferences: {
@@ -53,18 +53,24 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
           visitor_parking: submitted.visitor_parking.checked,
           parking: {
             allocated: submitted.allocated.checked,
-            street: submitted.street.checked,
+            exterior_parking: submitted.exterior_parking.checked,
           },
         },
       },
     };
 
-    // const { lat, lng } = await convertAddress(search.preferences.location);
+    const { lat, lng } = await convertAddress(search.preferences.location);
+    
+    const makeIntoQuery = (data: object) => {
+      return Object.keys(data).map(key=>{
+        let value = data[key]
+        if (value !== null && typeof value === 'object') value = makeIntoQuery(value)
+        return `${key}=${encodeURIComponent(`${value}`)}`
+      }).join('&')
+    }
 
-    const query = Object.keys(submitted).map(key=>{
-      `${key}=${key.valueOf}`
-    }).join('&')
-    console.log(query)
+    const query = makeIntoQuery(search.preferences)
+
     router.push(`/listings?=${query}`);
   };
 
@@ -96,7 +102,10 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
           <legend>Cost</legend>
           <div>
             <div className="mb-1 block">
-              <Label htmlFor="default-range" value={`Maximum Rent: ${maxRent}`} />
+              <Label
+                htmlFor="default-range"
+                value={`Maximum Rent: ${maxRent}`}
+              />
             </div>
             <RangeSlider
               id="default-range"
@@ -104,7 +113,9 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               min={preferences.cost.min}
               name="cost"
               defaultValue={preferences.cost.max - preferences.cost.min}
-              onChange={(e)=>{setMaxRent(Number(e.target.value))}}
+              onChange={(e) => {
+                setMaxRent(Number(e.target.value));
+              }}
             />
           </div>
           <ToggleSwitch
@@ -126,7 +137,11 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               </div>
               <Select id="roomsMin" name="roomsMin" required>
                 {preferences.propertyDetails.rooms.map((number) => {
-                  return <option key={`${number}-rooms`} value={number}>{number}</option>;
+                  return (
+                    <option key={`${number}-rooms`} value={number}>
+                      {number}
+                    </option>
+                  );
                 })}
               </Select>
             </div>
@@ -136,7 +151,11 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               </div>
               <Select id="roomsMax" name="roomsMax" required>
                 {preferences.propertyDetails.rooms.map((number) => {
-                  return <option key={`${number}-rooms`} value={number}>{number}</option>;
+                  return (
+                    <option key={`${number}-rooms`} value={number}>
+                      {number}
+                    </option>
+                  );
                 })}
               </Select>
             </div>
@@ -147,7 +166,11 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
             </div>
             <Select id="tenancyMin" name="tenancy" required>
               {preferences.propertyDetails.tenancyMin.map((duration) => {
-                return <option key={`${duration}-duration`} value={duration}>{duration}</option>;
+                return (
+                  <option key={`${duration}-duration`} value={duration}>
+                    {duration}
+                  </option>
+                );
               })}
             </Select>
           </div>
