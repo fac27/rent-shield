@@ -76,39 +76,6 @@ export interface SearchFormProps {
     parking: string[];
   };
 }
-export interface SearchPreferenceProps {
-  preferences: {
-    location: string;
-    cost: {
-      max: number;
-      min: number;
-      billsIncluded: boolean;
-    };
-    propertyDetails: {
-      type: string;
-      rooms: {
-        min: number;
-        max: number;
-      };
-      tenancyMin: string;
-    };
-    features: {
-      pets: boolean;
-      smokers: boolean;
-      bikeStorage: boolean;
-      garden: boolean;
-      fireplace: boolean;
-      elevator: boolean;
-      electric_heating: boolean;
-      gas_heating: boolean;
-      visitor_parking: boolean;
-      parking: {
-        allocated: boolean;
-        street: boolean;
-      };
-    };
-  };
-}
 
 export interface SearchFormProps {
   preferences: {
@@ -126,16 +93,16 @@ export interface SearchFormProps {
     parking: string[];
   };
 }
+
 export interface SearchPreferenceProps {
   preferences: {
     location: string;
     cost: {
       max: number;
-      min: number;
       billsIncluded: boolean;
     };
     propertyDetails: {
-      type: string;
+      type: string[];
       rooms: {
         min: number;
         max: number;
@@ -145,16 +112,17 @@ export interface SearchPreferenceProps {
     features: {
       pets: boolean;
       smokers: boolean;
-      bikeStorage: boolean;
+      bike_storage: boolean;
       garden: boolean;
       fireplace: boolean;
       elevator: boolean;
+      wheelchair_accessible: boolean;
       electric_heating: boolean;
       gas_heating: boolean;
       visitor_parking: boolean;
       parking: {
         allocated: boolean;
-        street: boolean;
+        exterior_parking: boolean;
       };
     };
   };

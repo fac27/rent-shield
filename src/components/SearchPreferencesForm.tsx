@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Button,
   Checkbox,
@@ -9,14 +10,29 @@ import {
   ToggleSwitch,
   Card,
 } from 'flowbite-react';
+
 import { SearchFormProps } from '../../types/types';
+import { makeIntoQuery, makeIntoProps } from 'utils/searchPreferenceHelpers';
 
 const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
+  const router = useRouter();
+  const [maxRent, setMaxRent] = useState<number>(
+    preferences.cost.max - preferences.cost.min,
+  );
+
+  const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const search = makeIntoProps(e.nativeEvent?.target) 
+    const query = makeIntoQuery(search.preferences)
+    router.push(`/listings?=${query}`);
+  };
+
   return (
-    <Card className="w-8/12 p-4 m-auto">
+    <Card data-cy='SearchPreferencesForm' className="w-8/12 p-4 m-auto">
       <form
         action="/listings"
         className="flex max-w-md flex-col mx-20 my-8 gap-4"
+        onSubmit={redirect}
       >
         <fieldset className="mt-4">
           <legend>Location</legend>
@@ -30,7 +46,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               required
               type="text"
               name="location"
-              defaultValue={preferences.location && preferences.location}
+              defaultValue={preferences.location}
             />
           </div>
         </fieldset>
@@ -39,17 +55,26 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
           <legend>Cost</legend>
           <div>
             <div className="mb-1 block">
-              <Label htmlFor="default-range" value="Maximum Rent" />
+              <Label
+                htmlFor="default-range"
+                value={`Maximum Rent: ${maxRent}`}
+              />
             </div>
             <RangeSlider
               id="default-range"
               max={preferences.cost.max}
               min={preferences.cost.min}
+              name="cost"
+              defaultValue={preferences.cost.max - preferences.cost.min}
+              onChange={(e) => {
+                setMaxRent(Number(e.target.value));
+              }}
             />
           </div>
           <ToggleSwitch
             checked
             label="Bills included only"
+            name="bills"
             onChange={() => {
               console.log('FILTER FOR BILLS INCLUDED');
             }}
@@ -63,9 +88,13 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               <div className="mb-2 block">
                 <Label htmlFor="roomsMin" value="Min" />
               </div>
-              <Select id="roomsMin" required>
+              <Select id="roomsMin" name="roomsMin" required>
                 {preferences.propertyDetails.rooms.map((number) => {
-                  return <option key={`${number}-rooms`}>{number}</option>;
+                  return (
+                    <option key={`${number}-rooms`} value={number}>
+                      {number}
+                    </option>
+                  );
                 })}
               </Select>
             </div>
@@ -73,9 +102,13 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               <div className="mb-2 block">
                 <Label htmlFor="roomsMax" value="Max" />
               </div>
-              <Select id="roomsMax" required>
+              <Select id="roomsMax" name="roomsMax" required>
                 {preferences.propertyDetails.rooms.map((number) => {
-                  return <option key={`${number}-rooms`}>{number}</option>;
+                  return (
+                    <option key={`${number}-rooms`} value={number}>
+                      {number}
+                    </option>
+                  );
                 })}
               </Select>
             </div>
@@ -84,22 +117,26 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
             <div className="mb-2 block">
               <Label htmlFor="tenancyMin" value="Minimum Tenancy" />
             </div>
-            <Select id="tenancyMin" required>
+            <Select id="tenancyMin" name="tenancy" required>
               {preferences.propertyDetails.tenancyMin.map((duration) => {
-                return <option key={`${duration}-duration`}>{duration}</option>;
+                return (
+                  <option key={`${duration}-duration`} value={duration}>
+                    {duration}
+                  </option>
+                );
               })}
             </Select>
           </div>
 
           <div className="flex-row space-y-2 mt-4">
             {preferences.propertyDetails.type.map((type) => {
-              const typeValue = type.replace(' ', '-');
+              const typeValue = type.replace(' ', '_');
               return (
                 <div
                   key={`${typeValue}-type`}
                   className="flex-col items-center space-x-2"
                 >
-                  <Checkbox id={typeValue} name={typeValue} value={typeValue} />
+                  <Checkbox id={typeValue} name="type" value={typeValue} />
                   <Label>{type}</Label>
                 </div>
               );
@@ -111,7 +148,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
           <legend>Features</legend>
           <div className="flex-row space-y-2 mt-4">
             {preferences.features.map((feature) => {
-              const featureValue = feature.replace(' ', '-');
+              const featureValue = feature.replace(' ', '_');
               return (
                 <div
                   key={`${featureValue}-feature`}
@@ -131,7 +168,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
         <fieldset>
           <legend>Parking</legend>
           {preferences.parking.map((option) => {
-            const optionValue = option.replace(' ', '-');
+            const optionValue = option.replace(' ', '_');
             return (
               <div
                 key={`${optionValue}-feature`}
