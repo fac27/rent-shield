@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   Button,
@@ -16,18 +16,21 @@ import { convertAddress } from 'utils/mapHelper';
 
 const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   const router = useRouter();
+  const [maxRent, setMaxRent] = useState<number>(preferences.cost.max - preferences.cost.min)
 
   const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const submitted: any = e.nativeEvent?.target;
-    if (!submitted) return;
+    const test = submitted
+    console.log({test})
+    if (!submitted) return console.log('💩');
 
     const search: SearchPreferenceProps = {
       preferences: {
         location: submitted.location.value,
         cost: {
-          max: submitted.localtion.value,
-          billsIncluded: submitted.bills.value,
+          max: submitted.cost.value,
+          billsIncluded: submitted.bills.checked,
         },
         propertyDetails: {
           type: submitted.type.value,
@@ -38,27 +41,31 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
           tenancyMin: submitted.tenancy.value,
         },
         features: {
-          pets: submitted.pets.value,
-          smokers: submitted.smokers.value,
-          bike_storage: submitted.bike_storage.value,
-          garden: submitted.garden.value,
-          fireplace: submitted.fireplace.value,
-          elevator: submitted.elevator.value,
-          wheelchair_accessible: submitted.wheelchair_accessible.value,
-          electric_heating: submitted.electric_heating.value,
-          gas_heating: submitted.gas_heating.value,
-          visitor_parking: submitted.visitor_parking.value,
+          pets: submitted.pets_allowed.checked,
+          smokers: submitted.smokers_allowed.checked,
+          bike_storage: submitted.bike_storage.checked,
+          garden: submitted.garden.checked,
+          fireplace: submitted.fireplace.checked,
+          elevator: submitted.elevator.checked,
+          wheelchair_accessible: submitted.wheelchair_accessible.checked,
+          electric_heating: submitted.electric_heating.checked,
+          gas_heating: submitted.gas_heating.checked,
+          visitor_parking: submitted.visitor_parking.checked,
           parking: {
-            allocated: submitted.allocated.value,
-            street: submitted.street.value,
+            allocated: submitted.allocated.checked,
+            street: submitted.street.checked,
           },
         },
       },
     };
 
-    const { lat, lng } = await convertAddress(search.preferences.location);
+    // const { lat, lng } = await convertAddress(search.preferences.location);
 
-    router.push(`/listings?=${lat && 'lat=' + lat}${lng && 'lng=' + lng}`);
+    const query = Object.keys(submitted).map(key=>{
+      `${key}=${key.valueOf}`
+    }).join('&')
+    console.log(query)
+    router.push(`/listings?=${query}`);
   };
 
   return (
@@ -80,7 +87,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               required
               type="text"
               name="location"
-              defaultValue={preferences.location && preferences.location}
+              defaultValue={preferences.location}
             />
           </div>
         </fieldset>
@@ -89,13 +96,15 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
           <legend>Cost</legend>
           <div>
             <div className="mb-1 block">
-              <Label htmlFor="default-range" value="Maximum Rent" />
+              <Label htmlFor="default-range" value={`Maximum Rent: ${maxRent}`} />
             </div>
             <RangeSlider
               id="default-range"
               max={preferences.cost.max}
               min={preferences.cost.min}
               name="cost"
+              defaultValue={preferences.cost.max - preferences.cost.min}
+              onChange={(e)=>{setMaxRent(Number(e.target.value))}}
             />
           </div>
           <ToggleSwitch
@@ -117,7 +126,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               </div>
               <Select id="roomsMin" name="roomsMin" required>
                 {preferences.propertyDetails.rooms.map((number) => {
-                  return <option key={`${number}-rooms`}>{number}</option>;
+                  return <option key={`${number}-rooms`} value={number}>{number}</option>;
                 })}
               </Select>
             </div>
@@ -127,7 +136,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               </div>
               <Select id="roomsMax" name="roomsMax" required>
                 {preferences.propertyDetails.rooms.map((number) => {
-                  return <option key={`${number}-rooms`}>{number}</option>;
+                  return <option key={`${number}-rooms`} value={number}>{number}</option>;
                 })}
               </Select>
             </div>
@@ -138,14 +147,14 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
             </div>
             <Select id="tenancyMin" name="tenancy" required>
               {preferences.propertyDetails.tenancyMin.map((duration) => {
-                return <option key={`${duration}-duration`}>{duration}</option>;
+                return <option key={`${duration}-duration`} value={duration}>{duration}</option>;
               })}
             </Select>
           </div>
 
           <div className="flex-row space-y-2 mt-4">
             {preferences.propertyDetails.type.map((type) => {
-              const typeValue = type.replace(' ', '-');
+              const typeValue = type.replace(' ', '_');
               return (
                 <div
                   key={`${typeValue}-type`}
@@ -163,7 +172,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
           <legend>Features</legend>
           <div className="flex-row space-y-2 mt-4">
             {preferences.features.map((feature) => {
-              const featureValue = feature.replace(' ', '-');
+              const featureValue = feature.replace(' ', '_');
               return (
                 <div
                   key={`${featureValue}-feature`}
@@ -183,7 +192,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
         <fieldset>
           <legend>Parking</legend>
           {preferences.parking.map((option) => {
-            const optionValue = option.replace(' ', '-');
+            const optionValue = option.replace(' ', '_');
             return (
               <div
                 key={`${optionValue}-feature`}

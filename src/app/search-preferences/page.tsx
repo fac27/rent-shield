@@ -20,8 +20,13 @@ const preferences = {
     'bike storage',
     'garden',
     'fireplace',
+    'elevator',
+    'wheelchair accessible',
+    'electric heating',
+    'gas heating',
+    'visitor parking'
   ],
-  parking: ['allocated parking', 'no parking', 'exterior parking'],
+  parking: ['allocated', 'no parking', 'exterior parking'],
 };
 
 export default function SearchPreferences() {
