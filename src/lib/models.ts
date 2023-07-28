@@ -5,6 +5,7 @@ import {
   StatusType,
   RentRangeType,
   Role,
+  TransportDataType,
 } from '../../types/types';
 
 const getPropertyById = async (id: number): Promise<ListingType[]> => {
@@ -28,6 +29,11 @@ const getPropertyById = async (id: number): Promise<ListingType[]> => {
         rent,
         status (id, description),
         attributes,
+        wheelchair_accessible,
+        pets_allowed,
+        garden,
+        elevator,
+        bills_included,
         image (id, url)`,
     )
     .eq('id', id);
@@ -43,23 +49,28 @@ const getPropertyById = async (id: number): Promise<ListingType[]> => {
 const getAllProperties = async (): Promise<ListingType[]> => {
   const { data, error } = await supabaseClient.from('property').select(
     `
-          id,
-          created_at,
-          postcode,
-          address1,
-          address2,
-          city,
-          county,
-          latitude,
-          longitude,
-          type (id, description),
-          bedrooms,
-          bathrooms,
-          description,
-          rent,
-          status (id, description),
-          attributes,
-          image (id, url)`,
+    id,
+    created_at,
+    postcode,
+    address1,
+    address2,
+    city,
+    county,
+    latitude,
+    longitude,
+    type (id, description),
+    bedrooms,
+    bathrooms,
+    description,
+    rent,
+    status (id, description),
+    attributes,
+    wheelchair_accessible,
+    pets_allowed,
+    garden,
+    elevator,
+    bills_included,
+    image (id, url)`,
   );
 
   if (error) {
@@ -136,6 +147,27 @@ const getRentRange = async (): Promise<RentRangeType[]> => {
   return data;
 };
 
+const GetTransportDataById = async (
+  id: number,
+): Promise<TransportDataType[]> => {
+  const { data, error } = await supabaseClient
+    .from('property')
+    .select(
+      `
+    id,
+    transport: attributes->transport
+  `,
+    )
+    .eq('id', id);
+
+  if (error) {
+    console.log(`Error getting attributes: ${error.message}`);
+    throw error;
+  }
+
+  return data;
+};
+
 export {
   getPropertyById,
   getAllProperties,
@@ -144,4 +176,5 @@ export {
   getRentRange,
   getRoleByDescription,
   getAllRoles,
+  GetTransportDataById,
 };

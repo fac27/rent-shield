@@ -52,6 +52,11 @@ export type Role = {
   description: string;
 };
 
+export type TransportDataType = {
+  id: number;
+  transport: Json;
+};
+
 export type Images = { id: number; url: string }[];
 export type Status = { id: number; description: string }[];
 export type Type = { id: number; description: string }[];
@@ -79,32 +84,37 @@ export interface SearchFormProps {
 export interface SearchPreferenceProps {
   preferences: {
     location: string;
+    proximity?: {
+      lat: number;
+      lon: number;
+      radius: number;
+    };
     cost: {
       max: number;
       min: number;
       billsIncluded: boolean;
     };
-    propertyDetails: {
-      type: string;
-      rooms: {
-        min: number;
-        max: number;
+    propertyDetails?: {
+      type?: string[];
+      rooms?: {
+        min?: number;
+        max?: number;
       };
-      tenancyMin: string;
+      tenancyMin?: string;
     };
-    features: {
-      pets: boolean;
-      smokers: boolean;
-      bikeStorage: boolean;
-      garden: boolean;
-      fireplace: boolean;
-      elevator: boolean;
-      electric_heating: boolean;
-      gas_heating: boolean;
-      visitor_parking: boolean;
-      parking: {
-        allocated: boolean;
-        street: boolean;
+    features?: {
+      pets?: boolean;
+      smokers?: boolean;
+      bikeStorage?: boolean;
+      garden?: boolean;
+      fireplace?: boolean;
+      elevator?: boolean;
+      electric_heating?: boolean;
+      gas_heating?: boolean;
+      visitor_parking?: boolean;
+      parking?: {
+        allocated?: boolean;
+        street?: boolean;
       };
     };
   };
