@@ -6,7 +6,7 @@ export const formFields: FormFieldTypes = {
     inputType: 'number',
     placeholder: '£1000',
   },
-  billsIncluded: {
+  bills_included: {
     label: 'Bills included in monthly rent?',
     inputType: 'radio',
     options: ['Yes', 'No'],
@@ -88,11 +88,11 @@ export const formFields: FormFieldTypes = {
     inputType: 'select',
     options: ['Ground', 'First', '2+', 'Top Floor'],
   },
-  numberOfBedrooms: {
+  bedrooms: {
     label: 'Number of Bedrooms',
     inputType: 'number',
   },
-  numberOfBathrooms: {
+  bathrooms: {
     label: 'Number of Bathrooms',
     inputType: 'number',
   },
@@ -111,11 +111,11 @@ export const formFields: FormFieldTypes = {
     inputType: 'select',
     options: ['Allocated parking', 'Street Parking', 'No parking'],
   },
-  propertyDescription: {
+  description: {
     label: 'Property description',
     inputType: 'textarea',
   },
-  propertyFeatures: {
+  features: {
     label: 'Property Features',
     inputType: 'checkbox',
     options: [
@@ -126,10 +126,11 @@ export const formFields: FormFieldTypes = {
       'Electric Heating',
       'Gas heating',
       'Visitor parking',
+      'Wheel Chair Accessible',
     ],
   },
   minimumTenancyTerm: {
-    label: 'Mimimum tenancy term',
+    label: 'Minimum tenancy term',
     inputType: 'text',
     placeholder: 'Example 6 months, or 1 year',
   },
@@ -142,7 +143,7 @@ export const formFields: FormFieldTypes = {
     inputType: 'file',
   },
   floorPlans: {
-    label: 'Upload Floorplans',
+    label: 'Upload Floor plans',
     inputType: 'file',
   },
   epcCertificate: {
@@ -170,5 +171,5 @@ export const formFields: FormFieldTypes = {
       'Are the images newly taken as part of the current property listing process?',
     inputType: 'radio',
     options: ['Yes', 'No'],
-  }
+  },
 };

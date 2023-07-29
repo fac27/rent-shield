@@ -160,28 +160,52 @@ export interface SearchPreferenceProps {
   };
 }
 
-type InputType =
-  | 'number'
-  | 'radio'
-  | 'select'
-  | 'date'
-  | 'text'
-  | 'textarea'
-  | 'file'
-  | 'checkbox';
-
 export interface BaseField {
   label: string;
-  inputType: InputType;
+  inputType: 'number' | 'date' | 'text' | 'textarea' | 'file';
   placeholder?: string;
   pattern?: string;
-  options?: string[];
 }
 
-export type FieldType = BaseField | OptionField | FileField;
+export interface OptionField extends BaseField {
+  inputType: 'select' | 'radio' | 'checkbox';
+  options: string[];
+}
 
-export type FormFieldKey = keyof typeof formFields;
+export type FormFieldKeys =
+  | 'propertyType'
+  | 'rent'
+  | 'availableFromDate'
+  | 'bills_included'
+  | 'depositAmount'
+  | 'councilTaxBand'
+  | 'bedrooms'
+  | 'bathrooms'
+  | 'energyRating'
+  | 'minimumTenancyTerm'
+  | 'epcCertificate'
+  | 'flatOrHouseNumber' //why
+  | 'addressLine2' //why
+  | 'addressLine3' //why
+  | 'postCode' //why
+  | 'town' // why
+  | 'smokersAllowed' //attr?
+  | 'petsAllowed' //attr?
+  | 'furnishing' //attr?
+  | 'parking' //attr?
+  | 'floor' //attr?
+  | 'features' //rename to attributes?
+  | 'description'
+  | 'floorPlans'
+  | 'propertyVideo'
+  | 'propertyImages'
+  | 'uploadedImagesOfEveryRoom' //why
+  | 'imagesOfInteriorAndExterior' //why
+  | 'clearAndHighQualityImages' //why
+  | 'newlyTakenImages'; //why;
+
+export type FieldType = BaseField | OptionField;
 
 export type FormFieldTypes = {
-  [key in FormFieldKey]: FieldType;
+  [key in FormFieldKeys]: FieldType;
 };

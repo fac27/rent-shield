@@ -1,15 +1,94 @@
 'use client';
-import { Card, TextInput, Label, Button} from 'flowbite-react';
+import { Card, TextInput, Label, Button } from 'flowbite-react';
 import { formFields } from 'utils/formFields';
-import { FormFieldKey, FormFieldTypes } from '../../types/types';
+import { FormFieldKeys } from '../../types/types';
+import supabaseCompClient from 'lib/supabaseCompClient';
+
+type Form = { [key in FormFieldKeys]: string };
 
 const AddListingForm = () => {
+  /**
++   * Posts a listing to the API.
++   *
++   * @param {React.FormEvent} e - The form event.
++   * @return {Promise<void>} - A promise that resolves when the listing is successfully posted.
++   */
+  async function postListing(e: React.FormEvent) {
+    e.preventDefault();
+    const formTarget = e.nativeEvent.target as HTMLFormElement;
+
+    const fileElements = [];
+    const listingsObject: Form = {} as Form;
+
+    for (const key in formFields) {
+      // console.log(formTarget[key]);
+      switch (formTarget[key].type) {
+        case 'file': {
+          if (formTarget[key].files.length === 0) return;
+          fileElements.push(formTarget[key].files);
+          // console.log(formTarget[key].files);
+          break;
+        }
+        // case 'select-one': {
+        //   break;
+        // }
+        case undefined: {
+          // also radioList? want better solution
+          for (const element in formTarget[key]) {
+            listingsObject[key as FormFieldKeys] =
+              formTarget[key][element].value;
+          }
+          break;
+          console.log(
+            '👩‍💻',
+            formTarget[key][0]?.checked,
+            formTarget[key][0]?.name,
+          );
+          break;
+        }
+        default: {
+          // console.log(formTarget[key]);
+          // console.log(formTarget[key]?.children);
+
+          listingsObject[key as FormFieldKeys] = formTarget[key].value;
+          break;
+        }
+      }
+    }
+
+    // insert listing and get back property_id for images
+    console.log(listingsObject, fileElements);
+
+    //  upload images
+    // fileElements.forEach((files) => {
+    //   Object.values(files).forEach(async (file: any) => {
+    //     console.log(file);
+    //     const { data: upload } = await supabaseCompClient.storage
+    //       .from('images')
+    //       .upload(`public/${file.name}`, file, {
+    //         cacheControl: '3600',
+    //         upsert: false,
+    //       });
+    //     if (!upload) return; //error
+    //     console.log('supabase results: ', upload.path);
+    //     const { data } = await supabaseCompClient.from('image').insert({
+    //       url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}storage/v1/object/public/images/${upload.path}`,
+    //       property_id: 1,
+    //     });
+    //   });
+    // });
+  }
+
   return (
     <main className="flex h-full w-screen pb-20 dark:text-white">
       <Card className="w-full p-4 m-auto">
-        <form className="flex flex-col w-full placeholder:flex-col gap-4">
+        <form
+          onSubmit={postListing}
+          className="flex flex-col w-full placeholder:flex-col gap-4"
+        >
           {Object.keys(formFields).map((field) => {
-            const fieldData = formFields[field as FormFieldKey];
+            // needs keys for children
+            const fieldData = formFields[field as FormFieldKeys];
             const sharedClasses =
               'block mb-2 text-sm font-medium text-gray-900 dark:text-white';
 
@@ -142,7 +221,7 @@ const AddListingForm = () => {
                 );
             }
           })}
-          <Button type='submit'>Advertise Listing</Button>
+          <Button type="submit">Advertise Listing</Button>
         </form>
       </Card>
     </main>
