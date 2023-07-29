@@ -136,7 +136,6 @@ const parseSearchParamObject = (
         filters.push(rangeFilter);
 
       } else {
-        console.log(`Current filters: ${filters}`);
         parseSearchParamObject(params[key], key, filters);
       }
     } else {
