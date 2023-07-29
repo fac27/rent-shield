@@ -88,6 +88,7 @@ export interface SearchPreferenceProps {
       max: number;
       min?: number;
     };
+    billsIncluded?: boolean;
     propertyType?:  string[];
     rooms?: {
       min: number;
@@ -96,7 +97,6 @@ export interface SearchPreferenceProps {
     tenancyMinMonths?: int;
     features?: {
       wheelchairAccessible?: boolean;
-      billsIncluded?: boolean;
       pets?: boolean;
       smokers?: boolean;
       bikeStorage?: boolean;
@@ -106,10 +106,8 @@ export interface SearchPreferenceProps {
       electricHeating?: boolean;
       gasHeating?: boolean;
       visitorParking?: boolean;
-      parking?: {
-        allocated?: boolean;
-        street?: boolean;
-      };
+      allocatedParking?: boolean;
+      streetParking?: boolean;
     };
   };
 }

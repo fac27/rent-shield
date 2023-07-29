@@ -31,7 +31,12 @@ const allFilters: { [key: string]: Filter } = {
     field: 'rent',
     args: [],
   },
-  propertyDetails: {
+  billsIncluded: {
+    operation: FilterOperation.bool,
+    field: 'features.billsIncluded',
+    args: [],
+  },
+  propertyType: {
     operation: FilterOperation.match,
     field: 'propertyDetails.type',
     args: [],
@@ -41,7 +46,7 @@ const allFilters: { [key: string]: Filter } = {
     field: 'propertyDetails.rooms',
     args: [],
   },
-  tenancyMin: {
+  tenancyMinMonths: {
     operation: FilterOperation.greater_than_or_equal,
     field: 'propertyDetails.tenancy',
     args: [],
@@ -76,27 +81,27 @@ const allFilters: { [key: string]: Filter } = {
     field: 'features.elevator',
     args: [],
   },
-  electric_heating: {
+  electricHeating: {
     operation: FilterOperation.bool,
     field: 'features.electric_heating',
     args: [],
   },
-  gas_heating: {
+  gasHeating: {
     operation: FilterOperation.bool,
     field: 'features.gas_heating',
     args: [],
   },
-  visitor_parking: {
+  visitorParking: {
     operation: FilterOperation.bool,
     field: 'features.visitor_parking',
     args: [],
   },
-  allocated_parking: {
+  allocatedParking: {
     operation: FilterOperation.bool,
     field: 'features.parking.allocated',
     args: [],
   },
-  street_parking: {
+  streetParking: {
     operation: FilterOperation.bool,
     field: 'features.parking.street',
     args: [],

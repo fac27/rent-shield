@@ -10,6 +10,7 @@ const searchParams: SearchPreferenceProps = {
       min: 1000,
       max: 2000,
     },
+    billsIncluded: true,
     proximity: {
       lat: 0,
       lon: 0,
@@ -23,7 +24,6 @@ const searchParams: SearchPreferenceProps = {
     tenancyMinMonths: 12,
     features: {
       pets: true,
-      billsIncluded: true,
       smokers: false,
       bikeStorage: false,
       garden: true,
@@ -33,10 +33,8 @@ const searchParams: SearchPreferenceProps = {
       electricHeating: false,
       gasHeating: false,
       visitorParking: false,
-      parking: {
-        allocated: false,
-        street: false,
-      },
+      allocatedParking: false,
+      streetParking: false,
     },
   },
 };
