@@ -80,6 +80,36 @@ const getAllProperties = async (): Promise<ListingType[]> => {
   return data;
 };
 
+const getAllPropertiesJoinedData = async (): Promise<any[]> => {
+
+  const { data, error } = await supabaseClient.from('property_view')
+  .select('*');
+
+  if (error) {
+    console.log(`Error getting property types: ${error.message}`);
+    throw error;
+  }
+  return data;
+}
+
+const getAllPropertiesJoinedDataInGeoRange = async (): Promise<any[]> => {
+
+  const { data, error } = await supabaseClient.rpc('properties_within_range',
+  {
+    lat: 51.56458184338445,
+    long: -0.10857681077552694,
+    radius: 5
+  });
+
+  if (error) {
+    console.log(`Error getting property types: ${error.message}`);
+    throw error;
+  }
+  console.log(`data: ${JSON.stringify(data)}`)
+  return data;
+}
+
+
 const getAllPropertyTypes = async (): Promise<PropertyType[]> => {
   const { data, error } = await supabaseClient
     .from('type')
@@ -143,5 +173,7 @@ export {
   getAllPropertyStatuses,
   getAllPropertyTypes,
   getRentRange,
-  GetTransportDataById
+  GetTransportDataById,
+  getAllPropertiesJoinedData,
+  getAllPropertiesJoinedDataInGeoRange
 };

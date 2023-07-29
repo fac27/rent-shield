@@ -1,6 +1,10 @@
 import { SearchPreferenceProps } from '../../types/types';
 import { filterPropertyListings } from '../../src/utils/filterHelper';
-import { getAllProperties } from '../../src/lib/models';
+import {
+  getAllProperties,
+  getAllPropertiesJoinedData,
+  getAllPropertiesJoinedDataInGeoRange,
+} from '../../src/lib/models';
 
 // Mock data for search test
 const searchParams: SearchPreferenceProps = {
@@ -41,13 +45,27 @@ const searchParams: SearchPreferenceProps = {
 
 let listings: any[];
 
-beforeAll(async () => {
-  listings = await getAllProperties();
+// beforeAll(async () => {
+//   listings = await getAllProperties();
+// });
+
+// describe('filterPropertyListings', () => {
+//   it('should return an array of properties', () => {
+//     const filteredProperties = filterPropertyListings(searchParams, listings);
+//     expect([]).toBeInstanceOf(Array);
+//   });
+// });
+
+describe('get property_view results', () => {
+  it('should return an array of properties', async () => {
+    const properties = await getAllPropertiesJoinedData();
+    expect(properties).toBeInstanceOf(Array);
+  });
 });
 
-describe('filterPropertyListings', () => {
-  it('should return an array of properties', () => {
-    const filteredProperties = filterPropertyListings(searchParams, listings);
-    expect([]).toBeInstanceOf(Array);
+describe('get property_view results', () => {
+  it('should return an array of properties', async () => {
+    const properties = await getAllPropertiesJoinedDataInGeoRange();
+    expect(properties).toBeInstanceOf(Array);
   });
 });

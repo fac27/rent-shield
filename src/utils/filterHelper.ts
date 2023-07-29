@@ -18,12 +18,12 @@ interface Filter {
 const allFilters: { [key: string]: Filter } = {
   location: {
     operation: FilterOperation.match,
-    field: 'location',
+    field: 'address2',
     args: [],
   },
   proximity: {
     operation: FilterOperation.geo_distance,
-    field: 'location',
+    field: 'lat_lon_point',
     args: [],
   },
   cost: {
@@ -33,77 +33,77 @@ const allFilters: { [key: string]: Filter } = {
   },
   billsIncluded: {
     operation: FilterOperation.bool,
-    field: 'features.billsIncluded',
+    field: 'bills_included',
     args: [],
   },
   propertyType: {
     operation: FilterOperation.match,
-    field: 'propertyDetails.type',
+    field: 'property_type',
     args: [],
   },
   rooms: {
     operation: FilterOperation.range,
-    field: 'propertyDetails.rooms',
+    field: 'bedrooms',
     args: [],
   },
   tenancyMinMonths: {
     operation: FilterOperation.greater_than_or_equal,
-    field: 'propertyDetails.tenancy',
+    field: 'min_tenancy',
     args: [],
   },
   pets: {
     operation: FilterOperation.bool,
-    field: 'features.pets',
+    field: 'pets_allowed',
     args: [],
   },
   smokers: {
     operation: FilterOperation.bool,
-    field: 'features.smokers',
+    field: 'smokers_welcome',
     args: [],
   },
   bikeStorage: {
     operation: FilterOperation.bool,
-    field: 'features.bikeStorage',
+    field: 'bike_storage',
     args: [],
   },
   garden: {
     operation: FilterOperation.bool,
-    field: 'features.garden',
+    field: 'garden',
     args: [],
   },
   fireplace: {
     operation: FilterOperation.bool,
-    field: 'features.fireplace',
+    field: 'fireplace',
     args: [],
   },
   elevator: {
     operation: FilterOperation.bool,
-    field: 'features.elevator',
+    field: 'elevator',
     args: [],
   },
   electricHeating: {
     operation: FilterOperation.bool,
-    field: 'features.electric_heating',
+    field: 'electric_heating',
     args: [],
   },
   gasHeating: {
     operation: FilterOperation.bool,
-    field: 'features.gas_heating',
+    field: 'gas_heating',
     args: [],
   },
   visitorParking: {
     operation: FilterOperation.bool,
-    field: 'features.visitor_parking',
+    field: 'visitor_parking',
     args: [],
   },
   allocatedParking: {
     operation: FilterOperation.bool,
-    field: 'features.parking.allocated',
+    field: 'allocated_parking',
     args: [],
   },
   streetParking: {
     operation: FilterOperation.bool,
-    field: 'features.parking.street',
+    field: 'street_parking',
     args: [],
   },
 };
