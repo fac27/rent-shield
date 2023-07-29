@@ -129,30 +129,52 @@ const parseSearchParamObject = (
   console.log(`Keys received: ${searchPrefKeys}`);
   searchPrefKeys.forEach((key) => {
     const val = params[key];
-    console.log(`This key: ${key}\nLast key: ${lastKey}`)
-    if (!Array.isArray(val) && typeof val === 'object') {
+    let keyHasBeenParsed = false;
+    console.log(`This key: ${key}\nLast key: ${lastKey}`);
+    const filterObj = allFilters[key];
+    console.log(`Filter object for val = '${key}': ${filterObj}`);
 
-        if (allFilters[lastKey] && allFilters[lastKey].operation === FilterOperation.range) {
-          
-        const rangeArgs = { args: [val['min'], val['max']] };
+    if (filterObj) {
+      const operation = filterObj.operation;
+      let args: any[];
 
-        const rangeFilter: any = { ...allFilters[lastKey], ...rangeArgs };
+      switch (operation) {
+        case FilterOperation.bool:
+          args = [val];
+          break;
+        case FilterOperation.range:
+          args = [val.min, val.max];
+          break;
+        case FilterOperation.geo_distance:
+          args = [val.lat, val.lon, val.radius];
+          break;
+        case FilterOperation.match:
+          args = [val];
+          break;
+        case FilterOperation.greater_than_or_equal:
+          args = [val];
+          break;
+        default:
+          args = [];
+      }
+      
+      filters.push(
+        {
+          operation: operation,
+          field: filterObj.field,
+          args: args,
+        });
 
-        filters.push(rangeFilter);
+      keyHasBeenParsed = true;
+    }
 
-      } else {
+    if (!Array.isArray(val) && typeof val === 'object' && !keyHasBeenParsed) {
         parseSearchParamObject(params[key], key, filters);
       }
-    } else {
-      // Check the current filter and add it to filters[]
-    }
+
   });
-
-  
-
+  console.log(`Filters: ${JSON.stringify(filters)}`);
   return filters;
-  // if (allFilters[key].operation === FilterOperation.bool) {
-  //   currentSearchFilters.push(allFilters[key]);
 };
 
 export { filterPropertyListings };
