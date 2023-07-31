@@ -1,3 +1,4 @@
+import { ReadonlyURLSearchParams } from 'next/navigation';
 import { SearchPreferenceProps } from '../../types/types';
 
 /**
@@ -11,9 +12,9 @@ export const makeIntoQuery = (data: { [key: string]: any }) => {
       let value = data[key];
       if (value !== null && typeof value === 'object')
         value = makeIntoQuery(value);
-      return `${key}=${value}`;
+      return `&${key}=${value}`;
     })
-    .join('&');
+    .join('');
 };
 
 /**
@@ -27,15 +28,15 @@ export const makeIntoProps = (submitted: any): SearchPreferenceProps => {
       location: submitted.location.value,
       cost: {
         max: submitted.cost.value,
-        billsIncluded: submitted.bills.checked,
+        bills_included: submitted.bills.checked,
       },
       propertyDetails: {
         type: submitted.type.value,
         rooms: {
-          min: submitted.roomsMin.value,
-          max: submitted.roomsMax.value,
+          min_rooms: submitted.roomsMin.value,
+          max_rooms: submitted.roomsMax.value,
         },
-        tenancyMin: submitted.tenancy.value,
+        min_tenancy: submitted.tenancy.value,
       },
       features: {
         pets: submitted.pets_allowed.checked,
@@ -56,3 +57,7 @@ export const makeIntoProps = (submitted: any): SearchPreferenceProps => {
     },
   };
 };
+
+export const toBoolean = (string: string): boolean => {
+  return string === 'true' ? true : false
+}

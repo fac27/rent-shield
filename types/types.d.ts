@@ -58,6 +58,7 @@ export type Type = { id: number; description: string }[];
 
 export interface ContainerProps {
   listings: ListingType[];
+  filters: SearchPreferenceProps
 }
 
 export interface SearchFormProps {
@@ -99,15 +100,15 @@ export interface SearchPreferenceProps {
     location: string;
     cost: {
       max: number;
-      billsIncluded: boolean;
+      bills_included: boolean;
     };
     propertyDetails: {
       type: string[];
       rooms: {
-        min: number;
-        max: number;
+        min_rooms: number;
+        max_rooms: number;
       };
-      tenancyMin: string;
+      min_tenancy: string;
     };
     features: {
       pets: boolean;

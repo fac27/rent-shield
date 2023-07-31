@@ -19,16 +19,22 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   const [maxRent, setMaxRent] = useState<number>(
     preferences.cost.max - preferences.cost.min,
   );
+  const [maxRooms, setMaxRooms] = useState<number>(
+    preferences.propertyDetails.rooms.reduce((acc, cur) =>
+      acc > cur ? acc : cur,
+    ),
+  );
+  const [minRooms, setMinRooms] = useState<number>(0);
 
   const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const search = makeIntoProps(e.nativeEvent?.target) 
-    const query = makeIntoQuery(search.preferences)
+    const search = makeIntoProps(e.nativeEvent?.target);
+    const query = makeIntoQuery(search.preferences);
     router.push(`/listings?=${query}`);
   };
 
   return (
-    <Card data-cy='SearchPreferencesForm' className="w-8/12 p-4 m-auto">
+    <Card data-cy="SearchPreferencesForm" className="w-8/12 p-4 m-auto">
       <form
         action="/listings"
         className="flex max-w-md flex-col mx-20 my-8 gap-4"
@@ -85,32 +91,43 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
           <legend>Property Details</legend>
           <div className="flex gap-4 mt-4">
             <div className="max-w-md flex items-center gap-2" id="select">
-              <div className="mb-2 block">
-                <Label htmlFor="roomsMin" value="Min" />
+              <div className="flex-col items-left">
+                <Label
+                  htmlFor="min-rooms"
+                  value={`Minimum number of rooms: ${minRooms}`}
+                />
+                <RangeSlider
+                  id="min-rooms"
+                  max={preferences.propertyDetails.rooms.reduce((acc, cur) =>
+                    acc > cur ? acc : cur,
+                  )}
+                  min={0}
+                  name="roomsMin"
+                  value={minRooms}
+                  onChange={(e) => {
+                    setMinRooms(Number(e.target.value));
+                  }}
+                />
               </div>
-              <Select id="roomsMin" name="roomsMin" required>
-                {preferences.propertyDetails.rooms.map((number) => {
-                  return (
-                    <option key={`${number}-rooms`} value={number}>
-                      {number}
-                    </option>
-                  );
-                })}
-              </Select>
-            </div>
-            <div className="max-w-md flex items-center gap-2" id="select">
-              <div className="mb-2 block">
-                <Label htmlFor="roomsMax" value="Max" />
+
+              <div className="flex-col items-left">
+                <Label
+                  htmlFor="max-rooms"
+                  value={`Maximum number of rooms: ${maxRooms}`}
+                />
+                <RangeSlider
+                  id="max-rooms"
+                  max={preferences.propertyDetails.rooms.reduce((acc, cur) =>
+                    acc > cur ? acc : cur,
+                  )}
+                  min={0}
+                  name="roomsMax"
+                  value={maxRooms}
+                  onChange={(e) => {
+                    setMaxRooms(Number(e.target.value));
+                  }}
+                />
               </div>
-              <Select id="roomsMax" name="roomsMax" required>
-                {preferences.propertyDetails.rooms.map((number) => {
-                  return (
-                    <option key={`${number}-rooms`} value={number}>
-                      {number}
-                    </option>
-                  );
-                })}
-              </Select>
             </div>
           </div>
           <div className="max-w-md flex items-center gap-2 mt-4" id="select">
