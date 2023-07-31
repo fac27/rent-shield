@@ -1,5 +1,6 @@
 import { ReadonlyURLSearchParams } from 'next/navigation';
 import { SearchPreferenceProps } from '../../types/types';
+import { convertAddress } from './mapHelper';
 
 /**
  * @returns a query string from all key:value pairs in a nested Object
@@ -23,24 +24,29 @@ export const makeIntoQuery = (data: { [key: string]: any }) => {
  * @param submitted should be the event.target object from your submission event.
  */
 export const makeIntoProps = (submitted: any): SearchPreferenceProps => {
+ 
   return {
     preferences: {
       location: submitted.location.value,
-      cost: {
-        max: submitted.cost.value,
-        bills_included: submitted.bills.checked,
+      proximity:{
+        lat: submitted.lat,
+        lon: submitted.lng,
+        radius: submitted.radius,
       },
-      propertyDetails: {
-        type: submitted.type.value,
+      cost: {
+        min:submitted.min_cost.value,
+        max: submitted.max_cost.value,
+      },
+      bills_included: submitted.bills.checked,
+      property_type: submitted.property_type.value,
         rooms: {
           min_rooms: submitted.roomsMin.value,
           max_rooms: submitted.roomsMax.value,
         },
-        min_tenancy: submitted.tenancy.value,
-      },
+        min_tenancy_months: submitted.tenancy.value,
       features: {
-        pets: submitted.pets_allowed.checked,
-        smokers: submitted.smokers_allowed.checked,
+        pets_allowed: submitted.pets_allowed.checked,
+        smokers_allowed: submitted.smokers_allowed.checked,
         bike_storage: submitted.bike_storage.checked,
         garden: submitted.garden.checked,
         fireplace: submitted.fireplace.checked,
@@ -49,10 +55,8 @@ export const makeIntoProps = (submitted: any): SearchPreferenceProps => {
         electric_heating: submitted.electric_heating.checked,
         gas_heating: submitted.gas_heating.checked,
         visitor_parking: submitted.visitor_parking.checked,
-        parking: {
-          allocated: submitted.allocated.checked,
-          exterior_parking: submitted.exterior_parking.checked,
-        },
+        allocated_parking: submitted.allocated_parking.checked,
+        street_parking: submitted.street_parking.checked,
       },
     },
   };

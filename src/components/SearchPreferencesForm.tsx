@@ -16,15 +16,18 @@ import { makeIntoQuery, makeIntoProps } from 'utils/searchPreferenceHelpers';
 
 const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   const router = useRouter();
+  const [searchRadius, setSearchRadius] = useState<number>(30)
+  const [minRooms, setMinRooms] = useState<number>(0);
   const [maxRent, setMaxRent] = useState<number>(
     preferences.cost.max - preferences.cost.min,
   );
+  const [minRent, setMinRent] = useState<number>(preferences.cost.min)
   const [maxRooms, setMaxRooms] = useState<number>(
-    preferences.propertyDetails.rooms.reduce((acc, cur) =>
+    preferences.property_details.rooms.reduce((acc, cur) =>
       acc > cur ? acc : cur,
     ),
   );
-  const [minRooms, setMinRooms] = useState<number>(0);
+
 
   const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,28 +57,64 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               name="location"
               defaultValue={preferences.location}
             />
+          <div>
+            <div className="mb-1 block">
+              <Label
+                htmlFor="search-radius"
+                value={`Search Radius: ${searchRadius} km`}
+              />
+            </div>
+            <RangeSlider
+              id="search-radius"
+              max={30}
+              min={1}
+              name="min-cost"
+              value={searchRadius}
+              onChange={(e) => {
+                setSearchRadius(Number(e.target.value));
+              }}
+              />
+          </div>
           </div>
         </fieldset>
 
         <fieldset className="mt-4">
           <legend>Cost</legend>
           <div>
+          <div>
+            <div className="mb-1 block">
+              <Label
+                htmlFor="min-cost"
+                value={`Minimum Rent: £${minRent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
+              />
+            </div>
+            <RangeSlider
+              id="min-cost"
+              max={preferences.cost.max}
+              min={preferences.cost.min}
+              name="min_cost"
+              value={minRent}
+              onChange={(e) => {
+                setMinRent(Number(e.target.value));
+              }}
+              />
+          </div>
             <div className="mb-1 block">
               <Label
                 htmlFor="default-range"
-                value={`Maximum Rent: ${maxRent}`}
+                value={`Maximum Rent: £${maxRent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
               />
             </div>
             <RangeSlider
               id="default-range"
               max={preferences.cost.max}
               min={preferences.cost.min}
-              name="cost"
-              defaultValue={preferences.cost.max - preferences.cost.min}
+              name="max_cost"
+              value={maxRent}
               onChange={(e) => {
                 setMaxRent(Number(e.target.value));
               }}
-            />
+              />
           </div>
           <ToggleSwitch
             checked
@@ -98,7 +137,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                 />
                 <RangeSlider
                   id="min-rooms"
-                  max={preferences.propertyDetails.rooms.reduce((acc, cur) =>
+                  max={preferences.property_details.rooms.reduce((acc, cur) =>
                     acc > cur ? acc : cur,
                   )}
                   min={0}
@@ -117,7 +156,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                 />
                 <RangeSlider
                   id="max-rooms"
-                  max={preferences.propertyDetails.rooms.reduce((acc, cur) =>
+                  max={preferences.property_details.rooms.reduce((acc, cur) =>
                     acc > cur ? acc : cur,
                   )}
                   min={0}
@@ -135,25 +174,27 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               <Label htmlFor="tenancyMin" value="Minimum Tenancy" />
             </div>
             <Select id="tenancyMin" name="tenancy" required>
-              {preferences.propertyDetails.tenancyMin.map((duration) => {
-                return (
-                  <option key={`${duration}-duration`} value={duration}>
-                    {duration}
-                  </option>
-                );
-              })}
+              {preferences.property_details.min_tenancy_months.map(
+                (duration) => {
+                  return (
+                    <option key={`${duration}-duration`} value={duration}>
+                      {`${duration} months`}
+                    </option>
+                  );
+                },
+              )}
             </Select>
           </div>
 
           <div className="flex-row space-y-2 mt-4">
-            {preferences.propertyDetails.type.map((type) => {
+            {preferences.property_details.type.map((type) => {
               const typeValue = type.replace(' ', '_');
               return (
                 <div
                   key={`${typeValue}-type`}
                   className="flex-col items-center space-x-2"
                 >
-                  <Checkbox id={typeValue} name="type" value={typeValue} />
+                  <Checkbox id={typeValue} name="property_type" value={typeValue} />
                   <Label>{type}</Label>
                 </div>
               );
@@ -182,26 +223,6 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
             })}
           </div>
         </fieldset>
-        <fieldset>
-          <legend>Parking</legend>
-          {preferences.parking.map((option) => {
-            const optionValue = option.replace(' ', '_');
-            return (
-              <div
-                key={`${optionValue}-feature`}
-                className="flex-col items-center space-x-2"
-              >
-                <Checkbox
-                  id={optionValue}
-                  name={optionValue}
-                  value={optionValue}
-                />
-                <Label>{option}</Label>
-              </div>
-            );
-          })}
-        </fieldset>
-
         <Button className="mt-6" type="submit">
           Submit
         </Button>
