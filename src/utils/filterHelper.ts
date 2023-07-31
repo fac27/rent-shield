@@ -56,7 +56,7 @@ const parseSearchParamObject = (
           args = [val.lat, val.lon, val.radius];
           break;
         case FilterOperation.match:
-          args = [val];
+          args = Array.isArray(val) ? val : [val]; 
           break;
         case FilterOperation.greater_than_or_equal:
           args = [val];

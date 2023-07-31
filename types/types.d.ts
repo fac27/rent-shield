@@ -86,28 +86,28 @@ export interface SearchPreferenceProps {
     };
     cost: {
       max: number;
-      min?: number;
+      min: number;
     };
-    billsIncluded?: boolean;
-    propertyType?:  string[];
-    rooms?: {
+    bills_included?: boolean;
+    property_type?:  string[];
+    rooms: {
       min: number;
       max: number;
     };
-    tenancyMinMonths?: int;
+    min_tenancy_months?: int;
     features?: {
-      wheelchairAccessible?: boolean;
-      pets?: boolean;
-      smokers?: boolean;
-      bikeStorage?: boolean;
+      wheelchair_accessible?: boolean;
+      pets_allowed?: boolean;
+      smokers_allowed?: boolean;
+      bike_storage?: boolean;
       garden?: boolean;
       fireplace?: boolean;
       elevator?: boolean;
-      electricHeating?: boolean;
-      gasHeating?: boolean;
-      visitorParking?: boolean;
-      allocatedParking?: boolean;
-      streetParking?: boolean;
+      electric_heating?: boolean;
+      gas_heating?: boolean;
+      visitor_parking?: boolean;
+      allocated_parking?: boolean;
+      street_parking?: boolean;
     };
   };
 }

@@ -128,6 +128,9 @@ const getFilteredProperties = async (filters: any[]): Promise<any[]> => {
       switch (filterOp) {
         case FilterOperation.bool:
         case FilterOperation.match:
+          if (filter.args.length > 1) {
+            return filter.args.includes(row[filter.field]);
+          }
           return row[filter.field] === filter.args[0];
           break;
         case FilterOperation.greater_than_or_equal:
