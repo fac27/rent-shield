@@ -6,40 +6,28 @@ import ListingsContainer from 'components/ListingsContainter'
 import { Database } from '../../../types/supabase'
 import supabaseClient from 'lib/supabaseClient'
 import { getAllPropertiesById } from 'lib/models'
+import { cookies } from 'next/headers'
+import { getFavourites } from 'lib/models'
 
-const Page = async () => {
-  const supabase = await createClientComponentClient<Database>()
+export default async function page() {
+  //   const supabase = await createClientComponentClient<Database>()
+  const supabase = await createServerComponentClient<Database>({ cookies })
 
   const getUserId = async () => {
-    const { data, error } = await supabase.auth.getUser()
-    const { user } = data
-
-    if (error) {
-      console.error('Error getting user:', error)
-      return
-    }
-    const sessionUserId = user?.id as string
-    console.log(sessionUserId)
-    return sessionUserId
+    const userId = await (await supabase.auth.getSession()).data.session?.user
+    return userId?.id
   }
 
-  const getFavourites = async (userId: any) => {
-    // const id = await getUserId()
-    const { data, error } = await supabaseClient
-      .from('favourites')
-      .select()
-      .eq('user_id', userId)
-    if (error) {
-      console.error('Error getting favourites data', error)
-      return []
-    }
-    console.log('favourite data', data)
-    return data?.map((item) => item.property_id) || []
+  const faveList = async () => {
+    // 'use server'
+    const userId = await getUserId()
+    const favourites = await getFavourites(userId)
+    const list = await getAllPropertiesById(favourites)
+    return list
   }
-  const userId = await getUserId()
-  const faves = await getFavourites(userId)
-  const listings = await getAllPropertiesById(faves)
+  const listings = await faveList()
 
-  return <ListingsContainer listings={listings} />
+  console.log('list', listings)
+  return <div>{listings}</div>
+  //   return <ListingsContainer listings={listings} />
 }
-export default Page

@@ -56,8 +56,6 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
     checkSession()
   }, [])
 
-  console.log('userid:', userId)
-
   const addFavourite = async (property_id: number, user_id: string) => {
     try {
       await supabase.from('favourites').insert({ property_id, user_id })

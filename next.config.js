@@ -17,6 +17,10 @@ const nextConfig = {
     ],
   },
   compress: false,
+  experimental: {
+    //using at own risk!!!
+    serverActions: true,
+  },
 }
 
 module.exports = nextConfig
