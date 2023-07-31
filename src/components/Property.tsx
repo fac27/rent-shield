@@ -1,6 +1,4 @@
 'use client'
-import { FC } from 'react'
-
 import Image from 'next/image'
 import location from '../../public/location.svg'
 import bed from '../../public/bed.svg'
@@ -12,9 +10,11 @@ import transportIcon from '../../public/transport.svg'
 import { useEffect, useState } from 'react'
 import Carousel from '../components/Carousel'
 import Map from './Map'
-import { convertAddress } from 'utils/mapHelper'
 import { ILocation, ListingType } from '../../types/types'
 import { Json } from '../../types/supabase'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Database } from '../../types/supabase'
+import { useRouter } from 'next/navigation'
 
 const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
   // const [liked, setLiked] = useState(listing.favourited);
@@ -25,18 +25,63 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
   })
   const [markers, setMarkers] = useState<ILocation[]>([])
   const [loading, setLoading] = useState(true) // added a loading state in case the map doesn't load...
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [userId, setUserId] = useState<string | null | undefined>(null)
+  const supabase = createClientComponentClient<Database>()
+  const router = useRouter()
 
-  //needed use effect to access promise from the convertaddress function
-  // (we should do this before it goes into the database and get the data
-  //from the property object instead of using a useeffect for this.)
-  const fullAddress = `${listing.address1}, ${
-    !listing.address2 ? '' : listing.address2 + ', '
-  }${listing.postcode}, ${listing.city}, UK`
   useEffect(() => {
     setCenter(center)
     setMarkers([center])
     setLoading(false)
   }, [center])
+
+  const getUserId = async () => {
+    const { data, error } = await supabase.auth.getUser()
+    const { user } = data
+    const sessionUserId = user?.id
+    console.log(sessionUserId)
+    return sessionUserId
+  }
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      if (session) setLoggedIn(true)
+      const sessionUserId = await getUserId()
+      setUserId(sessionUserId)
+    }
+    checkSession()
+  }, [])
+
+  const addFavourite = async (property_id: number, user_id: string) => {
+    try {
+      await supabase.from('favourite').insert({ property_id, user_id })
+      setLiked(true)
+    } catch (error) {
+      console.error('Error adding favourite: ', error)
+    }
+  }
+  const deleteFavourite = async (property_id: number) => {
+    try {
+      await supabase.from('favourite').delete().eq('property_id', property_id)
+      setLiked(false)
+    } catch (error) {
+      console.error('Error deleting favourite: ', error)
+    }
+  }
+  const handleFavourite = async (
+    property_id: number,
+    user_id: string | null,
+  ) => {
+    if (!loggedIn) {
+      router.push('/log-in')
+    } else {
+      liked ? deleteFavourite(property_id) : addFavourite(property_id, user_id)
+    }
+  }
 
   return (
     <div data-id={id} className="flex flex-col test-class-property">
@@ -58,7 +103,7 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
           <Image src={bath} alt="bath" width={20} height={20} />
           <p className="text-slate-200"> {listing.bathrooms} </p>
         </span>
-        <button onClick={() => setLiked(!liked)}>
+        <button onClick={() => handleFavourite(listing.id, userId)}>
           {liked ? (
             <Image src={fullHeart} alt="saved" width={25} height={25} />
           ) : (
