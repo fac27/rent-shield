@@ -65,7 +65,10 @@ describe('get property_view results', () => {
 
 describe('get property_view results', () => {
   it('should return an array of properties', async () => {
-    const properties = await getAllPropertiesJoinedDataInGeoRange();
+    const lat = 51.564;
+    const long = -0.108;
+    const radius = 3;
+    const properties = await getAllPropertiesJoinedDataInGeoRange(lat, long, radius);
     expect(properties).toBeInstanceOf(Array);
   });
 });
