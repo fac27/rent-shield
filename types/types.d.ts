@@ -163,7 +163,7 @@ export interface SearchPreferenceProps {
 
 export interface BaseField {
   label: string;
-  inputType: 'number' | 'date' | 'text' | 'textarea' | 'file' | 'checkbox';
+  inputType: 'number' | 'text' | 'textarea' | 'file' | 'checkbox';
   placeholder?: string; 
   pattern?: string;
 }
@@ -209,7 +209,6 @@ export type AdditionalFormFields = 'floor_plans'
 export type FieldType = BaseField | OptionField | DateField;
 
 export type FormFields = {
-  // could fetch 'type_id': {},
   [key in FormFieldKeys]: FieldType;
 };
 
