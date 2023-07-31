@@ -92,7 +92,7 @@ const getAllPropertiesJoinedData = async (): Promise<any[]> => {
   return data;
 };
 
-const get
+//const get
 
 const getAllPropertiesJoinedDataInGeoRange = async (
   lat: number,
