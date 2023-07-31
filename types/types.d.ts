@@ -1,4 +1,5 @@
 import type { Json } from './supabase';
+import type { Database } from './supabase';
 
 export interface ILocation {
   lat: number;
@@ -162,50 +163,54 @@ export interface SearchPreferenceProps {
 
 export interface BaseField {
   label: string;
-  inputType: 'number' | 'date' | 'text' | 'textarea' | 'file';
-  placeholder?: string;
+  inputType: 'number' | 'date' | 'text' | 'textarea' | 'file' | 'checkbox';
+  placeholder?: string; 
   pattern?: string;
 }
 
+export interface DateField extends BaseField {
+  inputType: 'date';
+  default: string;
+}
+
 export interface OptionField extends BaseField {
-  inputType: 'select' | 'radio' | 'checkbox';
+  inputType: 'select' | 'radio';
   options: string[];
 }
 
-export type FormFieldKeys =
-  | 'propertyType'
-  | 'rent'
-  | 'availableFromDate'
-  | 'bills_included'
-  | 'depositAmount'
-  | 'councilTaxBand'
-  | 'bedrooms'
-  | 'bathrooms'
-  | 'energyRating'
-  | 'minimumTenancyTerm'
-  | 'epcCertificate'
-  | 'flatOrHouseNumber' //why
-  | 'addressLine2' //why
-  | 'addressLine3' //why
-  | 'postCode' //why
-  | 'town' // why
-  | 'smokersAllowed' //attr?
-  | 'petsAllowed' //attr?
-  | 'furnishing' //attr?
-  | 'parking' //attr?
-  | 'floor' //attr?
-  | 'features' //rename to attributes?
-  | 'description'
-  | 'floorPlans'
-  | 'propertyVideo'
-  | 'propertyImages'
-  | 'uploadedImagesOfEveryRoom' //why
-  | 'imagesOfInteriorAndExterior' //why
-  | 'clearAndHighQualityImages' //why
-  | 'newlyTakenImages'; //why;
+type DatabaseListings = Database['public']['Tables']['property']['Insert'];
 
-export type FieldType = BaseField | OptionField;
+export type DatabaseListingsInsObj = Omit<
+DatabaseListings,
+| 'id'
+| 'created_at'
+| 'user_id'
+| 'allocated_parking' // temp
+| 'street_parking' // temp
+| 'attributes' // temp
+| 'county' // temp
+| 'latitude' // temp
+| 'longitude' // temp
+| 'location' // temp
+>;
 
-export type FormFieldTypes = {
+
+export type FormFieldKeys = DatabaseListingsKeys | AdditionalFormFields;
+
+export type AdditionalFormFields = 'floor_plans'
+| 'property_video'
+| 'property_images'
+| 'epcCertificate'
+| 'uploadedImagesOfEveryRoom'
+| 'clearAndHighQualityImages'
+| 'imagesOfInteriorAndExterior'
+| 'newlyTakenImages'
+
+export type FieldType = BaseField | OptionField | DateField;
+
+export type FormFields = {
+  // could fetch 'type_id': {},
   [key in FormFieldKeys]: FieldType;
 };
+
+// export type FormFieldsExcUserId = Omit<FormFields, 'user_id' >;
