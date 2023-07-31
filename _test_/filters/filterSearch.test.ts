@@ -19,9 +19,9 @@ const searchParams: SearchPreferenceProps = {
     proximity: {
       lat: 51.56440233705475, 
       lon: -0.10831598442105773,
-      radius: 3,
+      radius: 5,
     },
-    property_type: ['Detached House', 'Semi-Detached House'],
+    property_type: ['Detached House', 'Semi-Detached House', 'Flat'],
     rooms: {
       min: 1,
       max: 10,
@@ -30,7 +30,7 @@ const searchParams: SearchPreferenceProps = {
     features: {
       //pets: true,
       // smokers: false,
-      //bike_storage: false,
+      bike_storage: true,
       garden: true,
       // fireplace: false,
       // elevator: false,
