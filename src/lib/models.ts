@@ -113,25 +113,27 @@ const getFilteredProperties = async (filters: any[]): Promise<any[]> => {
   filters.forEach((filter) => {
     const filterOp = filter.operation;
 
-    data = data.filter(row => {
+    data = data.filter((row) => {
       switch (filterOp) {
         case FilterOperation.bool:
-          case FilterOperation.match:
+        case FilterOperation.match:
           return row[filter.field] === filter.args[0];
           break;
         case FilterOperation.greater_than_or_equal:
           return row[filter.field] >= filter.args[0];
           break;
         case FilterOperation.range:
-          return row[filter.field] >= filter.args[0] && row[filter.field] <= filter.args[1]  
+          return (
+            row[filter.field] >= filter.args[0] &&
+            row[filter.field] <= filter.args[1]
+          );
           break;
         default:
           return data;
       }
-    })
-
-    return data;
+    });
   });
+  return data;
 
   // const { data, error } = await supabaseClient.rpc('properties_within_range', {
   //     lat: lat,
