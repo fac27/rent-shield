@@ -56,17 +56,23 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
     checkSession()
   }, [])
 
+  console.log('userid:', userId)
+
   const addFavourite = async (property_id: number, user_id: string) => {
     try {
-      await supabase.from('favourite').insert({ property_id, user_id })
+      await supabase.from('favourites').insert({ property_id, user_id })
       setLiked(true)
     } catch (error) {
       console.error('Error adding favourite: ', error)
     }
   }
-  const deleteFavourite = async (property_id: number) => {
+  const deleteFavourite = async (property_id: number, user_id: string) => {
     try {
-      await supabase.from('favourite').delete().eq('property_id', property_id)
+      await supabase
+        .from('favourites')
+        .delete()
+        .eq('property_id', property_id)
+        .eq('user_id', user_id)
       setLiked(false)
     } catch (error) {
       console.error('Error deleting favourite: ', error)
@@ -76,7 +82,9 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
     if (!loggedIn) {
       router.push('/log-in')
     } else {
-      liked ? deleteFavourite(property_id) : addFavourite(property_id, user_id)
+      liked
+        ? await deleteFavourite(property_id, user_id)
+        : await addFavourite(property_id, user_id)
     }
   }
 

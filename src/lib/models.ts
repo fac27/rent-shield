@@ -40,7 +40,7 @@ const getPropertyById = async (id: number): Promise<ListingType[]> => {
   return data
 }
 
-const getAllPropertiesById = async (ids: []): Promise<ListingType[]> => {
+const getAllPropertiesById = async (ids: any[]): Promise<ListingType[]> => {
   const { data, error } = await supabaseClient
     .from('property')
     .select(
