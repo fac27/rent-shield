@@ -26,7 +26,7 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
   const [markers, setMarkers] = useState<ILocation[]>([])
   const [loading, setLoading] = useState(true) // added a loading state in case the map doesn't load...
   const [loggedIn, setLoggedIn] = useState(false)
-  const [userId, setUserId] = useState<string | null | undefined>(null)
+  const [userId, setUserId] = useState<string>('')
   const supabase = createClientComponentClient<Database>()
   const router = useRouter()
 
@@ -51,7 +51,7 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
       } = await supabase.auth.getSession()
       if (session) setLoggedIn(true)
       const sessionUserId = await getUserId()
-      setUserId(sessionUserId)
+      setUserId(sessionUserId as string)
     }
     checkSession()
   }, [])
@@ -72,10 +72,7 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
       console.error('Error deleting favourite: ', error)
     }
   }
-  const handleFavourite = async (
-    property_id: number,
-    user_id: string | null,
-  ) => {
+  const handleFavourite = async (property_id: number, user_id: string) => {
     if (!loggedIn) {
       router.push('/log-in')
     } else {
