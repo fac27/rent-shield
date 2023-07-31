@@ -1,44 +1,45 @@
 import { SearchPreferenceProps } from '../../types/types';
-import { filterPropertyListings } from '../../src/utils/filterHelper';
+import { filterPropertyListings } from '../../src/utils/filterHelper'
+
 import {
   getAllProperties,
   getAllPropertiesJoinedData,
   getAllPropertiesJoinedDataInGeoRange,
-} from '../../src/lib/models';
+} from '../../src/lib/models'
 
 // Mock data for search test
 const searchParams: SearchPreferenceProps = {
   preferences: {
-    location: 'hackney',
+    //location: 'hackney',
     cost: {
       min: 1000,
-      max: 2000,
+      max: 2500,
     },
-    billsIncluded: true,
+    //billsIncluded: false,
     proximity: {
-      lat: 0,
-      lon: 0,
+      lat: 51.56440233705475, 
+      lon: -0.10831598442105773,
       radius: 5,
     },
-    propertyType: ['flat', 'house'],
+    //propertyType: ['flat', 'house'],
     rooms: {
       min: 1,
       max: 10,
     },
-    tenancyMinMonths: 12,
+    //tenancyMinMonths: 6,
     features: {
-      pets: true,
-      smokers: false,
-      bikeStorage: false,
+      //pets: true,
+      // smokers: false,
+      // bikeStorage: false,
       garden: true,
-      fireplace: false,
-      elevator: false,
-      wheelchairAccessible: true,
-      electricHeating: false,
-      gasHeating: false,
-      visitorParking: false,
-      allocatedParking: false,
-      streetParking: false,
+      // fireplace: false,
+      // elevator: false,
+      // wheelchairAccessible: true,
+      // electricHeating: false,
+      // gasHeating: false,
+      // visitorParking: false,
+      // allocatedParking: false,
+      // streetParking: false,
     },
   },
 };
@@ -56,19 +57,27 @@ let listings: any[];
 //   });
 // });
 
-describe('get property_view results', () => {
-  it('should return an array of properties', async () => {
-    const properties = await getAllPropertiesJoinedData();
-    expect(properties).toBeInstanceOf(Array);
-  });
-});
+// describe('get property_view results', () => {
+//   it('should return an array of properties', async () => {
+//     const properties = await getAllPropertiesJoinedData();
+//     expect(properties).toBeInstanceOf(Array);
+//   });
+// });
 
-describe('get property_view results', () => {
+// describe('get property_view results', () => {
+//   it('should return an array of properties', async () => {
+//     const lat = 51.564;
+//     const long = -0.108;
+//     const radius = 3;
+//     const properties = await getAllPropertiesJoinedDataInGeoRange(lat, long, radius);
+//     expect(properties).toBeInstanceOf(Array);
+//   });
+// });
+
+describe('get filtered properties', () => {
   it('should return an array of properties', async () => {
-    const lat = 51.564;
-    const long = -0.108;
-    const radius = 3;
-    const properties = await getAllPropertiesJoinedDataInGeoRange(lat, long, radius);
+    const properties = await filterPropertyListings(searchParams);
+
     expect(properties).toBeInstanceOf(Array);
   });
 });

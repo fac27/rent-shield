@@ -1,6 +1,7 @@
 import { all } from 'cypress/types/bluebird';
 import { ListingType, SearchPreferenceProps } from '../../types/types';
 import { allFilters, Filter, FilterOperation  } from '../lib/filterObjects'
+import { getFilteredProperties } from '../lib/models'
 
 // enum FilterOperation {
 //   'bool',
@@ -23,10 +24,11 @@ const filterPropertyListings = (
   const currentSearchFilters: [] = [];
   const searchPrefs = searchParams.preferences;
 
-  parseSearchParamObject(searchPrefs, currentSearchFilters);
+  const filters = parseSearchParamObject(searchPrefs, currentSearchFilters);
 
   // Call model function to apply filters to property listings view
-  return [];
+  
+  return getFilteredProperties(filters);
 };
 
 const parseSearchParamObject = (

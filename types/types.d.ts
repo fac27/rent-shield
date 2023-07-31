@@ -78,8 +78,8 @@ export interface SearchFormProps {
 }
 export interface SearchPreferenceProps {
   preferences: {
-    location: string;
-    proximity: {
+    location?: string;
+    proximity?: {
       lat: number;
       lon: number;
       radius: number;

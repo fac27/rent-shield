@@ -7,6 +7,11 @@ import {
   TransportDataType,
 } from '../../types/types';
 import { FilterOperation } from './filterObjects';
+import { Database } from '../../types/supabase';
+//import { types } from 'util';
+
+type PropertiesWithDistanceFromReturnType =
+  Database['public']['Functions']['properties_with_distance_from']['Returns'];
 
 const getPropertyById = async (id: number): Promise<ListingType[]> => {
   const { data, error } = await supabaseClient
@@ -97,12 +102,18 @@ const getFilteredProperties = async (filters: any[]): Promise<any[]> => {
   const geoFilter = filters.find(
     (item) => item.operation === FilterOperation.geo_distance,
   );
-  const lat: number = geoFilter.args[0];
-  const long: number = geoFilter.args[1];
-  const radius: number = geoFilter.args[2] ? geoFilter.args[2] : 100; // Set default geo radius to 100km if not set already
+
+  /* If no lat long pair and radius in filters then
+  create one with London centre and 30km radius */
+  const lat: number = geoFilter ? geoFilter.args[0] : 51.507391;
+  const long: number = geoFilter ? geoFilter.args[1] : -0.1277;
+  const radius: number = geoFilter ? geoFilter.args[2] : 30;
+
+  const geoParams = { lat: lat, long: long, radius_km: radius };
 
   let { data, error } = await supabaseClient.rpc(
-    `properties_with_distance_from(${lat}, ${long}, ${radius})`,
+    'properties_with_distance_from',
+    geoParams
   );
 
   if (error) {
@@ -113,7 +124,7 @@ const getFilteredProperties = async (filters: any[]): Promise<any[]> => {
   filters.forEach((filter) => {
     const filterOp = filter.operation;
 
-    data = data.filter((row) => {
+    data = data.filter((row: PropertiesWithDistanceFromReturnType) => {
       switch (filterOp) {
         case FilterOperation.bool:
         case FilterOperation.match:
@@ -133,21 +144,8 @@ const getFilteredProperties = async (filters: any[]): Promise<any[]> => {
       }
     });
   });
+  console.log(`\x1b[33m Geo search results: ${JSON.stringify(data)} \x1b[0m`);
   return data;
-
-  // const { data, error } = await supabaseClient.rpc('properties_within_range', {
-  //     lat: lat,
-  //     long: long,
-  //     radius: radius,
-  //   })
-  //   .filter('dist_km', 'lte', radius);
-
-  //   if (error) {
-  //     console.log(`Error getting property types: ${error.message}`);
-  //     throw error;
-  //   }
-  //   console.log(`Geo search results: ${JSON.stringify(data)}`);
-  //   return data;
 };
 
 const getAllPropertiesJoinedDataInGeoRange = async (
@@ -238,4 +236,5 @@ export {
   GetTransportDataById,
   getAllPropertiesJoinedData,
   getAllPropertiesJoinedDataInGeoRange,
+  getFilteredProperties,
 };
