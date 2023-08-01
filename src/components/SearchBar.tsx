@@ -23,7 +23,7 @@ const SearchBar = () => {
     e.preventDefault()
     const value: any = e.nativeEvent?.target
     if (!value) return
-    const address = value[0].value
+    const address = value.area.value
     let { lat, lng } = await convertAddress(address)
     router.push('/listings?lat=' + lat + '&lng=' + lng)
   }
@@ -60,6 +60,7 @@ const SearchBar = () => {
           placeholder="Location..."
           required
           value={inputValue}
+          name="area"
           onChange={(e) => setInputValue(e.target.value)}
         />
         <button

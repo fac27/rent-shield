@@ -57,7 +57,7 @@ export default function SignInForm() {
             </div>
             <TextInput
               id="email1"
-              placeholder="name@flowbite.com"
+              placeholder="name@email.com"
               required
               shadow
               type="email"
