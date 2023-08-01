@@ -72,19 +72,6 @@ const getAllPropertiesById = async (ids: any[]): Promise<ListingType[]> => {
 
   return data
 }
-const getFavourites = async (userId: any) => {
-  // const id = await getUserId()
-  const { data, error } = await supabaseClient
-    .from('favourites')
-    .select()
-    .eq('user_id', userId)
-  if (error) {
-    console.error('Error getting favourites data', error)
-    throw error
-  }
-  console.log('favourite data', data)
-  return data
-}
 
 const getAllProperties = async (): Promise<ListingType[]> => {
   const { data, error } = await supabaseClient.from('property').select(
@@ -191,5 +178,4 @@ export {
   getRoleByDescription,
   getAllRoles,
   getAllPropertiesById,
-  getFavourites,
 }
