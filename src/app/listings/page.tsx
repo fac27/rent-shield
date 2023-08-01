@@ -9,23 +9,21 @@ import { toBoolean } from 'utils/searchPreferenceHelpers';
 
 export default function SearchResults() {
   const params = useSearchParams();
-  const [listings, setListings] = useState<ListingType[]>([])
+  const [listings, setListings] = useState<ListingType[]>([]);
 
-  
-  useEffect(()=>{
-   const fetchData = async () => {
-     const data = await getAllProperties();
-     setListings(data);
-   };
-   fetchData();
-  }, [params])
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAllProperties();
+      setListings(data);
+    };
+    fetchData();
+  }, [params]);
 
-  
   const searchFilters: SearchPreferenceProps = {
     preferences: {
       location: params.get('location') as string,
-      proximity:{
-        lat:Number(params.get('lat')),
+      proximity: {
+        lat: Number(params.get('lat')),
         lon: Number(params.get('lon')),
         radius: Number(params.get('radius')),
       },
@@ -34,12 +32,12 @@ export default function SearchResults() {
         max: Number(params.get('max-cos')),
       },
       bills_included: toBoolean(params.get('bills_included') as string),
-        property_type: params.get('type')?.split(',') as string[],
-        rooms: {
-          min_rooms: Number(params.get('min_rooms')),
-          max_rooms: Number(params.get('max_rooms')),
-        },
-        min_tenancy_months: Number(params.get('min_tenancy')),
+      property_type: params.get('type')?.split(',') as string[],
+      rooms: {
+        min_rooms: Number(params.get('min_rooms')),
+        max_rooms: Number(params.get('max_rooms')),
+      },
+      min_tenancy_months: Number(params.get('min_tenancy')),
       features: {
         pets_allowed: toBoolean(params.get('pets_allowed') as string),
         smokers_allowed: toBoolean(params.get('smokers_allowed') as string),

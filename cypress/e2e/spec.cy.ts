@@ -11,17 +11,17 @@ describe('/listings page spec', () => {
   });
 });
 
-describe('/search-preferences spec', ()=> {
-  it('loads the SearchPreferencesForm', ()=>{
+describe('/search-preferences spec', () => {
+  it('loads the SearchPreferencesForm', () => {
     cy.visit('http://localhost:3000/search-preferences');
-    cy.get('form').should('be.visible')
+    cy.get('form').should('be.visible');
   });
-  it('submits preferences to the url', ()=>{
+  it('submits preferences to the url', () => {
     cy.visit('http://localhost:3000/search-preferences');
-    cy.get('#location').type('hackney')
-    cy.get('#max-rooms').invoke('val',1).trigger('change')
-    cy.get('button').click({multiple:true})
-    cy.url().should('include', '&location=hackney')
-    cy.url().should('include', '&max_rooms=1')
-  })
-})
+    cy.get('#location').type('hackney');
+    cy.get('#max-rooms').invoke('val', 1).trigger('change');
+    cy.get('button').click({ multiple: true });
+    cy.url().should('include', '&location=hackney');
+    cy.url().should('include', '&max_rooms=1');
+  });
+});

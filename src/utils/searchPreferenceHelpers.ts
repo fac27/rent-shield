@@ -18,50 +18,61 @@ export const makeIntoQuery = (data: { [key: string]: any }) => {
     .join('');
 };
 
+const ifTrue = (value: boolean): boolean | undefined => {
+  return value === true ? true : undefined;
+};
+
 /**
  * @returns a props object suited for the search preference functionality of our page.
  * @remarks this function is a helper for the filter functionality in our app
  * @param submitted should be the event.target object from your submission event.
  */
 export const makeIntoProps = (submitted: any): SearchPreferenceProps => {
- 
   return {
     preferences: {
       location: submitted.location.value,
-      proximity:{
-        lat: submitted.lat.value,
-        lon: submitted.lng.value,
+      proximity: {
+        lat: submitted.lat,
+        lon: submitted.lng,
         radius: submitted.radius,
       },
       cost: {
-        min:submitted.min_cost.value,
+        min: submitted.min_cost.value,
         max: submitted.max_cost.value,
       },
       bills_included: submitted.bills.checked,
       property_type: submitted.property_type.value,
-        rooms: {
-          min_rooms: submitted.roomsMin.value,
-          max_rooms: submitted.roomsMax.value,
-        },
-        min_tenancy_months: submitted.tenancy.value,
+      rooms: {
+        min_rooms: submitted.roomsMin.value,
+        max_rooms: submitted.roomsMax.value,
+      },
+      min_tenancy_months: submitted.tenancy.value,
       features: {
-        pets_allowed: submitted.pets_allowed.checked,
-        smokers_allowed: submitted.smokers_allowed.checked,
-        bike_storage: submitted.bike_storage.checked,
-        garden: submitted.garden.checked,
-        fireplace: submitted.fireplace.checked,
-        elevator: submitted.elevator.checked,
-        wheelchair_accessible: submitted.wheelchair_accessible.checked,
-        electric_heating: submitted.electric_heating.checked,
-        gas_heating: submitted.gas_heating.checked,
-        visitor_parking: submitted.visitor_parking.checked,
-        allocated_parking: submitted.allocated_parking.checked,
-        street_parking: submitted.street_parking.checked,
+        pets_allowed: ifTrue(submitted.pets_allowed.checked),
+        smokers_allowed: ifTrue(submitted.smokers_allowed.checked),
+        bike_storage: ifTrue(submitted.bike_storage.checked),
+        garden: ifTrue(submitted.garden.checked),
+        fireplace:
+          ifTrue(submitted.fireplace.checked),
+        elevator:
+          ifTrue(submitted.elevator.checked),
+        wheelchair_accessible:
+          ifTrue(submitted.wheelchair_accessible.checked),
+        electric_heating:
+          ifTrue(submitted.electric_heating.checked),
+        gas_heating:
+          ifTrue(submitted.gas_heating.checked),
+        visitor_parking:
+          ifTrue(submitted.visitor_parking.checked),
+        allocated_parking:
+          ifTrue(submitted.allocated_parking.checked),
+        street_parking:
+          ifTrue(submitted.street_parking.checked),
       },
     },
   };
 };
 
 export const toBoolean = (string: string): boolean => {
-  return string === 'true' ? true : false
-}
+  return string === 'true' ? true : false;
+};

@@ -16,18 +16,17 @@ import { makeIntoQuery, makeIntoProps } from 'utils/searchPreferenceHelpers';
 
 const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   const router = useRouter();
-  const [searchRadius, setSearchRadius] = useState<number>(30)
+  const [searchRadius, setSearchRadius] = useState<number>(30);
   const [minRooms, setMinRooms] = useState<number>(0);
   const [maxRent, setMaxRent] = useState<number>(
     preferences.cost.max - preferences.cost.min,
   );
-  const [minRent, setMinRent] = useState<number>(preferences.cost.min)
+  const [minRent, setMinRent] = useState<number>(preferences.cost.min);
   const [maxRooms, setMaxRooms] = useState<number>(
     preferences.property_details.rooms.reduce((acc, cur) =>
       acc > cur ? acc : cur,
     ),
   );
-
 
   const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,7 +46,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
           <legend>Location</legend>
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="email1" value="Area" />
+              <Label htmlFor="location" value="Area" />
             </div>
             <TextInput
               id="location"
@@ -57,52 +56,56 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               name="location"
               defaultValue={preferences.location}
             />
-          <div>
-            <div className="mb-1 block">
-              <Label
-                htmlFor="search-radius"
-                value={`Search Radius: ${searchRadius} km`}
+            <div>
+              <div className="mb-1 block">
+                <Label
+                  htmlFor="search-radius"
+                  value={`Search Radius: ${searchRadius} km`}
+                />
+              </div>
+              <RangeSlider
+                id="search-radius"
+                max={30}
+                min={1}
+                name="min-cost"
+                value={searchRadius}
+                onChange={(e) => {
+                  setSearchRadius(Number(e.target.value));
+                }}
               />
             </div>
-            <RangeSlider
-              id="search-radius"
-              max={30}
-              min={1}
-              name="min-cost"
-              value={searchRadius}
-              onChange={(e) => {
-                setSearchRadius(Number(e.target.value));
-              }}
-              />
-          </div>
           </div>
         </fieldset>
 
         <fieldset className="mt-4">
           <legend>Cost</legend>
           <div>
-          <div>
-            <div className="mb-1 block">
-              <Label
-                htmlFor="min-cost"
-                value={`Minimum Rent: £${minRent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
+            <div>
+              <div className="mb-1 block">
+                <Label
+                  htmlFor="min-cost"
+                  value={`Minimum Rent: £${minRent
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
+                />
+              </div>
+              <RangeSlider
+                id="min-cost"
+                max={preferences.cost.max}
+                min={preferences.cost.min}
+                name="min_cost"
+                value={minRent}
+                onChange={(e) => {
+                  setMinRent(Number(e.target.value));
+                }}
               />
             </div>
-            <RangeSlider
-              id="min-cost"
-              max={preferences.cost.max}
-              min={preferences.cost.min}
-              name="min_cost"
-              value={minRent}
-              onChange={(e) => {
-                setMinRent(Number(e.target.value));
-              }}
-              />
-          </div>
             <div className="mb-1 block">
               <Label
                 htmlFor="default-range"
-                value={`Maximum Rent: £${maxRent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
+                value={`Maximum Rent: £${maxRent
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
               />
             </div>
             <RangeSlider
@@ -114,7 +117,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               onChange={(e) => {
                 setMaxRent(Number(e.target.value));
               }}
-              />
+            />
           </div>
           <ToggleSwitch
             checked
@@ -194,7 +197,11 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                   key={`${typeValue}-type`}
                   className="flex-col items-center space-x-2"
                 >
-                  <Checkbox id={typeValue} name="property_type" value={typeValue} />
+                  <Checkbox
+                    id={typeValue}
+                    name="property_type"
+                    value={typeValue}
+                  />
                   <Label>{type}</Label>
                 </div>
               );
