@@ -94,15 +94,19 @@ const AddListingForm = () => {
           }
           break
         }
-        // case undefined: {
-        //   // wrapper for children inputs
-        //   for (const element in formTarget[key]) {
-        //     listingsObject[key as keyof SupabaseListingsInsert] =
-        //       formTarget[key][element].value;
-        //   }
-        //   break;
-        // }
+        case undefined: {
+          // this doesnt currently happen but may do if you use fieldsets with radio buttons
+
+          // wrapper for children inputs
+          for (const element in formTarget[key]) {
+            listingsObject[key as keyof DatabaseListingsInsObj] =
+              formTarget[key][element].value
+          }
+          break
+        }
         default: {
+          // this should never happen, but if it does throw an error
+          throw Error(`Unknown type ${formTarget[key].type}`)
           console.log(
             ` 🔥 ${key} of type ${formTarget[key].type} and value ${formTarget[key].value} was inserted`,
           )
@@ -112,7 +116,6 @@ const AddListingForm = () => {
 
     try {
       // UPLOAD LISTING
-
       const { data: selectTypeData } = await supabaseCompClient
         .from('type')
         .select('id')
