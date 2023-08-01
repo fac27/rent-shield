@@ -19,6 +19,7 @@ describe('carousel stress tests', () => {
   })
   it('should change the image when the dots are clicked', () => {
     cy.visit('/listings')
+    cy.wait(2000)
     cy.get('[data-id="listing-1"] [alt="image-1"]').should('be.visible')
     cy.get('#slide-2').click()
     cy.wait(2000)
