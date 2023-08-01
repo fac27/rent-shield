@@ -102,12 +102,12 @@ const getFilteredProperties = async (filters: any[]): Promise<any[]> => {
   const geoFilter = filters.find(
     (item) => item.operation === FilterOperation.geo_distance,
   );
+  // Create default search area for if none specified in filters
+  const londonArea = { lat: 51.507391, long: -0.1277, radius: 30 };
 
-  /* If no lat long pair and radius in filters then
-  create one with London centre and 30km radius */
-  const lat: number = geoFilter ? geoFilter.args[0] : 51.507391;
-  const long: number = geoFilter ? geoFilter.args[1] : -0.1277;
-  const radius: number = geoFilter ? geoFilter.args[2] : 30;
+  const lat: number = geoFilter ? geoFilter.args[0] : londonArea.lat;
+  const long: number = geoFilter ? geoFilter.args[1] : londonArea.long;
+  const radius: number = geoFilter ? geoFilter.args[2] : londonArea.radius;
 
   const geoParams = { lat: lat, long: long, radius_km: radius };
 

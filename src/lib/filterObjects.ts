@@ -103,6 +103,11 @@ const allFilters: { [key: string]: Filter } = {
       field: 'street_parking',
       args: [],
     },
+    wheelchair_accessible: {
+      operation: FilterOperation.bool,
+      field: 'wheelchair_accessible',
+      args: [],
+    },
   };
 
   export {allFilters, }
