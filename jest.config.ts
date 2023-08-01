@@ -1,5 +1,5 @@
-import nextJest from 'next/jest';
-const createJestConfig = nextJest({ dir: './' });
+import nextJest from 'next/jest'
+const createJestConfig = nextJest({ dir: './' })
 
 const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
@@ -8,6 +8,6 @@ const customJestConfig = {
   collectCoverageFrom: ['src/**/*.{js,jsx}'],
   coverageDirectory: 'coverage',
   testEnvironment: 'jsdom',
-};
+}
 
-export default createJestConfig(customJestConfig);
+export default createJestConfig(customJestConfig)

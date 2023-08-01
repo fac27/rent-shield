@@ -17,6 +17,6 @@ const nextConfig = {
     ],
   },
   compress: false,
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

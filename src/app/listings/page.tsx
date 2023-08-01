@@ -1,23 +1,23 @@
-'use client';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+'use client'
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
-import ListingsContainer from '../../components/ListingsContainter';
-import { getAllProperties } from 'lib/models';
-import { ListingType, SearchPreferenceProps } from '../../../types/types';
-import { toBoolean } from 'utils/searchPreferenceHelpers';
+import ListingsContainer from '../../components/ListingsContainter'
+import { getAllProperties } from 'lib/models'
+import { ListingType, SearchPreferenceProps } from '../../../types/types'
+import { toBoolean } from 'utils/searchPreferenceHelpers'
 
 export default function SearchResults() {
-  const params = useSearchParams();
-  const [listings, setListings] = useState<ListingType[]>([]);
+  const params = useSearchParams()
+  const [listings, setListings] = useState<ListingType[]>([])
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllProperties();
-      setListings(data);
-    };
-    fetchData();
-  }, [params]);
+      const data = await getAllProperties()
+      setListings(data)
+    }
+    fetchData()
+  }, [params])
 
   const searchFilters: SearchPreferenceProps = {
     preferences: {
@@ -55,7 +55,7 @@ export default function SearchResults() {
         street_parking: toBoolean(params.get('exterior_parking') as string),
       },
     },
-  };
+  }
 
-  return <ListingsContainer listings={listings} filters={searchFilters} />;
+  return <ListingsContainer listings={listings} filters={searchFilters} />
 }

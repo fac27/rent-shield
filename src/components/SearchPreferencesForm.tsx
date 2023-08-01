@@ -1,5 +1,5 @@
-import { FC, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { FC, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import {
   Button,
   Checkbox,
@@ -9,31 +9,31 @@ import {
   Select,
   ToggleSwitch,
   Card,
-} from 'flowbite-react';
+} from 'flowbite-react'
 
-import { SearchFormProps } from '../../types/types';
-import { makeIntoQuery, makeIntoProps } from 'utils/searchPreferenceHelpers';
+import { SearchFormProps } from '../../types/types'
+import { makeIntoQuery, makeIntoProps } from 'utils/searchPreferenceHelpers'
 
 const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
-  const router = useRouter();
-  const [searchRadius, setSearchRadius] = useState<number>(30);
-  const [minRooms, setMinRooms] = useState<number>(0);
+  const router = useRouter()
+  const [searchRadius, setSearchRadius] = useState<number>(30)
+  const [minRooms, setMinRooms] = useState<number>(0)
   const [maxRent, setMaxRent] = useState<number>(
     preferences.cost.max - preferences.cost.min,
-  );
-  const [minRent, setMinRent] = useState<number>(preferences.cost.min);
+  )
+  const [minRent, setMinRent] = useState<number>(preferences.cost.min)
   const [maxRooms, setMaxRooms] = useState<number>(
     preferences.property_details.rooms.reduce((acc, cur) =>
       acc > cur ? acc : cur,
     ),
-  );
+  )
 
   const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const search = makeIntoProps(e.nativeEvent?.target);
-    const query = makeIntoQuery(search.preferences);
-    router.push(`/listings?=${query}`);
-  };
+    e.preventDefault()
+    const search = makeIntoProps(e.nativeEvent?.target)
+    const query = makeIntoQuery(search.preferences)
+    router.push(`/listings?=${query}`)
+  }
 
   return (
     <Card data-cy="SearchPreferencesForm" className="w-8/12 p-4 m-auto">
@@ -70,7 +70,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                 name="min-cost"
                 value={searchRadius}
                 onChange={(e) => {
-                  setSearchRadius(Number(e.target.value));
+                  setSearchRadius(Number(e.target.value))
                 }}
               />
             </div>
@@ -96,7 +96,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                 name="min_cost"
                 value={minRent}
                 onChange={(e) => {
-                  setMinRent(Number(e.target.value));
+                  setMinRent(Number(e.target.value))
                 }}
               />
             </div>
@@ -115,7 +115,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               name="max_cost"
               value={maxRent}
               onChange={(e) => {
-                setMaxRent(Number(e.target.value));
+                setMaxRent(Number(e.target.value))
               }}
             />
           </div>
@@ -124,7 +124,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
             label="Bills included only"
             name="bills"
             onChange={() => {
-              console.log('FILTER FOR BILLS INCLUDED');
+              console.log('FILTER FOR BILLS INCLUDED')
             }}
           />
         </fieldset>
@@ -147,7 +147,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                   name="roomsMin"
                   value={minRooms}
                   onChange={(e) => {
-                    setMinRooms(Number(e.target.value));
+                    setMinRooms(Number(e.target.value))
                   }}
                 />
               </div>
@@ -166,7 +166,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                   name="roomsMax"
                   value={maxRooms}
                   onChange={(e) => {
-                    setMaxRooms(Number(e.target.value));
+                    setMaxRooms(Number(e.target.value))
                   }}
                 />
               </div>
@@ -183,7 +183,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                     <option key={`${duration}-duration`} value={duration}>
                       {`${duration} months`}
                     </option>
-                  );
+                  )
                 },
               )}
             </Select>
@@ -191,7 +191,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
 
           <div className="flex-row space-y-2 mt-4">
             {preferences.property_details.type.map((type) => {
-              const typeValue = type.replace(' ', '_');
+              const typeValue = type.replace(' ', '_')
               return (
                 <div
                   key={`${typeValue}-type`}
@@ -204,7 +204,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                   />
                   <Label>{type}</Label>
                 </div>
-              );
+              )
             })}
           </div>
         </fieldset>
@@ -213,7 +213,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
           <legend>Features</legend>
           <div className="flex-row space-y-2 mt-4">
             {preferences.features.map((feature) => {
-              const featureValue = feature.replace(' ', '_');
+              const featureValue = feature.replace(' ', '_')
               return (
                 <div
                   key={`${featureValue}-feature`}
@@ -226,7 +226,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                   />
                   <Label>{feature}</Label>
                 </div>
-              );
+              )
             })}
           </div>
         </fieldset>
@@ -235,7 +235,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
         </Button>
       </form>
     </Card>
-  );
-};
+  )
+}
 
-export default SearchPreferencesForm;
+export default SearchPreferencesForm

@@ -1,4 +1,4 @@
-import { FormFieldTypes } from '../../types/types';
+import { FormFieldTypes } from '../../types/types'
 
 export const formFields: FormFieldTypes = {
   rent: {
@@ -171,4 +171,4 @@ export const formFields: FormFieldTypes = {
     inputType: 'radio',
     options: ['Yes', 'No'],
   },
-};
+}

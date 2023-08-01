@@ -1,23 +1,23 @@
-'use client';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Dropdown, Navbar, Avatar } from 'flowbite-react';
-import { RxHamburgerMenu } from 'react-icons/rx';
-import HamburgerSidebar from './HamburgerSidebar';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '../../types/supabase';
+'use client'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Dropdown, Navbar, Avatar } from 'flowbite-react'
+import { RxHamburgerMenu } from 'react-icons/rx'
+import HamburgerSidebar from './HamburgerSidebar'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Database } from '../../types/supabase'
 
 const Header = () => {
-  const [showSidebar, setShowSidebar] = useState(false);
-  const router = useRouter();
-  const supabase = createClientComponentClient<Database>();
+  const [showSidebar, setShowSidebar] = useState(false)
+  const router = useRouter()
+  const supabase = createClientComponentClient<Database>()
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.refresh();
-  };
+    await supabase.auth.signOut()
+    router.refresh()
+  }
 
   return (
     <header>
@@ -64,18 +64,11 @@ const Header = () => {
             <Dropdown.Divider />
             <Dropdown.Item>Sign out</Dropdown.Item>
             <Dropdown.Divider />
-            <Link href="/log-in">
-              <Dropdown.Item>Log In</Dropdown.Item>
-            </Link>
-            <Dropdown.Divider />
-            <Link href="/sign-up">
-              <Dropdown.Item>Sign Up</Dropdown.Item>
-            </Link>
           </Dropdown>
         </div>
       </Navbar>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

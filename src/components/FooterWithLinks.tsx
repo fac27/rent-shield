@@ -1,6 +1,6 @@
-'use client';
-import { Footer } from 'flowbite-react';
-import { BsFacebook, BsGithub, BsInstagram, BsTwitter } from 'react-icons/bs';
+'use client'
+import { Footer } from 'flowbite-react'
+import { BsFacebook, BsGithub, BsInstagram, BsTwitter } from 'react-icons/bs'
 
 const FooterWithLinks = () => {
   return (
@@ -18,7 +18,7 @@ const FooterWithLinks = () => {
         </div>
       </div>
     </Footer>
-  );
-};
+  )
+}
 
-export default FooterWithLinks;
+export default FooterWithLinks

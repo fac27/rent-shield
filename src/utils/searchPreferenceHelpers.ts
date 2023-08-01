@@ -1,6 +1,6 @@
-import { ReadonlyURLSearchParams } from 'next/navigation';
-import { SearchPreferenceProps } from '../../types/types';
-import { convertAddress } from './mapHelper';
+import { ReadonlyURLSearchParams } from 'next/navigation'
+import { SearchPreferenceProps } from '../../types/types'
+import { convertAddress } from './mapHelper'
 
 /**
  * @returns a query string from all key:value pairs in a nested Object
@@ -10,17 +10,17 @@ import { convertAddress } from './mapHelper';
 export const makeIntoQuery = (data: { [key: string]: any }) => {
   return Object.keys(data)
     .map((key) => {
-      let value = data[key];
+      let value = data[key]
       if (value !== null && typeof value === 'object')
-        value = makeIntoQuery(value);
-      return `&${key}=${value}`;
+        value = makeIntoQuery(value)
+      return `&${key}=${value}`
     })
-    .join('');
-};
+    .join('')
+}
 
 const ifTrue = (value: boolean): boolean | undefined => {
-  return value === true ? true : undefined;
-};
+  return value === true ? true : undefined
+}
 
 /**
  * @returns a props object suited for the search preference functionality of our page.
@@ -52,27 +52,19 @@ export const makeIntoProps = (submitted: any): SearchPreferenceProps => {
         smokers_allowed: ifTrue(submitted.smokers_allowed.checked),
         bike_storage: ifTrue(submitted.bike_storage.checked),
         garden: ifTrue(submitted.garden.checked),
-        fireplace:
-          ifTrue(submitted.fireplace.checked),
-        elevator:
-          ifTrue(submitted.elevator.checked),
-        wheelchair_accessible:
-          ifTrue(submitted.wheelchair_accessible.checked),
-        electric_heating:
-          ifTrue(submitted.electric_heating.checked),
-        gas_heating:
-          ifTrue(submitted.gas_heating.checked),
-        visitor_parking:
-          ifTrue(submitted.visitor_parking.checked),
-        allocated_parking:
-          ifTrue(submitted.allocated_parking.checked),
-        street_parking:
-          ifTrue(submitted.street_parking.checked),
+        fireplace: ifTrue(submitted.fireplace.checked),
+        elevator: ifTrue(submitted.elevator.checked),
+        wheelchair_accessible: ifTrue(submitted.wheelchair_accessible.checked),
+        electric_heating: ifTrue(submitted.electric_heating.checked),
+        gas_heating: ifTrue(submitted.gas_heating.checked),
+        visitor_parking: ifTrue(submitted.visitor_parking.checked),
+        allocated_parking: ifTrue(submitted.allocated_parking.checked),
+        street_parking: ifTrue(submitted.street_parking.checked),
       },
     },
-  };
-};
+  }
+}
 
 export const toBoolean = (string: string): boolean => {
-  return string === 'true' ? true : false;
-};
+  return string === 'true' ? true : false
+}

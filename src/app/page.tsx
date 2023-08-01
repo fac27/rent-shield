@@ -1,4 +1,4 @@
-import SearchBar from 'components/SearchBar';
+import SearchBar from 'components/SearchBar'
 
 export default async function Home() {
   return (
@@ -7,5 +7,5 @@ export default async function Home() {
         <SearchBar />
       </div>
     </main>
-  );
+  )
 }
