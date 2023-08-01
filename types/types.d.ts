@@ -58,7 +58,7 @@ export type Type = { id: number; description: string }[]
 
 export interface ContainerProps {
   listings: ListingType[]
-  filters: SearchPreferenceProps
+  // filters: SearchPreferenceProps
 }
 
 export interface SearchFormProps {

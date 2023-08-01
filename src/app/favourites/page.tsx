@@ -66,7 +66,7 @@ export default async function page() {
     const list = await getAllPropertiesById(favourites)
     return list
   }
-  const listings = await getAllListings()
+  const listings: ListingType[] = await getAllListings()
 
   return <ListingsContainer listings={listings} />
 }
