@@ -24,7 +24,7 @@ export default function SignInForm() {
       if (session) setLoggedIn(true)
     }
     checkSession()
-  }, [])
+  }, [supabase.auth])
 
   // redirect if the user is logged in
   useEffect(() => {
