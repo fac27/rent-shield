@@ -165,5 +165,3 @@ export type FieldType = BaseField | OptionField | DateField
 export type FormFields = {
   [key in FormFieldKeys]: FieldType
 }
-
-// export type FormFieldsExcUserId = Omit<FormFields, 'user_id' >;
