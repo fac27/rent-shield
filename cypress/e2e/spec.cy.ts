@@ -22,6 +22,6 @@ describe('/search-preferences spec', () => {
     cy.get('#max-rooms').invoke('val', 1).trigger('change');
     cy.get('button').click({ multiple: true });
     cy.url().should('include', '&location=hackney');
-    cy.url().should('include', '&max_rooms=1');
+    cy.url().should('include', '&max=1');
   });
 });
