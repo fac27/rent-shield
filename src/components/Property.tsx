@@ -36,13 +36,15 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
     setLoading(false)
   }, [center])
 
+  const getUserId = async () => {
+    const { data, error } = await supabase.auth.getUser()
+    const { user } = data
+    const sessionUserId = user?.id
+    console.log(sessionUserId)
+    return sessionUserId
+  }
+
   useEffect(() => {
-    const getUserId = async () => {
-      const { data, error } = await supabase.auth.getUser()
-      const { user } = data
-      const sessionUserId = user?.id
-      return sessionUserId
-    }
     const checkSession = async () => {
       const {
         data: { session },
@@ -52,7 +54,7 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
       setUserId(sessionUserId as string)
     }
     checkSession()
-  }, [supabase.auth])
+  })
 
   const addFavourite = async (property_id: number, user_id: string) => {
     try {
