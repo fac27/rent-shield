@@ -5,9 +5,19 @@ import { Dropdown, Navbar, Avatar } from 'flowbite-react';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import HamburgerSidebar from './HamburgerSidebar';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '../../types/supabase';
 
 const Header = () => {
   const [showSidebar, setShowSidebar] = useState(false);
+  const router = useRouter();
+  const supabase = createClientComponentClient<Database>();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.refresh();
+  };
 
   return (
     <header>

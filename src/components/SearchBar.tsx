@@ -1,15 +1,16 @@
 'use client';
 
-import { useState, useEffect, FormEventHandler } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { initializeSearch } from 'utils/mapHelper';
 import { convertAddress } from 'utils/mapHelper';
-import { ILocation } from '../../types/types';
 
 const SearchBar = () => {
   const router = useRouter();
+  const [inputValue, setInputValue] = useState('');
+
   initializeSearch().catch(console.error);
 
   /**
@@ -21,7 +22,7 @@ const SearchBar = () => {
     e.preventDefault();
     const value: any = e.nativeEvent?.target;
     if (!value) return;
-    const address = value[0].value;
+    const address = value.area.value;
     let { lat, lng } = await convertAddress(address);
     router.push('/listings?lat=' + lat + '&lng=' + lng);
   };
@@ -36,7 +37,10 @@ const SearchBar = () => {
       </label>
       <div className="relative">
         <Link
-          href="/searchpreferences"
+          href={{
+            pathname: '/search-preferences',
+            query: { location: inputValue },
+          }}
           passHref={true}
           className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none pointer-events-auto"
         >
@@ -54,6 +58,9 @@ const SearchBar = () => {
           className="block w-full p-2 pl-9 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Location..."
           required
+          value={inputValue}
+          name="area"
+          onChange={(e) => setInputValue(e.target.value)}
         />
         <button
           type="submit"

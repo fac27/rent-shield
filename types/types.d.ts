@@ -39,6 +39,7 @@ export type PropertyType = {
 
 export type StatusType = {
   id: number;
+  id: number;
   description: string;
 };
 
@@ -50,6 +51,11 @@ export type RentRangeType = {
 export type TransportDataType = {
   id: number;
   transport: Json;
+};;
+
+export type Role = {
+  id: number;
+  description: string;
 };
 
 export type Images = { id: number; url: string }[];
@@ -58,6 +64,7 @@ export type Type = { id: number; description: string }[];
 
 export interface ContainerProps {
   listings: ListingType[];
+  filters: SearchPreferenceProps;
 }
 
 export interface SearchFormProps {
@@ -67,15 +74,15 @@ export interface SearchFormProps {
       max: number;
       min: number;
     };
-    propertyDetails: {
+    property_details: {
       type: string[];
       rooms: number[];
-      tenancyMin: string[];
+      min_tenancy_months: number[];
     };
     features: string[];
-    parking: string[];
   };
 }
+
 export interface SearchPreferenceProps {
   preferences: {
     location?: string;
@@ -109,55 +116,56 @@ export interface SearchPreferenceProps {
       allocated_parking?: boolean;
       street_parking?: boolean;
     };
+    cost: {
+      min: number;
+      max: number;
+    };
+    bills_included: boolean;
+    property_type: string[];
+    rooms: {
+      min_rooms: number;
+      max_rooms: number;
+    };
+    min_tenancy_months?: number;
+    features?: {
+      pets_allowed?: boolean;
+      smokers_allowed?: boolean;
+      bike_storage?: boolean;
+      garden?: boolean;
+      fireplace?: boolean;
+      elevator?: boolean;
+      wheelchair_accessible?: boolean;
+      electric_heating?: boolean;
+      gas_heating?: boolean;
+      visitor_parking?: boolean;
+      allocated_parking?: boolean;
+      street_parking?: boolean;
+    };
   };
 }
 
-export interface SearchFormProps {
-  preferences: {
-    location: string;
-    cost: {
-      max: number;
-      min: number;
-    };
-    propertyDetails: {
-      type: string[];
-      rooms: number[];
-      tenancyMin: string[];
-    };
-    features: string[];
-    parking: string[];
-  };
+type InputType =
+  | 'number'
+  | 'radio'
+  | 'select'
+  | 'date'
+  | 'text'
+  | 'textarea'
+  | 'file'
+  | 'checkbox';
+
+export interface BaseField {
+  label: string;
+  inputType: InputType;
+  placeholder?: string;
+  pattern?: string;
+  options?: string[];
 }
-export interface SearchPreferenceProps {
-  preferences: {
-    location: string;
-    cost: {
-      max: number;
-      min: number;
-      billsIncluded: boolean;
-    };
-    propertyDetails: {
-      type: string;
-      rooms: {
-        min: number;
-        max: number;
-      };
-      tenancyMin: string;
-    };
-    features: {
-      pets: boolean;
-      smokers: boolean;
-      bikeStorage: boolean;
-      garden: boolean;
-      fireplace: boolean;
-      elevator: boolean;
-      electric_heating: boolean;
-      gas_heating: boolean;
-      visitor_parking: boolean;
-      parking: {
-        allocated: boolean;
-        street: boolean;
-      };
-    };
-  };
-}
+
+export type FieldType = BaseField | OptionField | FileField;
+
+export type FormFieldKey = keyof typeof formFields;
+
+export type FormFieldTypes = {
+  [key in FormFieldKey]: FieldType;
+};
