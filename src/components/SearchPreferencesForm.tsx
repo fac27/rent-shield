@@ -36,7 +36,10 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   }
 
   return (
-    <Card data-cy="SearchPreferencesForm" className="w-8/12 p-4 m-auto">
+    <Card
+      data-cy="SearchPreferencesForm"
+      className="w-8/12 p-4 m-auto dark:text-white"
+    >
       <form
         action="/listings"
         className="flex max-w-md flex-col mx-20 my-8 gap-4"
