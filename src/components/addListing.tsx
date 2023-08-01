@@ -106,10 +106,10 @@ const AddListingForm = () => {
         }
         default: {
           // this should never happen, but if it does throw an error
-          throw Error(`Unknown type ${formTarget[key].type}`)
           console.log(
             ` 🔥 ${key} of type ${formTarget[key].type} and value ${formTarget[key].value} was inserted`,
           )
+          throw Error(`Unknown type ${formTarget[key].type}`)
         }
       }
     }
