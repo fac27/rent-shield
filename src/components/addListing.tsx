@@ -155,7 +155,7 @@ const AddListingForm = () => {
           console.log('supabase results: ', upload.path)
           const { error } = await supabaseCompClient.from('image').insert({
             url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}storage/v1/object/public/images/${upload.path}`,
-            property_id: 1,
+            property_id: id,
           })
 
           if (error) throw Error(JSON.stringify(error))
