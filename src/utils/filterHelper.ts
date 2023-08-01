@@ -1,7 +1,7 @@
 import { all } from 'cypress/types/bluebird';
 import { ListingType, SearchPreferenceProps } from '../../types/types';
-import { allFilters, Filter, FilterOperation  } from '../lib/filterObjects'
-import { getFilteredProperties } from '../lib/models'
+import { allFilters, Filter, FilterOperation } from '../lib/filterObjects';
+import { getFilteredProperties } from '../lib/models';
 
 // enum FilterOperation {
 //   'bool',
@@ -17,24 +17,18 @@ import { getFilteredProperties } from '../lib/models'
 //   args: any[];
 // }
 
-
-const filterPropertyListings = (
-  searchParams: SearchPreferenceProps,
-) => {
+const filterPropertyListings = (searchParams: SearchPreferenceProps) => {
   const currentSearchFilters: [] = [];
   const searchPrefs = searchParams.preferences;
 
   const filters = parseSearchParamObject(searchPrefs, currentSearchFilters);
 
   // Call model function to apply filters to property listings view
-  
+
   return getFilteredProperties(filters);
 };
 
-const parseSearchParamObject = (
-  params: any,
-  filters: Array<Filter>,
-) => {
+const parseSearchParamObject = (params: any, filters: Array<Filter>) => {
   const searchPrefKeys = Object.keys(params);
   searchPrefKeys.forEach((key) => {
     const val = params[key];
@@ -56,7 +50,7 @@ const parseSearchParamObject = (
           args = [val.lat, val.lon, val.radius];
           break;
         case FilterOperation.match:
-          args = Array.isArray(val) ? val : [val]; 
+          args = Array.isArray(val) ? val : [val];
           break;
         case FilterOperation.greater_than_or_equal:
           args = [val];
@@ -64,21 +58,28 @@ const parseSearchParamObject = (
         default:
           args = [];
       }
-      
-      filters.push(
-        {
+
+      if (
+        operation === FilterOperation.bool &&
+        args[0] === false &&
+        !filterObj.includeFalsy
+      ) {
+        // Do nothing
+      } else {
+        filters.push({
           operation: operation,
           field: filterObj.field,
           args: args,
+          includeFalsy: filterObj.includeFalsy,
         });
 
-      keyHasBeenParsed = true;
+        keyHasBeenParsed = true;
+      }
     }
 
     if (!Array.isArray(val) && typeof val === 'object' && !keyHasBeenParsed) {
-        parseSearchParamObject(params[key], filters);
-      }
-
+      parseSearchParamObject(params[key], filters);
+    }
   });
   console.log(`Filters: ${JSON.stringify(filters)}`);
   return filters;

@@ -13,6 +13,7 @@ import {
 
 import { SearchFormProps } from '../../types/types';
 import { makeIntoQuery, makeIntoProps } from 'utils/searchPreferenceHelpers';
+import { convertAddress } from 'utils/mapHelper';
 
 const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   const router = useRouter();
@@ -27,12 +28,15 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
       acc > cur ? acc : cur,
     ),
   );
+  const [isToggled, setIsToggled] = useState<boolean>(false)
 
   const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const search = makeIntoProps(e.nativeEvent?.target);
     const query = makeIntoQuery(search.preferences);
-    router.push(`/listings?=${query}`);
+    const address = search.preferences.location;
+    let { lat, lng } = await convertAddress(address as string);
+    router.push(`/listings?=&lat=${lat}&lon=${lng}${query}`);
   };
 
   return (
@@ -120,11 +124,11 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
             />
           </div>
           <ToggleSwitch
-            checked
+            checked={isToggled}
             label="Bills included only"
             name="bills"
             onChange={() => {
-              console.log('FILTER FOR BILLS INCLUDED');
+              setIsToggled(!isToggled);
             }}
           />
         </fieldset>
