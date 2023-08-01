@@ -1,13 +1,8 @@
-import {
-  createClientComponentClient,
-  createServerComponentClient,
-} from '@supabase/auth-helpers-nextjs'
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import ListingsContainer from 'components/ListingsContainter'
 import { Database } from '../../../types/supabase'
-import supabaseClient from 'lib/supabaseClient'
-import { getAllPropertiesById } from 'lib/models'
 import { cookies } from 'next/headers'
-// import { getFavourites } from 'lib/models'
+import { ListingType } from '../../../types/types'
 
 export default async function page() {
   //   const supabase = await createClientComponentClient<Database>()
