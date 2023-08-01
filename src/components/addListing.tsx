@@ -25,7 +25,6 @@ const AddListingForm = () => {
 
       // role_id = 2 is landlord, this can be fetched from the roles table in case other roles are introduced
       if (!session || session.user.user_metadata.role_id !== 2) return router.push('/log-in');
-      console.log(session)
       setUserId(session.user.id);
     };
     init();
