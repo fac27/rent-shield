@@ -9,10 +9,10 @@ const preferences = {
     max: 2300,
     min: 965,
   },
-  propertyDetails: {
+  property_details: {
     type: ['studio', 'detached house', 'flatshare'],
     rooms: [0, 1, 2, 4, 7],
-    tenancyMin: ['1 month', '6 months', '1 year', '2 years'],
+    min_tenancy_months: [6, 12, 18],
   },
   features: [
     'pets allowed',
@@ -24,9 +24,10 @@ const preferences = {
     'wheelchair accessible',
     'electric heating',
     'gas heating',
-    'visitor parking'
+    'visitor parking',
+    'allocated parking',
+    'street parking',
   ],
-  parking: ['allocated', 'no parking', 'exterior parking'],
 };
 
 export default function SearchPreferences() {

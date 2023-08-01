@@ -11,14 +11,13 @@ import { Database } from '../../types/supabase';
 
 const Header = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const router = useRouter()
-  const supabase = createClientComponentClient<Database>()
+  const router = useRouter();
+  const supabase = createClientComponentClient<Database>();
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
-    router.refresh()
-  }
-
+    await supabase.auth.signOut();
+    router.refresh();
+  };
 
   return (
     <header>

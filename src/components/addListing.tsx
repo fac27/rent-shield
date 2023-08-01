@@ -1,5 +1,5 @@
 'use client';
-import { Card, TextInput, Label, Button} from 'flowbite-react';
+import { Card, TextInput, Label, Button } from 'flowbite-react';
 import { formFields } from 'utils/formFields';
 import { FormFieldKey, FormFieldTypes } from '../../types/types';
 
@@ -142,7 +142,7 @@ const AddListingForm = () => {
                 );
             }
           })}
-          <Button type='submit'>Advertise Listing</Button>
+          <Button type="submit">Advertise Listing</Button>
         </form>
       </Card>
     </main>

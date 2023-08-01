@@ -58,6 +58,7 @@ export type Type = { id: number; description: string }[];
 
 export interface ContainerProps {
   listings: ListingType[];
+  filters: SearchPreferenceProps;
 }
 
 export interface SearchFormProps {
@@ -67,63 +68,47 @@ export interface SearchFormProps {
       max: number;
       min: number;
     };
-    propertyDetails: {
+    property_details: {
       type: string[];
       rooms: number[];
-      tenancyMin: string[];
+      min_tenancy_months: number[];
     };
     features: string[];
-    parking: string[];
-  };
-}
-
-export interface SearchFormProps {
-  preferences: {
-    location: string;
-    cost: {
-      max: number;
-      min: number;
-    };
-    propertyDetails: {
-      type: string[];
-      rooms: number[];
-      tenancyMin: string[];
-    };
-    features: string[];
-    parking: string[];
   };
 }
 
 export interface SearchPreferenceProps {
   preferences: {
-    location: string;
+    location?: string;
+    proximity?: {
+      lat: number;
+      lon: number;
+      radius: number;
+    };
     cost: {
+      min: number;
       max: number;
-      billsIncluded: boolean;
     };
-    propertyDetails: {
-      type: string[];
-      rooms: {
-        min: number;
-        max: number;
-      };
-      tenancyMin: string;
+    bills_included: boolean;
+    property_type: string[];
+    rooms: {
+      min_rooms: number;
+      max_rooms: number;
     };
-    features: {
-      pets: boolean;
-      smokers: boolean;
-      bike_storage: boolean;
-      garden: boolean;
-      fireplace: boolean;
-      elevator: boolean;
-      wheelchair_accessible: boolean;
-      electric_heating: boolean;
-      gas_heating: boolean;
-      visitor_parking: boolean;
-      parking: {
-        allocated: boolean;
-        exterior_parking: boolean;
-      };
+    min_tenancy_months?: number;
+    features?: {
+      pets_allowed?: boolean;
+      smokers_allowed?: boolean;
+      bike_storage?: boolean;
+      garden?: boolean;
+      fireplace?: boolean;
+      elevator?: boolean;
+      wheelchair_accessible?: boolean;
+      electric_heating?: boolean;
+      gas_heating?: boolean;
+      visitor_parking?: boolean;
+      allocated_parking?: boolean;
+      street_parking?: boolean;
     };
   };
 }

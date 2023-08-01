@@ -59,7 +59,7 @@ const SearchBar = () => {
           placeholder="Location..."
           required
           value={inputValue}
-          name='area'
+          name="area"
           onChange={(e) => setInputValue(e.target.value)}
         />
         <button
