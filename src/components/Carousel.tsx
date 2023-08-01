@@ -1,11 +1,11 @@
-import Image from 'next/image';
-import { useState } from 'react';
-import arrow from '../../public/arrow.svg';
-import { v4 as uuidv4 } from 'uuid';
-import type { Images } from '../../types/types';
+import Image from 'next/image'
+import { useState } from 'react'
+import arrow from '../../public/arrow.svg'
+import { v4 as uuidv4 } from 'uuid'
+import type { Images } from '../../types/types'
 
 export default function Carousel({ images }: { images: Images }) {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0)
 
   return (
     <section className="relative h-96 bg-[#CAC4CE]">
@@ -52,7 +52,7 @@ export default function Carousel({ images }: { images: Images }) {
               currentSlide === index ? 'bg-white' : 'bg-[#A2A6AD]'
             }`}
             onClick={() => {
-              setCurrentSlide(index);
+              setCurrentSlide(index)
             }}
             aria-current="true"
             aria-label="Slide 1"
@@ -60,5 +60,5 @@ export default function Carousel({ images }: { images: Images }) {
         ))}
       </div>
     </section>
-  );
+  )
 }

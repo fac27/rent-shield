@@ -24,23 +24,57 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "favourite_property_id_fkey"
-            columns: ["property_id"]
-            referencedRelation: "property"
-            referencedColumns: ["id"]
+            foreignKeyName: 'favourite_property_id_fkey'
+            columns: ['property_id']
+            referencedRelation: 'property'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "favourite_property_id_fkey"
-            columns: ["property_id"]
-            referencedRelation: "property_view"
-            referencedColumns: ["id"]
+            foreignKeyName: 'favourite_property_id_fkey'
+            columns: ['property_id']
+            referencedRelation: 'property_view'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "favourite_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'favourite_user_id_fkey'
+            columns: ['user_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      favourites: {
+        Row: {
+          property_id: number
+          user_id: string
+        }
+        Insert: {
+          property_id: number
+          user_id: string
+        }
+        Update: {
+          property_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'favourites_property_id_fkey'
+            columns: ['property_id']
+            referencedRelation: 'property'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'favourites_property_id_fkey'
+            columns: ['property_id']
+            referencedRelation: 'property_view'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'favourites_user_id_fkey'
+            columns: ['user_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
         ]
       }
       image: {
@@ -67,17 +101,17 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "image_property_id_fkey"
-            columns: ["property_id"]
-            referencedRelation: "property"
-            referencedColumns: ["id"]
+            foreignKeyName: 'image_property_id_fkey'
+            columns: ['property_id']
+            referencedRelation: 'property'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "image_property_id_fkey"
-            columns: ["property_id"]
-            referencedRelation: "property_view"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'image_property_id_fkey'
+            columns: ['property_id']
+            referencedRelation: 'property_view'
+            referencedColumns: ['id']
+          },
         ]
       }
       property: {
@@ -197,17 +231,17 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "property_status_id_fkey"
-            columns: ["status_id"]
-            referencedRelation: "status"
-            referencedColumns: ["id"]
+            foreignKeyName: 'property_status_id_fkey'
+            columns: ['status_id']
+            referencedRelation: 'status'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "property_type_id_fkey"
-            columns: ["type_id"]
-            referencedRelation: "type"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'property_type_id_fkey'
+            columns: ['type_id']
+            referencedRelation: 'type'
+            referencedColumns: ['id']
+          },
         ]
       }
       role: {
@@ -297,17 +331,17 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "user_role_id_fkey"
-            columns: ["role_id"]
-            referencedRelation: "role"
-            referencedColumns: ["id"]
+            foreignKeyName: 'user_role_id_fkey'
+            columns: ['role_id']
+            referencedRelation: 'role'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "user_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
+            foreignKeyName: 'user_user_id_fkey'
+            columns: ['user_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
         ]
       }
     }
@@ -375,7 +409,7 @@ export interface Database {
               lat: number
               long: number
             }
-            Returns: Database["public"]["CompositeTypes"]["property_type_with_distance"][]
+            Returns: Database['public']['CompositeTypes']['property_type_with_distance'][]
           }
         | {
             Args: {
@@ -383,7 +417,7 @@ export interface Database {
               long: number
               radius_km: number
             }
-            Returns: Database["public"]["CompositeTypes"]["property_type_with_distance"][]
+            Returns: Database['public']['CompositeTypes']['property_type_with_distance'][]
           }
       properties_within_range: {
         Args: {
@@ -391,7 +425,7 @@ export interface Database {
           long: number
           radius: number
         }
-        Returns: Database["public"]["CompositeTypes"]["property_type_with_distance"][]
+        Returns: Database['public']['CompositeTypes']['property_type_with_distance'][]
       }
     }
     Enums: {

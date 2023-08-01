@@ -1,11 +1,11 @@
-import type { FormFields } from '../../types/types';
-import supabase from 'lib/supabaseClient';
+import type { FormFields } from '../../types/types'
+import supabase from 'lib/supabaseClient'
 
 const getAllFrom = async (table: 'status' | 'type') => {
-  const { data, error } = await supabase.from(table).select('description');
+  const { data, error } = await supabase.from(table).select('description')
   // if error return default values (really it shouldnt get to that stage if cant connect to supabase throw global error.)
-  return data ? data?.map((item) => item.description) : [];
-};
+  return data ? data?.map((item) => item.description) : []
+}
 
 export const formFields = async (): Promise<FormFields> => ({
   rent: {
@@ -119,14 +119,34 @@ export const formFields = async (): Promise<FormFields> => ({
   //   inputType: 'select',
   //   options: ['Allocated parking', 'Street Parking', 'No parking'],
   // },
-  description: { label: 'Property description', inputType: 'textarea', required: false },
-  bike_storage: { label: 'Bike storage?', inputType: 'checkbox', required: false },
+  description: {
+    label: 'Property description',
+    inputType: 'textarea',
+    required: false,
+  },
+  bike_storage: {
+    label: 'Bike storage?',
+    inputType: 'checkbox',
+    required: false,
+  },
   garden: { label: 'Garden?', inputType: 'checkbox', required: false },
   fireplace: { label: 'Fireplace?', inputType: 'checkbox', required: false },
-  elevator: { label: 'Bike storage?', inputType: 'checkbox', required: false},
-  electric_heating: { label: 'Electric heating?', inputType: 'checkbox', required: false },
-  gas_heating: { label: 'Gas heating?', inputType: 'checkbox', required: false },
-    visitor_parking: { label: 'Visitor Parking?', inputType: 'checkbox', required: false },
+  elevator: { label: 'Bike storage?', inputType: 'checkbox', required: false },
+  electric_heating: {
+    label: 'Electric heating?',
+    inputType: 'checkbox',
+    required: false,
+  },
+  gas_heating: {
+    label: 'Gas heating?',
+    inputType: 'checkbox',
+    required: false,
+  },
+  visitor_parking: {
+    label: 'Visitor Parking?',
+    inputType: 'checkbox',
+    required: false,
+  },
   wheelchair_accessible: {
     label: 'Wheelchair Accessible?',
     inputType: 'checkbox',
@@ -180,4 +200,4 @@ export const formFields = async (): Promise<FormFields> => ({
     inputType: 'checkbox',
     required: true,
   },
-});
+})

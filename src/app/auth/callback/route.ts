@@ -10,14 +10,21 @@ export async function GET(request: NextRequest) {
 
   if (code) {
     const supabase = createRouteHandlerClient<Database>({ cookies })
-    await supabase.auth.exchangeCodeForSession(code)
-  }
+    const { data: session, error } = await supabase.auth.exchangeCodeForSession(
+      code,
+    )
 
-  // create user entry 
+    if (session) {
+      const response = new NextResponse('')
+      response.cookies.set('session', JSON.stringify(session), {
+        httpOnly: true,
+      })
+      return response
+    }
+  }
+  // create user entry
   // await createUser(uuid)
 
   // URL to redirect to after sign in process completes
   return NextResponse.redirect(requestUrl.origin)
 }
-
-

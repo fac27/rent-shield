@@ -1,10 +1,8 @@
-import { FC } from 'react';
-
-import Property from './Property';
-import { ContainerProps } from '../../types/types';
+import { FC } from 'react'
+import Property from './Property'
+import { ContainerProps } from '../../types/types'
 
 const ListingsContainer: FC<ContainerProps> = ({ listings }) => {
-  // console.log(listings)
   return (
     <div>
       {listings.map((listing, index) => (
@@ -15,7 +13,7 @@ const ListingsContainer: FC<ContainerProps> = ({ listings }) => {
         />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default ListingsContainer;
+export default ListingsContainer

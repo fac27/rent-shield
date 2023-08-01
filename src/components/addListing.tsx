@@ -1,48 +1,55 @@
-'use client';
+'use client'
 
-import { Card, TextInput, Label, Button } from 'flowbite-react';
-import { formFields } from 'utils/formFields';
-import type { AdditionalFormFields, FormFieldKeys, FormFields, DatabaseListingsInsObj } from '../../types/types';
-import supabaseCompClient from 'lib/supabaseCompClient';
-import { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { useRouter } from 'next/navigation';
+import { Card, TextInput, Label, Button } from 'flowbite-react'
+import { formFields } from 'utils/formFields'
+import type {
+  AdditionalFormFields,
+  FormFieldKeys,
+  FormFields,
+  DatabaseListingsInsObj,
+} from '../../types/types'
+import supabaseCompClient from 'lib/supabaseCompClient'
+import { useEffect, useState, Dispatch, SetStateAction } from 'react'
+import { useRouter } from 'next/navigation'
 
 const AddListingForm = () => {
-  const router = useRouter();
-  const [hasError, setHasError] = useState(false);
-  const [userId, setUserId] = useState('');
+  const router = useRouter()
+  const [hasError, setHasError] = useState(false)
+  const [userId, setUserId] = useState('')
   const [form, setForm]: [
     form: FormFields,
     setForm: Dispatch<SetStateAction<FormFields>>,
-  ] = useState({} as FormFields);
+  ] = useState({} as FormFields)
 
   useEffect(() => {
     const init = async () => {
-      setForm(await formFields());
+      setForm(await formFields())
       const {
         data: { session },
-      } = await supabaseCompClient.auth.getSession();
+      } = await supabaseCompClient.auth.getSession()
 
       // role_id = 2 is landlord, this can be fetched from the roles table in case other roles are introduced
-      if (!session || session.user.user_metadata.role_id !== 2) return router.push('/log-in');
-      setUserId(session.user.id);
-    };
-    init();
-
-  }, []);
+      if (!session || session.user.user_metadata.role_id !== 2)
+        return router.push('/log-in')
+      setUserId(session.user.id)
+    }
+    init()
+  }, [])
 
   const removeKeysForInsert = (form: FormFields) => {
-    const keys: AdditionalFormFields[] = ['floor_plans'
-      , 'property_video'
-      , 'property_images'
-      , 'epcCertificate'
-      , 'uploadedImagesOfEveryRoom'
-      , 'clearAndHighQualityImages'
-      , 'imagesOfInteriorAndExterior'
-      , 'newlyTakenImages']
+    const keys: AdditionalFormFields[] = [
+      'floor_plans',
+      'property_video',
+      'property_images',
+      'epcCertificate',
+      'uploadedImagesOfEveryRoom',
+      'clearAndHighQualityImages',
+      'imagesOfInteriorAndExterior',
+      'newlyTakenImages',
+    ]
 
     for (const key of keys) {
-      delete form[key];
+      delete form[key]
     }
   }
 
@@ -53,26 +60,27 @@ const AddListingForm = () => {
 +   * @return {Promise<void>} - A promise that resolves when the listing is successfully posted.
 +   */
   async function postListing(e: React.FormEvent) {
-    e.preventDefault();
+    e.preventDefault()
     setHasError(false)
-    const formTarget = e.nativeEvent.target as HTMLFormElement;
+    const formTarget = e.nativeEvent.target as HTMLFormElement
 
-    const fileElements = [];
-    const listingsObject: DatabaseListingsInsObj = {} as DatabaseListingsInsObj;
+    const fileElements = []
+    const listingsObject: DatabaseListingsInsObj = {} as DatabaseListingsInsObj
 
     for (const key in form) {
       switch (formTarget[key].type) {
         case 'file': {
           if (formTarget[key].files.length > 0) {
-            fileElements.push(formTarget[key].files);
-          };
-          break;
+            fileElements.push(formTarget[key].files)
+          }
+          break
         }
         case 'checkbox': {
           if (formTarget[key].checked) {
-            listingsObject[key as keyof DatabaseListingsInsObj] = formTarget[key].checked; // alway true, but get ts error?
+            listingsObject[key as keyof DatabaseListingsInsObj] =
+              formTarget[key].checked // alway true, but get ts error?
           }
-          break;
+          break
         }
         case 'select-one':
         case 'text':
@@ -80,9 +88,9 @@ const AddListingForm = () => {
         case 'number': {
           if (formTarget[key].value) {
             listingsObject[key as keyof DatabaseListingsInsObj] =
-              formTarget[key].value;
+              formTarget[key].value
           }
-          break;
+          break
         }
         // case undefined: {
         //   // wrapper for children inputs
@@ -95,7 +103,7 @@ const AddListingForm = () => {
         default: {
           console.log(
             ` 🔥 ${key} of type ${formTarget[key].type} and value ${formTarget[key].value} was inserted`,
-          );
+          )
         }
       }
     }
@@ -103,20 +111,20 @@ const AddListingForm = () => {
     try {
       // UPLOAD LISTING
 
-
       const { data: selectTypeData } = await supabaseCompClient
         .from('type')
         .select('id')
-        .eq('description', listingsObject.type_id);
+        .eq('description', listingsObject.type_id)
       const { data: selectStatusData } = await supabaseCompClient
         .from('status')
         .select('id')
-        .eq('description', listingsObject.status_id);
+        .eq('description', listingsObject.status_id)
       const { count: idCount } = await supabaseCompClient
         .from('property')
         .select('*', { count: 'exact', head: true })
 
-      if (!selectTypeData || !selectStatusData || !idCount) throw Error('No session');
+      if (!selectTypeData || !selectStatusData || !idCount)
+        throw Error('No session')
       const id = idCount + 1
       const type_id = selectTypeData[0].id
       const status_id = selectStatusData[0].id
@@ -125,9 +133,9 @@ const AddListingForm = () => {
 
       const { error: uploadListingError } = await supabaseCompClient
         .from('property')
-        .upsert({ ...listingsObject, user_id: userId, type_id, status_id, id }); //temp status_id
+        .upsert({ ...listingsObject, user_id: userId, type_id, status_id, id }) //temp status_id
 
-      if (uploadListingError) throw Error(JSON.stringify(uploadListingError));
+      if (uploadListingError) throw Error(JSON.stringify(uploadListingError))
 
       //  UPLOAD IMAGES
       // needs better error handling, prompt user that uploaded image is a duplicate
@@ -138,18 +146,19 @@ const AddListingForm = () => {
             .upload(`public/${file.name}`, file, {
               cacheControl: '3600',
               upsert: false,
-            });
-          if (!upload) throw Error('Failed uploading image, image probably already exists');
+            })
+          if (!upload)
+            throw Error('Failed uploading image, image probably already exists')
 
-          console.log('supabase results: ', upload.path);
+          console.log('supabase results: ', upload.path)
           const { error } = await supabaseCompClient.from('image').insert({
             url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}storage/v1/object/public/images/${upload.path}`,
             property_id: 1,
-          });
+          })
 
-          if (error) throw Error(JSON.stringify(error));
-        });
-      });
+          if (error) throw Error(JSON.stringify(error))
+        })
+      })
       router.push('/listings')
     } catch (error) {
       setHasError(true)
@@ -165,9 +174,9 @@ const AddListingForm = () => {
         >
           {Object.keys(form).map((field) => {
             // needs ListingsKeys for children
-            const fieldData = form[field as FormFieldKeys];
+            const fieldData = form[field as FormFieldKeys]
             const sharedClasses =
-              'block mb-2 text-sm font-medium text-gray-900 dark:text-white';
+              'block mb-2 text-sm font-medium text-gray-900 dark:text-white'
 
             switch (fieldData.inputType) {
               case 'radio':
@@ -193,7 +202,7 @@ const AddListingForm = () => {
                       </div>
                     ))}
                   </fieldset>
-                );
+                )
               case 'select':
                 return (
                   <div key={crypto.randomUUID()}>
@@ -215,10 +224,13 @@ const AddListingForm = () => {
                       )}
                     </select>
                   </div>
-                );
+                )
               case 'checkbox':
                 return (
-                  <div key={crypto.randomUUID()} className="flex items-center mb-4">
+                  <div
+                    key={crypto.randomUUID()}
+                    className="flex items-center mb-4"
+                  >
                     <input
                       type="checkbox"
                       id={field}
@@ -233,7 +245,7 @@ const AddListingForm = () => {
                       {fieldData.label}
                     </Label>
                   </div>
-                );
+                )
               default:
                 return (
                   <div key={crypto.randomUUID()}>
@@ -245,7 +257,9 @@ const AddListingForm = () => {
                       id={field}
                       name={field}
                       required={fieldData.required}
-                      defaultValue={fieldData.inputType === 'date' ? fieldData.default : ''}
+                      defaultValue={
+                        fieldData.inputType === 'date' ? fieldData.default : ''
+                      }
                       placeholder={fieldData.placeholder}
                       className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
@@ -253,11 +267,16 @@ const AddListingForm = () => {
                 )
             }
           })}
-          <Button type="submit" style={{ backgroundColor: hasError ? 'red' : '' }}>{hasError ? 'try again?' : 'Advertise Listing'}</Button>
+          <Button
+            type="submit"
+            style={{ backgroundColor: hasError ? 'red' : '' }}
+          >
+            {hasError ? 'try again?' : 'Advertise Listing'}
+          </Button>
         </form>
       </Card>
     </main>
-  );
-};
+  )
+}
 
-export default AddListingForm;
+export default AddListingForm

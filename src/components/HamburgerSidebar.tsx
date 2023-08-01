@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { Sidebar } from 'flowbite-react';
-import { AiFillHome, AiOutlineSearch, AiOutlineHeart } from 'react-icons/ai';
+import { Sidebar } from 'flowbite-react'
+import { AiFillHome, AiOutlineSearch, AiOutlineHeart } from 'react-icons/ai'
 
 export default function HamburgerSidebar() {
   return (
@@ -23,5 +23,5 @@ export default function HamburgerSidebar() {
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
-  );
+  )
 }
