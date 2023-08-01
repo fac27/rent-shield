@@ -69,11 +69,9 @@ export default async function page() {
     const userId = await getUserId()
     const favourites = await getFavourites(userId)
     const list = await getAllPropertiesById(favourites)
-    console.log('arr', list)
     return list
   }
   const listings = await getAllListings()
 
-  console.log('list', listings)
   return <ListingsContainer listings={listings} />
 }
