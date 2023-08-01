@@ -50,7 +50,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
               <Label htmlFor="email1" value="Area" />
             </div>
             <TextInput
-              id="email1"
+              id="location"
               placeholder="Search area or postcode"
               required
               type="text"
