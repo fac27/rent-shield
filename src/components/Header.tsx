@@ -74,6 +74,16 @@ const Header = () => {
                   </span>
                 </Dropdown.Header>
                 <Dropdown.Item>Settings</Dropdown.Item>
+                {session.user.user_metadata.role_id === 2 ? (
+                  <>
+                    <Dropdown.Divider />
+                    <Link href="/add-listing">
+                      <Dropdown.Item>Add Listing</Dropdown.Item>
+                    </Link>
+                  </>
+                ) : ''
+                }
+
                 <Dropdown.Divider />
                 <Dropdown.Item>Sign out</Dropdown.Item>
               </>
