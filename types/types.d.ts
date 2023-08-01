@@ -12,7 +12,7 @@ interface IMapProps {
 }
 
 export type ListingType = {
-  address1: string
+  address1: string | null
   address2: string | null
   attributes: Json | null
   bathrooms: number
