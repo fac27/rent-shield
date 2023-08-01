@@ -35,6 +35,9 @@ export const initializeMap = async ({ id, center, markers }: IMapProps) => {
 
 //function to create autocomplete when searching for a location
 export const initializeSearch = async () => {
+  if (typeof window === 'undefined') {
+    return
+  }
   const autocompleteOptions = {
     types: ['geocode'],
     componentRestrictions: { country: ['GB'] },
@@ -72,7 +75,6 @@ export const convertAddress = async (address: string) => {
       return response.json()
     })
     .then((jsonData) => {
-      console.log(jsonData)
       return jsonData.results[0].geometry.location
     })
     .catch((error) => {

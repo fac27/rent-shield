@@ -5,7 +5,6 @@ import { cookies } from 'next/headers'
 import { ListingType } from '../../../types/types'
 
 export default async function page() {
-  //   const supabase = await createClientComponentClient<Database>()
   const supabase = await createServerComponentClient<Database>({ cookies })
 
   const getUserId = async () => {
@@ -23,7 +22,6 @@ export default async function page() {
       console.error('Error getting favourites data', error)
       throw error
     }
-    console.log('favourite data', data)
     return data.map((item) => item.property_id)
   }
   const getAllPropertiesById = async (ids: any[]): Promise<ListingType[]> => {

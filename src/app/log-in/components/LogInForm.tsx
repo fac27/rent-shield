@@ -20,7 +20,6 @@ export default function SignInForm() {
       const {
         data: { session },
       } = await supabase.auth.getSession()
-      console.log(session)
       if (session) setLoggedIn(true)
     }
     checkSession()

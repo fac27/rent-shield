@@ -11,13 +11,11 @@ import { useEffect, useState } from 'react'
 import Carousel from '../components/Carousel'
 import Map from './Map'
 import { ILocation, ListingType } from '../../types/types'
-import { Json } from '../../types/supabase'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '../../types/supabase'
 import { useRouter } from 'next/navigation'
 
 const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
-  // const [liked, setLiked] = useState(listing.favourited);
   const [liked, setLiked] = useState(false)
   const [center, setCenter] = useState({
     lat: Number(listing.latitude),
@@ -36,25 +34,26 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
     setLoading(false)
   }, [center])
 
-  const getUserId = async () => {
-    const { data, error } = await supabase.auth.getUser()
-    const { user } = data
-    const sessionUserId = user?.id
-    console.log(sessionUserId)
-    return sessionUserId
-  }
-
   useEffect(() => {
-    const checkSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
-      if (session) setLoggedIn(true)
-      const sessionUserId = await getUserId()
-      setUserId(sessionUserId as string)
+    const getUserId = async () => {
+      try {
+        const { data, error } = await supabase.auth.getUser()
+        const { user } = data
+        if (!user) {
+          throw new Error('No user logged in.')
+        }
+        const sessionUserId = user?.id
+        if (!sessionUserId) {
+          throw new Error('No userID found.')
+        }
+        setUserId(sessionUserId as string)
+        setLoggedIn(true)
+      } catch (error) {
+        console.error(error)
+      }
     }
-    checkSession()
-  })
+    getUserId()
+  }, [supabase.auth])
 
   const addFavourite = async (property_id: number, user_id: string) => {
     try {
@@ -76,14 +75,29 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
       console.error('Error deleting favourite: ', error)
     }
   }
-  const handleFavourite = async (property_id: number, user_id: string) => {
-    if (!loggedIn) {
-      router.push('/log-in')
-    } else {
-      liked
-        ? await deleteFavourite(property_id, user_id)
-        : await addFavourite(property_id, user_id)
+
+  const fetchFavourites = async (property_id: number, user_id: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('favourites')
+        .select()
+        .eq('user_id', user_id)
+        .eq('property_id', property_id)
+      if (data && data.length > 0) {
+        setLiked(true)
+      }
+    } catch (error) {
+      console.error('Error fetching favourites', error)
     }
+  }
+
+  fetchFavourites(listing.id, userId)
+
+  const handleFavourite = async (property_id: number, user_id: string) => {
+    if (!loggedIn) return router.push('/log-in')
+    liked
+      ? await deleteFavourite(property_id, user_id)
+      : await addFavourite(property_id, user_id)
   }
 
   return (

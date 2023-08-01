@@ -64,13 +64,6 @@ const Header = () => {
             <Dropdown.Divider />
             <Dropdown.Item>Sign out</Dropdown.Item>
             <Dropdown.Divider />
-            <Link href="/log-in">
-              <Dropdown.Item>Log In</Dropdown.Item>
-            </Link>
-            <Dropdown.Divider />
-            <Link href="/sign-up">
-              <Dropdown.Item>Sign Up</Dropdown.Item>
-            </Link>
           </Dropdown>
         </div>
       </Navbar>
