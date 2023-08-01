@@ -2,7 +2,6 @@
 
 import SearchPreferencesForm from 'components/SearchPreferencesForm'
 import { useSearchParams } from 'next/navigation'
-import { Suspense } from 'react'
 
 const preferences = {
   location: '',
@@ -25,20 +24,11 @@ const preferences = {
   parking: ['allocated parking', 'no parking', 'exterior parking'],
 }
 
-const SearchFallback = () => {
-  return <>placeholder</>
-}
-
 export default function SearchPreferences() {
   const searchParams = useSearchParams()
   const location = searchParams.get('location')
 
   if (location) preferences.location = location
 
-  return
-  ;<>
-    <Suspense fallback={<SearchFallback />}>
-      <SearchPreferencesForm preferences={preferences} />
-    </Suspense>
-  </>
+  return <SearchPreferencesForm preferences={preferences} />
 }
