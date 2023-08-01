@@ -40,39 +40,6 @@ const getPropertyById = async (id: number): Promise<ListingType[]> => {
   return data
 }
 
-const getAllPropertiesById = async (ids: any[]): Promise<ListingType[]> => {
-  const { data, error } = await supabaseClient
-    .from('property')
-    .select(
-      `
-          id,
-          created_at,
-          postcode,
-          address1,
-          address2,
-          city,
-          county,
-          latitude,
-          longitude,
-          type (id, description),
-          bedrooms,
-          bathrooms,
-          description,
-          rent,
-          status (id, description),
-          attributes,
-          image (id, url)`,
-    )
-    .in('id', ids)
-
-  if (error) {
-    console.log(`Error getting property: ${error.message}`)
-    throw error
-  }
-
-  return data
-}
-
 const getAllProperties = async (): Promise<ListingType[]> => {
   const { data, error } = await supabaseClient.from('property').select(
     `
@@ -177,5 +144,4 @@ export {
   getRentRange,
   getRoleByDescription,
   getAllRoles,
-  getAllPropertiesById,
 }
