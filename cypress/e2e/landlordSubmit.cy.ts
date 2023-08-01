@@ -1,11 +1,11 @@
 
-// describe('A landlord should be able to submit a property, with feedback', () => {
+describe('A landlord should be able to submit a property, with feedback', () => {
 
-//     it('should submit an empty form and not be able to submit', () => {
-//         cy.visit('/add-listing')
-//         cy.get('[data-testid="flowbite-card"] button[type="submit"]').click()
-//         cy.url().should('include', '/add-listing')
-//     })
+    it('should attempt to submit an empty form and not be able to submit', () => {
+        cy.visit('/add-listing')
+        cy.get('[data-testid="flowbite-card"] button[type="submit"]').click()
+        cy.url().should('include', '/add-listing')
+    })
 //     it('should submit a valid form and be able to submit', () => {
 //         cy.visit('/add-listing')
 //         // checkbox
@@ -36,7 +36,7 @@
 //     // it('should display an error message or indicate that something went wrong', () => {
 //         // button should say try again rather than advertise listings   
 //     // })
-// })
+})
 
 // describe('Only a landlord should be able to land on the add-listings page', () => {
     
