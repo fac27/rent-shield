@@ -26,7 +26,7 @@ export default async function page() {
     console.log('favourite data', data)
     return data.map((item) => item.property_id)
   }
-  const getAllPropertiesById = async (ids: any[]): Promise<ListingType[]> => {
+  const getAllPropertiesById = async (ids: any[]) => {
     const { data, error } = await supabase
       .from('property')
       .select(
