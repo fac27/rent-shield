@@ -29,8 +29,8 @@ export const makeIntoProps = (submitted: any): SearchPreferenceProps => {
     preferences: {
       location: submitted.location.value,
       proximity:{
-        lat: submitted.lat,
-        lon: submitted.lng,
+        lat: submitted.lat.value,
+        lon: submitted.lng.value,
         radius: submitted.radius,
       },
       cost: {
