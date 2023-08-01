@@ -10,16 +10,26 @@ import { useRouter } from 'next/navigation';
 const AddListingForm = () => {
   const router = useRouter();
   const [hasError, setHasError] = useState(false);
+  const [userId, setUserId] = useState('');
   const [form, setForm]: [
     form: FormFields,
     setForm: Dispatch<SetStateAction<FormFields>>,
   ] = useState({} as FormFields);
 
   useEffect(() => {
-    const getFormFields = async () => {
+    const init = async () => {
       setForm(await formFields());
+      const {
+        data: { session },
+      } = await supabaseCompClient.auth.getSession();
+
+      // role_id = 2 is landlord, this can be fetched from the roles table in case other roles are introduced
+      if (!session || session.user.user_metadata.role_id !== 2) return router.push('/log-in');
+      console.log(session)
+      setUserId(session.user.id);
     };
-    getFormFields();
+    init();
+
   }, []);
 
   const removeKeysForInsert = (form: FormFields) => {
@@ -93,9 +103,7 @@ const AddListingForm = () => {
 
     try {
       // UPLOAD LISTING
-      const {
-        data: { session },
-      } = await supabaseCompClient.auth.getSession();
+
 
       const { data: selectTypeData } = await supabaseCompClient
         .from('type')
@@ -109,9 +117,8 @@ const AddListingForm = () => {
         .from('property')
         .select('*', { count: 'exact', head: true })
 
-      if (!session || !selectTypeData || !selectStatusData || !idCount) throw Error('No session');
+      if (!selectTypeData || !selectStatusData || !idCount) throw Error('No session');
       const id = idCount + 1
-      const user_id = session?.user.id;
       const type_id = selectTypeData[0].id
       const status_id = selectStatusData[0].id
 
@@ -119,7 +126,7 @@ const AddListingForm = () => {
 
       const { error: uploadListingError } = await supabaseCompClient
         .from('property')
-        .upsert({ ...listingsObject, user_id, type_id, status_id, id }); //temp status_id
+        .upsert({ ...listingsObject, user_id: userId, type_id, status_id, id }); //temp status_id
 
       if (uploadListingError) throw Error(JSON.stringify(uploadListingError));
 
