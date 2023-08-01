@@ -164,6 +164,7 @@ export interface SearchPreferenceProps {
 export interface BaseField {
   label: string;
   inputType: 'number' | 'text' | 'textarea' | 'file' | 'checkbox';
+  required: boolean;
   placeholder?: string; 
   pattern?: string;
 }
