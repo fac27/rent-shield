@@ -1,34 +1,39 @@
-'use client';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Dropdown, Navbar, Avatar } from 'flowbite-react';
-import { RxHamburgerMenu } from 'react-icons/rx';
-import HamburgerSidebar from './HamburgerSidebar';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '../../types/supabase';
+'use client'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Dropdown, Navbar, Avatar } from 'flowbite-react'
+import { RxHamburgerMenu } from 'react-icons/rx'
+import HamburgerSidebar from './HamburgerSidebar'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import {
+  Session,
+  createClientComponentClient,
+} from '@supabase/auth-helpers-nextjs'
+import { Database } from '../../types/supabase'
 
 const Header = () => {
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false)
   const [session, setSession] = useState<Session | null>(null)
-  const router = useRouter();
-  const supabase = createClientComponentClient<Database>();
+  const router = useRouter()
+  const supabase = createClientComponentClient<Database>()
 
   useEffect(() => {
     // check whether user is logged in
     const getSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
       console.log(session)
-      if (session) return setSession(session);
+      if (session) return setSession(session)
     }
     getSession()
   }, [])
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.refresh();
-  };
+    await supabase.auth.signOut()
+    router.refresh()
+  }
 
   return (
     <header>
@@ -81,8 +86,9 @@ const Header = () => {
                       <Dropdown.Item>Add Listing</Dropdown.Item>
                     </Link>
                   </>
-                ) : ''
-                }
+                ) : (
+                  ''
+                )}
 
                 <Dropdown.Divider />
                 <Dropdown.Item>Sign out</Dropdown.Item>
@@ -101,7 +107,7 @@ const Header = () => {
         </div>
       </Navbar>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

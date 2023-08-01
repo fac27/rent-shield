@@ -1,4 +1,4 @@
-import AddListingForm from 'components/addListing';
+import AddListingForm from 'components/addListing'
 const page = () => {
   return (
     <>
@@ -16,7 +16,7 @@ const page = () => {
       </div>
       <AddListingForm />;
     </>
-  );
-};
+  )
+}
 
-export default page;
+export default page

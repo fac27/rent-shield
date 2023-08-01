@@ -1,27 +1,26 @@
-'use client';
+'use client'
 
-import { Button, Card, Label, TextInput } from 'flowbite-react';
-import Link from 'next/link';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import type { Database } from '../../../../types/supabase';
-import { useRouter } from 'next/navigation';
-import { ReactEventHandler, useState } from 'react';
-import { BsHouseHeartFill, BsFillPersonFill } from 'react-icons/bs';
-import supabaseClient from 'lib/supabaseClient';
-import { getRoleByDescription } from 'lib/models';
-// import supabaseCompClient from 'lib/supabaseCompClient';
+import { Button, Card, Label, TextInput } from 'flowbite-react'
+import Link from 'next/link'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import type { Database } from '../../../../types/supabase'
+import { useRouter } from 'next/navigation'
+import { ReactEventHandler, useState } from 'react'
+import { BsHouseHeartFill, BsFillPersonFill } from 'react-icons/bs'
+import supabaseClient from 'lib/supabaseClient'
+import { getRoleByDescription } from 'lib/models'
 
 export default function SignUpForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('renter');
-  const router = useRouter();
-  const supabase = createClientComponentClient<Database>();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [role, setRole] = useState('renter')
+  const supabase = createClientComponentClient<Database>()
+  const router = useRouter()
 
   const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const roleId = await getRoleByDescription(role);
+    const roleId = await getRoleByDescription(role)
 
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -32,9 +31,8 @@ export default function SignUpForm() {
         },
         emailRedirectTo: `${location.origin}/auth/callback`,
       },
-    });
-    console.log(data, error);
-    if (error) return; // revisit (error handling)
+    })
+    if (error) return // revisit (error handling)
 
     //  KEEP THIS FOR NOW
 
@@ -49,8 +47,8 @@ export default function SignUpForm() {
     //   .insert({ user_id: uid, role_id: roleId[0].id });
 
     // console.log(insertError);
-    router.refresh();
-  };
+    router.refresh()
+  }
   return (
     <main className="fixed flex h-full w-screen pb-20">
       <Card className="w-8/12 p-4 m-auto">
@@ -150,5 +148,5 @@ export default function SignUpForm() {
         </form>
       </Card>
     </main>
-  );
+  )
 }

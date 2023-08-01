@@ -1,13 +1,13 @@
-import { getPropertyById, getRentRange } from '../../lib/models';
-import Image from 'next/image';
+import { getPropertyById, getRentRange } from '../../lib/models'
+import Image from 'next/image'
 
 // eslint-disable-next-line react/display-name
 const Property = async () => {
-  const property = await getPropertyById(1);
-  const rentRange = await getRentRange();
+  const property = await getPropertyById(1)
+  const rentRange = await getRentRange()
 
-  console.log(rentRange);
-  const images = property[0].image;
+  console.log(rentRange)
+  const images = property[0].image
 
   return property ? (
     <div className="py-5">
@@ -26,7 +26,7 @@ const Property = async () => {
     </div>
   ) : (
     <div className="py-5">No data fetched</div>
-  );
-};
+  )
+}
 
-export default Property;
+export default Property

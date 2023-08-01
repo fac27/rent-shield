@@ -1,42 +1,102 @@
-'use client';
-import { FC } from 'react';
-
-import Image from 'next/image';
-import location from '../../public/location.svg';
-import bed from '../../public/bed.svg';
-import bath from '../../public/bath.svg';
-import price from '../../public/price.svg';
-import heart from '../../public/heart.svg';
-import fullHeart from '../../public/full-heart.svg';
-import transportIcon from '../../public/transport.svg';
-import { useEffect, useState } from 'react';
-import Carousel from '../components/Carousel';
-import Map from './Map';
-import { convertAddress } from 'utils/mapHelper';
-import { ILocation, ListingType } from '../../types/types';
-import { Json } from '../../types/supabase';
+'use client'
+import Image from 'next/image'
+import location from '../../public/location.svg'
+import bed from '../../public/bed.svg'
+import bath from '../../public/bath.svg'
+import price from '../../public/price.svg'
+import heart from '../../public/heart.svg'
+import fullHeart from '../../public/full-heart.svg'
+import transportIcon from '../../public/transport.svg'
+import { useEffect, useState } from 'react'
+import Carousel from '../components/Carousel'
+import Map from './Map'
+import { ILocation, ListingType } from '../../types/types'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Database } from '../../types/supabase'
+import { useRouter } from 'next/navigation'
 
 const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
-  // const [liked, setLiked] = useState(listing.favourited);
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(false)
   const [center, setCenter] = useState({
     lat: Number(listing.latitude),
     lng: Number(listing.longitude),
-  });
-  const [markers, setMarkers] = useState<ILocation[]>([]);
-  const [loading, setLoading] = useState(true); // added a loading state in case the map doesn't load...
+  })
+  const [markers, setMarkers] = useState<ILocation[]>([])
+  const [loading, setLoading] = useState(true) // added a loading state in case the map doesn't load...
+  const [userId, setUserId] = useState<string>('')
+  const supabase = createClientComponentClient<Database>()
+  const router = useRouter()
 
-  //needed use effect to access promise from the convertaddress function
-  // (we should do this before it goes into the database and get the data
-  //from the property object instead of using a useeffect for this.)
-  const fullAddress = `${listing.address1}, ${
-    !listing.address2 ? '' : listing.address2 + ', '
-  }${listing.postcode}, ${listing.city}, UK`;
   useEffect(() => {
-    setCenter(center);
-    setMarkers([center]);
-    setLoading(false);
-  }, [center]);
+    setCenter(center)
+    setMarkers([center])
+    setLoading(false)
+  }, [center])
+
+  useEffect(() => {
+    const getUserId = async () => {
+      try {
+        const { data, error } = await supabase.auth.getUser()
+        const { user } = data
+        if (!user) {
+          throw new Error('No user logged in.')
+        }
+        const sessionUserId = user?.id
+        if (!sessionUserId) {
+          throw new Error('No userID found.')
+        }
+        setUserId(sessionUserId as string)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    getUserId()
+  }, [supabase.auth])
+
+  const addFavourite = async (property_id: number, user_id: string) => {
+    try {
+      await supabase.from('favourites').insert({ property_id, user_id })
+      setLiked(true)
+    } catch (error) {
+      console.error('Error adding favourite: ', error)
+    }
+  }
+  const deleteFavourite = async (property_id: number, user_id: string) => {
+    try {
+      await supabase
+        .from('favourites')
+        .delete()
+        .eq('property_id', property_id)
+        .eq('user_id', user_id)
+      setLiked(false)
+    } catch (error) {
+      console.error('Error deleting favourite: ', error)
+    }
+  }
+
+  const fetchFavourites = async (property_id: number, user_id: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('favourites')
+        .select()
+        .eq('user_id', user_id)
+        .eq('property_id', property_id)
+      if (data && data.length > 0) {
+        setLiked(true)
+      }
+    } catch (error) {
+      console.error('Error fetching favourites', error)
+    }
+  }
+
+  fetchFavourites(listing.id, userId)
+
+  const handleFavourite = async (property_id: number, user_id: string) => {
+    if (!userId) return router.push('/log-in')
+    liked
+      ? await deleteFavourite(property_id, user_id)
+      : await addFavourite(property_id, user_id)
+  }
 
   return (
     <div data-id={id} className="flex flex-col test-class-property">
@@ -58,7 +118,7 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
           <Image src={bath} alt="bath" width={20} height={20} />
           <p className="text-slate-200"> {listing.bathrooms} </p>
         </span>
-        <button onClick={() => setLiked(!liked)}>
+        <button onClick={() => handleFavourite(listing.id, userId)}>
           {liked ? (
             <Image src={fullHeart} alt="saved" width={25} height={25} />
           ) : (
@@ -97,7 +157,7 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Property;
+export default Property

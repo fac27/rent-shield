@@ -1,49 +1,50 @@
-'use client';
+'use client'
 
-import { Button, Card, Label, TextInput } from 'flowbite-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import supabaseCompClient from 'lib/supabaseCompClient';
+import { Button, Card, Label, TextInput } from 'flowbite-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Database } from '../../../../types/supabase'
 
 export default function SignInForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);
-  const router = useRouter();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loggedIn, setLoggedIn] = useState(false)
+  const supabase = createClientComponentClient<Database>()
+  const router = useRouter()
 
   // check before rendering that the user is logged in
   useEffect(() => {
     const checkSession = async () => {
       const {
         data: { session },
-      } = await supabaseCompClient.auth.getSession();
-      console.log(session);
-      if (session) setLoggedIn(true);
-    };
-    checkSession();
-  }, []);
+      } = await supabase.auth.getSession()
+      if (session) setLoggedIn(true)
+    }
+    checkSession()
+  }, [supabase.auth])
 
   // redirect if the user is logged in
   useEffect(() => {
-    if (loggedIn) router.push('/listings');
-  }, [router, loggedIn]);
+    if (loggedIn) router.push('/listings')
+  }, [router, loggedIn])
 
   // login
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     const {
       data: { session },
       error: errorLoggingIn,
-    } = await supabaseCompClient.auth.signInWithPassword({
+    } = await supabase.auth.signInWithPassword({
       email,
       password,
-    });
+    })
 
-    if (!errorLoggingIn && session) setLoggedIn(true);
+    if (!errorLoggingIn && session) setLoggedIn(true)
 
-    router.refresh();
-  };
+    router.refresh()
+  }
 
   return (
     <main className="fixed flex h-full w-screen pb-20">
@@ -87,5 +88,5 @@ export default function SignInForm() {
         </form>
       </Card>
     </main>
-  );
+  )
 }
