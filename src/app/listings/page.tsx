@@ -34,8 +34,8 @@ export default function SearchResults() {
       bills_included: toBoolean(params.get('bills_included') as string),
       property_type: params.get('type')?.split(',') as string[],
       rooms: {
-        min_rooms: Number(params.get('min_rooms')),
-        max_rooms: Number(params.get('max_rooms')),
+        min: Number(params.get('min_rooms')),
+        max: Number(params.get('max_rooms')),
       },
       min_tenancy_months: Number(params.get('min_tenancy')),
       features: {

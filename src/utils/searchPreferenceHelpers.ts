@@ -43,8 +43,8 @@ export const makeIntoProps = (submitted: any): SearchPreferenceProps => {
       bills_included: submitted.bills.checked,
       property_type: submitted.property_type.value,
       rooms: {
-        min_rooms: submitted.roomsMin.value,
-        max_rooms: submitted.roomsMax.value,
+        min: submitted.roomsMin.value,
+        max: submitted.roomsMax.value,
       },
       min_tenancy_months: submitted.tenancy.value,
       features: {

@@ -116,31 +116,6 @@ export interface SearchPreferenceProps {
       allocated_parking?: boolean;
       street_parking?: boolean;
     };
-    cost: {
-      min: number;
-      max: number;
-    };
-    bills_included: boolean;
-    property_type: string[];
-    rooms: {
-      min_rooms: number;
-      max_rooms: number;
-    };
-    min_tenancy_months?: number;
-    features?: {
-      pets_allowed?: boolean;
-      smokers_allowed?: boolean;
-      bike_storage?: boolean;
-      garden?: boolean;
-      fireplace?: boolean;
-      elevator?: boolean;
-      wheelchair_accessible?: boolean;
-      electric_heating?: boolean;
-      gas_heating?: boolean;
-      visitor_parking?: boolean;
-      allocated_parking?: boolean;
-      street_parking?: boolean;
-    };
   };
 }
 
