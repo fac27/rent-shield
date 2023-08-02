@@ -114,7 +114,7 @@ const getFilteredProperties = async (filters: any[]): Promise<any[]> => {
 
   let { data, error } = await supabaseClient.rpc(
     'properties_with_distance_from',
-    geoParams
+    geoParams,
   );
 
   if (error) {
@@ -129,10 +129,10 @@ const getFilteredProperties = async (filters: any[]): Promise<any[]> => {
       switch (filterOp) {
         case FilterOperation.bool:
         case FilterOperation.match:
-          if (filter.args.length > 1) {
+          if (filter.args.length > 1)
             return filter.args.includes(row[filter.field]);
-          }
-          return row[filter.field] === filter.args[0];
+          if (filter.args.length === 1)
+            return row[filter.field] === filter.args[0];
           break;
         case FilterOperation.greater_than_or_equal:
           return row[filter.field] >= filter.args[0];
@@ -148,7 +148,6 @@ const getFilteredProperties = async (filters: any[]): Promise<any[]> => {
       }
     });
   });
-  console.log(`\x1b[33m Geo search results: ${JSON.stringify(data)} \x1b[0m`);
   return data;
 };
 

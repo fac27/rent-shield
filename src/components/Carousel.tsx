@@ -7,6 +7,8 @@ import type { Images } from '../../types/types';
 export default function Carousel({ images }: { images: Images }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  if (!images) images = [{id:1,url:'/images/imagePlaceHolder.png'}];
+  
   return (
     <section className="relative h-96 bg-[#CAC4CE]">
       <div id="carousel" className="relative flex justify-center w-screen h-96">

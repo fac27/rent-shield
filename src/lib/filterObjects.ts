@@ -14,13 +14,12 @@ export interface Filter {
 }
 
 const allFilters: { [key: string]: Filter } = {
-  // Come back to this - it may need to be removed
-  location: {
-    operation: FilterOperation.match,
-    field: 'address2',
-    args: [],
-    includeFalsy: true,
-  },
+  // location: {
+  //   operation: FilterOperation.match,
+  //   field: 'address2',
+  //   args: [],
+  //   includeFalsy: true,
+  // },
   proximity: {
     operation: FilterOperation.geo_distance,
     field: 'lat_lon_point',

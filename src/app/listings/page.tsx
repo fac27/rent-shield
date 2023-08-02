@@ -15,7 +15,9 @@ export default function SearchResults() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await filterPropertyListings(searchFilters);
+
       setListings(data);
+      console.log({listings})
     };
     const searchFilters: SearchPreferenceProps = {
       preferences: {

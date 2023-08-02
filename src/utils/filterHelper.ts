@@ -82,7 +82,6 @@ const parseSearchParamObject = (params: any, filters: Array<Filter>) => {
       parseSearchParamObject(params[key], filters);
     }
   });
-  console.log(`Filters: ${JSON.stringify(filters)}`);
   return filters;
 };
 

@@ -29,7 +29,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
     ),
   );
   const [isToggled, setIsToggled] = useState<boolean>(false);
-  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState<string[]>([])
+  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState<string[]>([...preferences.property_details.type])
 
   const handlePropertyTypes = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedPropertyTypes((prevSelectedTypes) => {
@@ -47,7 +47,6 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
     const address = search.preferences.location;
     const editedPropertyTypes = selectedPropertyTypes.map(type=>{type.replace(' ', '_')})
     let { lat, lng } = await convertAddress(address as string);
-    console.log(lat, lng, selectedPropertyTypes)
     router.push(`/listings?=&lat=${lat}&lon=${lng}&property_type=${selectedPropertyTypes.join('=')}${query}`);
   };
 
@@ -217,6 +216,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                     id={typeValue}
                     name="property_type"
                     value={type}
+                    defaultChecked
                     onChange={(e)=>{handlePropertyTypes(e)}}
                   />
                   <Label>{type}</Label>
