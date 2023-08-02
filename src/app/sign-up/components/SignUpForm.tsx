@@ -139,7 +139,7 @@ export default function SignUpForm() {
             as={Link}
             href="/log-in"
             className="self-end"
-            gradientDuoTone="purpleToBlue"
+            gradientDuoTone="success"
             outline
           >
             Already have an account?

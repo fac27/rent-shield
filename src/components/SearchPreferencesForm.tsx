@@ -230,7 +230,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
             })}
           </div>
         </fieldset>
-        <Button gradientDuoTone="purpleToPink" className="mt-6" type="submit">
+        <Button gradientDuoTone="greenToBlue" className="mt-6" type="submit">
           Submit
         </Button>
       </form>

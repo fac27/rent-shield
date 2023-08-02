@@ -18,17 +18,17 @@ const Header = () => {
   const router = useRouter()
   const supabase = createClientComponentClient<Database>()
 
-  useEffect(() => {
-    // check whether user is logged in
-    const getSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
-      console.log(session)
-      if (session) return setSession(session)
-    }
-    getSession()
-  }, [])
+  // useEffect(() => {
+  // check whether user is logged in
+  const getSession = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
+    console.log(session)
+    if (session) return setSession(session)
+  }
+  getSession()
+  // }, [])
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
