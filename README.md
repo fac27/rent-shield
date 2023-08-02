@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This App was created as part of our final project in collaborationg with Judy from Tech for Better. 
+Rent Shield is a two sided app where landlords and renters can log in and either search or upload a property. The form was designed by the product owner to ensure landlords would upload recent and accurate data. 
 
 ## Contributing
 
@@ -42,4 +43,8 @@ Development of Rent Shield is tracked using github projects. [This project board
 ### MVP
 
 The development of Rent Shield is currently in early stages and is guided towards fullfiling the following user stories:
+1. As a user I want to search properties by location, budget, number of bedrooms, and property type
+2. As a renter I want to login so that I can save/favourite properties
+3. As a landlord I want to be able to login and upload my property so that renters can see it
+
 <img width="1057" alt="Screenshot 2023-07-26 at 16 46 40" src="https://github.com/fac27/rent-shield/assets/114600712/c6488095-75bd-49c0-baab-f8deca27acca">
