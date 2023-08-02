@@ -135,16 +135,18 @@ export default function SignUpForm() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          {/* <div>
-            <div className="mb-2 block">
-              <Label htmlFor="repeat-password" value="Repeat password" />
-            </div>
-            <TextInput id="repeat-password" required shadow type="password" />
-          </div> */}
-          <Button className="self-end" color="purple">
-            <Link href="/log-in"> Already have an account? </Link>
+          <Button
+            as={Link}
+            href="/log-in"
+            className="self-end"
+            gradientDuoTone="purpleToBlue"
+            outline
+          >
+            Already have an account?
           </Button>
-          <Button type="submit">Register new account</Button>
+          <Button gradientDuoTone="purpleToPink" type="submit">
+            Register new account
+          </Button>
         </form>
       </Card>
     </main>

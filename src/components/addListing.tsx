@@ -273,6 +273,7 @@ const AddListingForm = () => {
             }
           })}
           <Button
+            gradientDuoTone="purpleToPink"
             type="submit"
             style={{ backgroundColor: hasError ? 'red' : '' }}
           >
