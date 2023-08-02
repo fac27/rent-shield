@@ -39,7 +39,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   return (
     <Card
       data-cy="SearchPreferencesForm"
-      className="w-8/12 p-4 m-auto dark:text-white"
+      className="w-8/12 p-4 m-auto dark:text-white mb-10"
     >
       <form
         action="/listings"

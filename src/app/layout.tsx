@@ -9,6 +9,9 @@ const quicksand = Quicksand({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'rent-shield',
   description: 'rent-shield',
+  icons: {
+    icon: '/rs-logo.svg',
+  },
 }
 // export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -20,6 +23,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
+      <head>
+        {' '}
+        <link rel="icon" href="./rs-logo.svg" type="image/svg+xml" />
+      </head>
+
       <body
         className={`${quicksand.className} text-lg bg-[#EAEAEA] min-h-screen relative pb-14`}
       >

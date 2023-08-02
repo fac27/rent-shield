@@ -36,5 +36,19 @@ export default function SearchPreferences() {
 
   if (location) preferences.location = location
 
-  return <SearchPreferencesForm preferences={preferences} />
+  return (
+    <main>
+      <div className="text-center justify-between p-5 m-5">
+        <h2 className="text-xl font-semibold">Set your search preferences</h2>
+        <p>
+          Start your home search by typing in a neighbourhood, city, county, or
+          post code.
+          <br></br>
+          The search result page contains a map view. You can also filter to
+          refine your search further.
+        </p>
+      </div>
+      <SearchPreferencesForm preferences={preferences} />
+    </main>
+  )
 }

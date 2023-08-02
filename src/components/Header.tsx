@@ -108,8 +108,7 @@ const Header = () => {
               <Button
                 as={Link}
                 href="/sign-up"
-                gradientDuoTone="greenToBlue"
-                outline
+                gradientDuoTone="purpleToPink"
                 size="sm"
               >
                 Sign Up
