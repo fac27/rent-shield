@@ -6,7 +6,6 @@ import { IMapProps } from '../../types/types'
 
 const Map = ({ center, markers, id }: IMapProps) => {
   useEffect(() => {
-    if (typeof window === 'undefined') return
     initializeMap({ id, center, markers })
   }, [center, markers, id])
 

@@ -46,11 +46,11 @@ const Header = () => {
           <Navbar.Brand href="/" className="flex gap-3 items-center">
             {
               <Image
-                width="30"
-                height="30"
+                src="/rs-logo.svg"
+                width={30}
+                height={30}
                 alt="Rent-shield logo"
                 className="h-6 sm:h-9"
-                src="/rs-logo.svg"
               />
             }
             <span className="hidden whitespace-nowrap text-xl font-semibold dark:text-white md:block">
