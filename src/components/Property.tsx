@@ -23,7 +23,6 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
   })
   const [markers, setMarkers] = useState<ILocation[]>([])
   const [loading, setLoading] = useState(true) // added a loading state in case the map doesn't load...
-  const [loggedIn, setLoggedIn] = useState(false)
   const [userId, setUserId] = useState<string>('')
   const supabase = createClientComponentClient<Database>()
   const router = useRouter()
@@ -47,7 +46,6 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
           throw new Error('No userID found.')
         }
         setUserId(sessionUserId as string)
-        setLoggedIn(true)
       } catch (error) {
         console.error(error)
       }
@@ -94,7 +92,7 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
   fetchFavourites(listing.id, userId)
 
   const handleFavourite = async (property_id: number, user_id: string) => {
-    if (!loggedIn) return router.push('/log-in')
+    if (!userId) return router.push('/log-in')
     liked
       ? await deleteFavourite(property_id, user_id)
       : await addFavourite(property_id, user_id)
