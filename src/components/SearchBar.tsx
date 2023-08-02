@@ -65,7 +65,7 @@ const SearchBar = () => {
         />
         <button
           type="submit"
-          className="text-white rounded-md text-sm px-2 py-1 absolute right-1.5 bottom-1.5 bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800"
+          className="text-white rounded-md text-sm px-2 py-1 absolute right-1.5 bottom-1.5 bg-yellow-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Search
         </button>
