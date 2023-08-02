@@ -11,6 +11,7 @@ export default function SignInForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loggedIn, setLoggedIn] = useState(false)
+  const [newError, setNewError] = useState('')
   const supabase = createClientComponentClient<Database>()
   const router = useRouter()
 
@@ -42,6 +43,17 @@ export default function SignInForm() {
     })
 
     if (!errorLoggingIn && session) setLoggedIn(true)
+    if (errorLoggingIn) {
+      if (errorLoggingIn.status === 400) {
+        setNewError(
+          'Trouble logging in, please check your password and try again',
+        )
+      } else {
+        // Handle other errors (optional)
+        console.log('Error:', errorLoggingIn.message)
+      }
+      return
+    }
 
     router.refresh()
   }
@@ -79,6 +91,7 @@ export default function SignInForm() {
               type="password"
             />
           </div>
+          <span className="dark:text-white">{newError}</span>
           <Button className="self-end" color="purple">
             <Link href="/sign-up"> Don&apos;t have an account yet? </Link>
           </Button>
