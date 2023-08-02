@@ -89,7 +89,7 @@ const Header = () => {
               )}
 
               <Dropdown.Divider />
-              <Dropdown.Item>Sign out</Dropdown.Item>
+              <Dropdown.Item onClick={handleLogout}>Log out</Dropdown.Item>
             </Dropdown>
           ) : (
             <>
