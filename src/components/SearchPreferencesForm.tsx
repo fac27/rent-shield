@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   Button,
@@ -28,15 +28,27 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
       acc > cur ? acc : cur,
     ),
   );
-  const [isToggled, setIsToggled] = useState<boolean>(false)
+  const [isToggled, setIsToggled] = useState<boolean>(false);
+  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState<string[]>([])
+
+  const handlePropertyTypes = (event: ChangeEvent<HTMLInputElement>) => {
+    setSelectedPropertyTypes((prevSelectedTypes) => {
+      const selectedValue = event.target?.value
+      if (prevSelectedTypes.includes(selectedValue)) 
+        return prevSelectedTypes.filter((type) => type !== selectedValue)
+      return [...prevSelectedTypes, selectedValue]
+  })
+  }
 
   const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const search = makeIntoProps(e.nativeEvent?.target);
-    const query = makeIntoQuery(search.preferences);
+    const query = makeIntoQuery(search.preferences, 'preferences');
     const address = search.preferences.location;
+    const editedPropertyTypes = selectedPropertyTypes.map(type=>{type.replace(' ', '_')})
     let { lat, lng } = await convertAddress(address as string);
-    router.push(`/listings?=&lat=${lat}&lon=${lng}${query}`);
+    console.log(lat, lng, selectedPropertyTypes)
+    router.push(`/listings?=&lat=${lat}&lon=${lng}&property_type=${selectedPropertyTypes.join('=')}${query}`);
   };
 
   return (
@@ -71,7 +83,7 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                 id="search-radius"
                 max={30}
                 min={1}
-                name="min-cost"
+                name="radius"
                 value={searchRadius}
                 onChange={(e) => {
                   setSearchRadius(Number(e.target.value));
@@ -204,7 +216,8 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                   <Checkbox
                     id={typeValue}
                     name="property_type"
-                    value={typeValue}
+                    value={type}
+                    onChange={(e)=>{handlePropertyTypes(e)}}
                   />
                   <Label>{type}</Label>
                 </div>

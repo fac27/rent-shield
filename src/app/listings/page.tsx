@@ -26,14 +26,14 @@ export default function SearchResults() {
           radius: Number(params.get('radius')),
         },
         cost: {
-          min: Number(params.get('min-cost')),
-          max: Number(params.get('max-cos')),
+          min: Number(params.get('cost_min')),
+          max: Number(params.get('cost_max')),
         },
         bills_included: toBoolean(params.get('bills_included') as string),
-        property_type: params.get('type')?.split(',') as string[],
+        property_type: params.get('property_type')?.split('=') as string[],
         rooms: {
-          min: Number(params.get('min_rooms')),
-          max: Number(params.get('max_rooms')),
+          min: Number(params.get('rooms_min')),
+          max: Number(params.get('rooms_max')),
         },
         min_tenancy_months: Number(params.get('min_tenancy')),
         features: {

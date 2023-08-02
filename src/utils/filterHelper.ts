@@ -45,6 +45,7 @@ const parseSearchParamObject = (params: any, filters: Array<Filter>) => {
           break;
         case FilterOperation.range:
           args = [val.min, val.max];
+          console.log(`key: ${key}, min: ${val.min}, max: ${val.max}`)
           break;
         case FilterOperation.geo_distance:
           args = [val.lat, val.lon, val.radius];
