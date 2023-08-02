@@ -6,7 +6,6 @@ const Property = async () => {
   const property = await getPropertyById(1)
   const rentRange = await getRentRange()
 
-  console.log(rentRange)
   const images = property[0].image
 
   return property ? (

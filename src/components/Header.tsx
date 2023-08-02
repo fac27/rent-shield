@@ -24,7 +24,6 @@ const Header = () => {
     const {
       data: { session },
     } = await supabase.auth.getSession()
-    console.log(session)
     if (session) return setSession(session)
   }
   getSession()
