@@ -8,7 +8,7 @@ export default function Carousel({ images }: { images: Images }) {
   const [currentSlide, setCurrentSlide] = useState(0)
 
   return (
-    <section className="relative h-96 bg-[#CAC4CE]">
+    <section className="relative h-96 bg-[#CAC4CE] dark:bg-[#202A37]">
       <div id="carousel" className="relative flex justify-center w-screen h-96">
         {images.map((image, i) => (
           <Image

@@ -1,3 +1,11 @@
 <svg width="600" height="600" fill="#fff" xmlns="http://www.w3.org/2000/svg">
-    <path d="M300 20A280 280 0 0 0 20 300a280 280 0 0 0 94.82 209.791A190 190 0 0 1 300 360a190 190 0 0 1 185.533 149.438A280 280 0 0 0 580 300 280 280 0 0 0 300 20zm0 110a100 100 0 0 1 100 100 100 100 0 0 1-100 100 100 100 0 0 1-100-100 100 100 0 0 1 100-100z" style="fill:#f55"/>
+    <!-- Define the linear gradient -->
+    <defs>
+        <linearGradient id="blueToPurple" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#9C27B0" /> <!-- Blue color at the beginning -->
+            <stop offset="100%" stop-color="#2196F3" /> <!-- Purple color at the end -->
+        </linearGradient>
+    </defs>
+    <!-- Use the gradient for the fill of the path -->
+    <path d="M300 20A280 280 0 0 0 20 300a280 280 0 0 0 94.82 209.791A190 190 0 0 1 300 360a190 190 0 0 1 185.533 149.438A280 280 0 0 0 580 300 280 280 0 0 0 300 20zm0 110a100 100 0 0 1 100 100 100 100 0 0 1-100 100 100 100 0 0 1-100-100 100 100 0 0 1 100-100z" style="fill:url(#blueToPurple)" />
 </svg>

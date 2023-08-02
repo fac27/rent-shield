@@ -32,7 +32,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
-    router.refresh()
+    setSession(null)
   }
 
   return (
@@ -41,7 +41,7 @@ const Header = () => {
         {showSidebar ? <HamburgerSidebar /> : null}
         <div className="flex gap-3 items-center">
           <button onClick={() => setShowSidebar(!showSidebar)}>
-            <RxHamburgerMenu className="invert scale-125 mx-2" />
+            <RxHamburgerMenu className="invert scale-125 mx-2 dark:text-gray-500" />
           </button>
           <Navbar.Brand href="/" className="flex gap-3 items-center">
             {
@@ -53,7 +53,7 @@ const Header = () => {
                 className="h-6 sm:h-9"
               />
             }
-            <span className="hidden whitespace-nowrap text-xl font-semibold dark:text-white md:block">
+            <span className="hidden whitespace-nowrap text-xl text-grey-500 font-semibold dark:text-white md:block">
               rent shield
             </span>
           </Navbar.Brand>
@@ -97,7 +97,7 @@ const Header = () => {
               <Button
                 as={Link}
                 href="/log-in"
-                gradientDuoTone="purpleToBlue"
+                gradientDuoTone="c"
                 outline
                 size="sm"
                 className="mx-2"
