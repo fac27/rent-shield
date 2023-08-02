@@ -37,7 +37,9 @@ export default function SignUpForm() {
     })
     if (error) {
       if (error.status === 429 || error.status === 422) {
-        setNewError('This email address already exists')
+        setNewError(
+          'There was an error with your email or password, please try again',
+        )
       } else {
         // Handle other errors (optional)
         console.log('Error:', error.message)
@@ -134,10 +136,11 @@ export default function SignUpForm() {
                 shadow
                 type="password"
                 name="password2"
+                placeholder="password must be more than 6 characters"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <span className="dark:text-white">{newError}</span>
+            <p className="dark:text-white block">{newError}</p>
             <Button className="self-end" color="purple">
               <Link href="/log-in"> Already have an account? </Link>
             </Button>
