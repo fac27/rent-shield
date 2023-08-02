@@ -1,174 +1,203 @@
-import { FormFieldTypes } from '../../types/types'
+import type { FormFields } from '../../types/types'
+import supabase from 'lib/supabaseClient'
 
-export const formFields: FormFieldTypes = {
+const getAllFrom = async (table: 'status' | 'type') => {
+  const { data, error } = await supabase.from(table).select('description')
+  // if error return default values (really it shouldnt get to that stage if cant connect to supabase throw global error.)
+  return data ? data?.map((item) => item.description) : []
+}
+
+export const formFields = async (): Promise<FormFields> => ({
   rent: {
     label: 'Monthly rent',
     inputType: 'number',
     placeholder: '£1000',
+    required: true,
   },
-  billsIncluded: {
+  bills_included: {
     label: 'Bills included in monthly rent?',
-    inputType: 'radio',
-    options: ['Yes', 'No'],
+    inputType: 'checkbox',
+    required: false,
   },
-  petsAllowed: {
+  pets_allowed: {
     label: 'Pets allowed?',
-    inputType: 'radio',
-    options: ['Yes', 'No'],
+    inputType: 'checkbox',
+    required: false,
   },
-  smokersAllowed: {
+  smokers_allowed: {
     label: 'Smokers allowed?',
-    inputType: 'radio',
-    options: ['Yes', 'No'],
+    inputType: 'checkbox',
+    required: false,
   },
-  depositAmount: {
+  deposit_amount: {
     label: 'Deposit amount',
     inputType: 'number',
     placeholder: '£',
+    required: true,
   },
-  councilTaxBand: {
+  council_tax_band: {
     label: 'Council Tax Band',
     inputType: 'select',
     options: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+    required: true,
   },
-  energyRating: {
+  energy_rating: {
     label: 'Energy rating',
     inputType: 'select',
-    options: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+    options: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+    required: true,
   },
-  availableFromDate: {
+  available_from: {
     label: 'Available from date',
     inputType: 'date',
+    default: new Date().toISOString().split('T')[0],
+    required: true,
   },
-
-  flatOrHouseNumber: {
+  status_id: {
+    label: 'Property Status',
+    inputType: 'select',
+    options: await getAllFrom('status'),
+    required: true,
+  },
+  address1: {
     label: 'Flat or House Number (kept private)',
     inputType: 'text',
     placeholder: 'Please enter the full first line of your address...',
+    required: true,
   },
-  addressLine2: {
+  address2: {
     label: 'Address Line 2 (optional)',
     inputType: 'text',
     placeholder: 'Please enter the full second line of your address...',
+    required: false,
   },
-  addressLine3: {
-    label: 'Address Line 3 (Optional)',
-    inputType: 'text',
-  },
-  postCode: {
+  postcode: {
     label: 'Your Address - Post Code',
     inputType: 'text',
     pattern: '[A-Za-z]{3}',
+    required: true,
   },
-  town: {
-    label: 'Town',
+  city: {
+    label: 'City',
     inputType: 'text',
     placeholder: 'e.g. Manchester',
+    required: true,
   },
-  propertyType: {
+  type_id: {
     label: 'Property Type',
     inputType: 'select',
-    options: [
-      'Studio Flat (Single occupant)',
-      'Bedsit (Single Occupant)',
-      'Detached House',
-      'Semi-Detached House',
-      'Terraced House',
-      'Bungalow',
-      'End Terrace',
-      'Flat',
-      'Penthouse Flat',
-      'Maisonette Flat',
-      'Mobile Home',
-      'House Boat',
-    ],
+    options: await getAllFrom('type'),
+    required: true,
   },
-  floor: {
-    label: 'Floor',
-    inputType: 'select',
-    options: ['Ground', 'First', '2+', 'Top Floor'],
-  },
-  numberOfBedrooms: {
+  // floor: {
+  //   label: 'Floor',
+  //   inputType: 'select',
+  //   options: ['Ground', 'First', '2+', 'Top Floor'],
+  // },
+  bedrooms: {
     label: 'Number of Bedrooms',
     inputType: 'number',
+    required: true,
   },
-  numberOfBathrooms: {
+  bathrooms: {
     label: 'Number of Bathrooms',
     inputType: 'number',
+    required: true,
   },
-  furnishing: {
-    label: 'Furnishing',
-    inputType: 'select',
-    options: [
-      'Furnished',
-      'Unfurnished',
-      'Semi-Furnished',
-      'Furnishing at choice of tenant',
-    ],
-  },
-  parking: {
-    label: 'Parking',
-    inputType: 'select',
-    options: ['Allocated parking', 'Street Parking', 'No parking'],
-  },
-  propertyDescription: {
+  // furnishing: {
+  //   label: 'Furnishing',
+  //   inputType: 'select',
+  //   options: [
+  //     'Furnished',
+  //     'Unfurnished',
+  //     'Semi-Furnished',
+  //     'Furnishing at choice of tenant',
+  //   ],
+  // },
+  // parking: {
+  //   label: 'Parking',
+  //   inputType: 'select',
+  //   options: ['Allocated parking', 'Street Parking', 'No parking'],
+  // },
+  description: {
     label: 'Property description',
     inputType: 'textarea',
+    required: false,
   },
-  propertyFeatures: {
-    label: 'Property Features',
+  bike_storage: {
+    label: 'Bike storage?',
     inputType: 'checkbox',
-    options: [
-      'Bike Store',
-      'Garden',
-      'Fireplace',
-      'Elevator in building',
-      'Electric Heating',
-      'Gas heating',
-      'Visitor parking',
-    ],
+    required: false,
   },
-  minimumTenancyTerm: {
-    label: 'Mimimum tenancy term',
+  garden: { label: 'Garden?', inputType: 'checkbox', required: false },
+  fireplace: { label: 'Fireplace?', inputType: 'checkbox', required: false },
+  elevator: { label: 'Bike storage?', inputType: 'checkbox', required: false },
+  electric_heating: {
+    label: 'Electric heating?',
+    inputType: 'checkbox',
+    required: false,
+  },
+  gas_heating: {
+    label: 'Gas heating?',
+    inputType: 'checkbox',
+    required: false,
+  },
+  visitor_parking: {
+    label: 'Visitor Parking?',
+    inputType: 'checkbox',
+    required: false,
+  },
+  wheelchair_accessible: {
+    label: 'Wheelchair Accessible?',
+    inputType: 'checkbox',
+    required: false,
+  },
+  min_tenancy: {
+    label: 'Minimum tenancy term',
     inputType: 'text',
     placeholder: 'Example 6 months, or 1 year',
+    required: true,
   },
-  propertyImages: {
+  property_images: {
     label: 'Property Images',
     inputType: 'file',
+    required: false,
   },
-  propertyVideo: {
+  property_video: {
     label: 'Property video',
     inputType: 'file',
+    required: false,
   },
-  floorPlans: {
-    label: 'Upload Floorplans',
+  floor_plans: {
+    label: 'Upload Floor plans',
     inputType: 'file',
+    required: false,
   },
   epcCertificate: {
     label: 'Upload EPC certificate',
     inputType: 'file',
+    required: false,
   },
   uploadedImagesOfEveryRoom: {
     label: 'Have you uploaded images of every room in the property?',
-    inputType: 'radio',
-    options: ['Yes', 'No'],
+    inputType: 'checkbox',
+    required: true,
   },
   clearAndHighQualityImages: {
     label: 'Are the images clear and high quality?',
-    inputType: 'radio',
-    options: ['Yes', 'No'],
+    inputType: 'checkbox',
+    required: true,
   },
   imagesOfInteriorAndExterior: {
     label:
       'Have you included images of both the interior and exterior of the property?',
-    inputType: 'radio',
-    options: ['Yes', 'No'],
+    inputType: 'checkbox',
+    required: true,
   },
   newlyTakenImages: {
     label:
       'Are the images newly taken as part of the current property listing process?',
-    inputType: 'radio',
-    options: ['Yes', 'No'],
+    inputType: 'checkbox',
+    required: true,
   },
-}
+})

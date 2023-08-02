@@ -1,4 +1,5 @@
 import type { Json } from './supabase'
+import type { Database } from './supabase'
 
 export interface ILocation {
   lat: number
@@ -113,28 +114,54 @@ export interface SearchPreferenceProps {
   }
 }
 
-type InputType =
-  | 'number'
-  | 'radio'
-  | 'select'
-  | 'date'
-  | 'text'
-  | 'textarea'
-  | 'file'
-  | 'checkbox'
-
 export interface BaseField {
   label: string
-  inputType: InputType
+  inputType: 'number' | 'text' | 'textarea' | 'file' | 'checkbox'
+  required: boolean
   placeholder?: string
   pattern?: string
-  options?: string[]
 }
 
-export type FieldType = BaseField | OptionField | FileField
+export interface DateField extends BaseField {
+  inputType: 'date'
+  default: string
+}
 
-export type FormFieldKey = keyof typeof formFields
+export interface OptionField extends BaseField {
+  inputType: 'select' | 'radio'
+  options: string[]
+}
 
-export type FormFieldTypes = {
-  [key in FormFieldKey]: FieldType
+type DatabaseListings = Database['public']['Tables']['property']['Insert']
+
+export type DatabaseListingsInsObj = Omit<
+  DatabaseListings,
+  | 'id'
+  | 'created_at'
+  | 'user_id'
+  | 'allocated_parking' // temp
+  | 'street_parking' // temp
+  | 'attributes' // temp
+  | 'county' // temp
+  | 'latitude' // temp
+  | 'longitude' // temp
+  | 'location' // temp
+>
+
+export type FormFieldKeys = DatabaseListingsKeys | AdditionalFormFields
+
+export type AdditionalFormFields =
+  | 'floor_plans'
+  | 'property_video'
+  | 'property_images'
+  | 'epcCertificate'
+  | 'uploadedImagesOfEveryRoom'
+  | 'clearAndHighQualityImages'
+  | 'imagesOfInteriorAndExterior'
+  | 'newlyTakenImages'
+
+export type FieldType = BaseField | OptionField | DateField
+
+export type FormFields = {
+  [key in FormFieldKeys]: FieldType
 }

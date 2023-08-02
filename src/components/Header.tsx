@@ -30,11 +30,11 @@ const Header = () => {
           <Navbar.Brand href="/" className="flex gap-3 items-center">
             {
               <Image
-                width="30"
-                height="30"
+                src="/rs-logo.svg"
+                width={30}
+                height={30}
                 alt="Rent-shield logo"
                 className="h-6 sm:h-9"
-                src="/rs-logo.svg"
               />
             }
             <span className="hidden whitespace-nowrap text-xl font-semibold dark:text-white md:block">
@@ -62,8 +62,17 @@ const Header = () => {
             </Dropdown.Header>
             <Dropdown.Item>Settings</Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
+            <Link href="/add-listing">
+              <Dropdown.Item>Add Listing</Dropdown.Item>
+            </Link>
             <Dropdown.Divider />
+            <Dropdown.Item>Sign out</Dropdown.Item>
+            <Link href="/log-in">
+              <Dropdown.Item>Log In</Dropdown.Item>
+            </Link>
+            <Link href="/sign-up">
+              <Dropdown.Item>Sign Up</Dropdown.Item>
+            </Link>
           </Dropdown>
         </div>
       </Navbar>
