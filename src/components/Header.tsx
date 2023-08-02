@@ -97,7 +97,7 @@ const Header = () => {
               <Button
                 as={Link}
                 href="/log-in"
-                gradientDuoTone="c"
+                gradientDuoTone="purpleToPink"
                 outline
                 size="sm"
                 className="mx-2"

@@ -96,7 +96,7 @@ export default function SignInForm() {
             as={Link}
             href="/sign-up"
             className="self-end"
-            gradientDuoTone="purpleToBlue"
+            color="success"
             outline
           >
             Don&apos;t have an account yet?
