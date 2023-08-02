@@ -9,13 +9,14 @@ export default async function Home() {
             Nothing about us, without us
           </h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            Find rental property listings, with comprehensive and transparent
+            information, no more hidden fees or surprises. Created by renters
+            who know what renters need. <br />
+            We&#39;re committed to providing renters with the highest quality
+            information, so you can find the perfect place to call home. We work
+            with the best landlords who care and understand that quality
+            listings are the key to getting great tenants and a property let
+            quickly.
           </p>
         </div>
         <SearchBar />

@@ -104,6 +104,9 @@ const Property = ({ id, listing }: { id: string; listing: ListingType }) => {
     <div data-id={id} className="flex flex-col test-class-property">
       {/* images */}
       {/* animate */}
+      <h1 className="text-xl dark:text-slate-200 bg-[#202A37]">
+        {listing.description.split(' ').slice(0, 2).join(' ')}...
+      </h1>
       <Carousel images={listing.image} />
 
       {/* details */}

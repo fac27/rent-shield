@@ -13,6 +13,7 @@ import {
 
 import { SearchFormProps } from '../../types/types'
 import { makeIntoQuery, makeIntoProps } from 'utils/searchPreferenceHelpers'
+import '../app/globals.css'
 
 const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
   const router = useRouter()
