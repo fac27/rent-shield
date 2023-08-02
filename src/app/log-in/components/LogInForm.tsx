@@ -91,7 +91,7 @@ export default function SignInForm() {
               type="password"
             />
           </div>
-          <span>{newError}</span>
+          <span className="dark:text-white">{newError}</span>
           <Button className="self-end" color="purple">
             <Link href="/sign-up"> Don&apos;t have an account yet? </Link>
           </Button>
