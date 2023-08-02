@@ -6,6 +6,15 @@ import { ILocation, IMapProps } from '../../types/types'
 const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''
 
 //using google's API loader feature to access various libraries
+/**
+ * Description
+ * @param {any} {apiKey:apiKey
+ * @param {any} version:'weekly'
+ * @param {any} libraries:['maps'
+ * @param {any} 'places']
+ * @param {any} }
+ * @returns {any}
+ */
 const loader = new Loader({
   apiKey: apiKey,
   version: 'weekly',
@@ -13,6 +22,13 @@ const loader = new Loader({
 })
 
 //function to create a map
+/**
+ * Description
+ * @param {any} {id
+ * @param {any} center
+ * @param {any} markers}:IMapProps
+ * @returns {any}
+ */
 export const initializeMap = async ({ id, center, markers }: IMapProps) => {
   const mapOptions = {
     center: center,
@@ -34,6 +50,10 @@ export const initializeMap = async ({ id, center, markers }: IMapProps) => {
 }
 
 //function to create autocomplete when searching for a location
+/**
+ * Description
+ * @returns {any}
+ */
 export const initializeSearch = async () => {
   if (typeof window === 'undefined') {
     return
@@ -65,6 +85,11 @@ export const initializeSearch = async () => {
 }
 
 //function to convert address into lat/long to put into map function above
+/**
+ * Description
+ * @param {any} address:string
+ * @returns {any}
+ */
 export const convertAddress = async (address: string) => {
   return fetch(
     `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
