@@ -9,18 +9,18 @@ export default function Carousel({ images }: { images: Images }) {
 
   return (
     <section className="relative h-96 bg-[#CAC4CE] dark:bg-[#202A37]">
-      <div id="carousel" className="relative flex justify-center w-screen h-96">
+      <ul id="carousel" className="relative flex justify-center w-screen h-96">
         {images.map((image, i) => (
-          <Image
-            key={uuidv4()}
-            src={image.url}
-            alt={`image-${i + 1}`}
-            fill
-            style={{ objectFit: 'contain' }}
-            className={currentSlide === i ? '' : 'hidden'}
-          />
+          <li key={uuidv4()} className={currentSlide === i ? '' : 'hidden'}>
+            <Image
+              src={image.url}
+              alt={`image-${i + 1}`}
+              fill
+              style={{ objectFit: 'contain' }}
+            />
+          </li>
         ))}
-      </div>
+      </ul>
       <button
         id="left-arrow"
         className="absolute inset-y-0 left-0 h-96 mx-4 rotate-180"
