@@ -157,7 +157,7 @@ export default function SignUpForm() {
           </form>
         </Card>
       ) : (
-        <div>please check your email</div>
+        <h2>please check your email</h2>
       )}
     </main>
   )
