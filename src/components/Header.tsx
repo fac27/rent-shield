@@ -4,15 +4,31 @@ import Link from 'next/link'
 import { Dropdown, Navbar, Avatar } from 'flowbite-react'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import HamburgerSidebar from './HamburgerSidebar'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import {
+  Session,
+  createClientComponentClient,
+} from '@supabase/auth-helpers-nextjs'
 import { Database } from '../../types/supabase'
 
 const Header = () => {
   const [showSidebar, setShowSidebar] = useState(false)
+  const [session, setSession] = useState<Session | null>(null)
   const router = useRouter()
   const supabase = createClientComponentClient<Database>()
+
+  useEffect(() => {
+    // check whether user is logged in
+    const getSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      console.log(session)
+      if (session) return setSession(session)
+    }
+    getSession()
+  }, [])
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
@@ -54,25 +70,39 @@ const Header = () => {
               />
             }
           >
-            <Dropdown.Header>
-              <span className="block text-lg">Gertrude Pickle</span>
-              <span className="block truncate text-md font-medium">
-                gertrude@pickle.com
-              </span>
-            </Dropdown.Header>
-            <Dropdown.Item>Settings</Dropdown.Item>
-            <Dropdown.Divider />
-            <Link href="/add-listing">
-              <Dropdown.Item>Add Listing</Dropdown.Item>
-            </Link>
-            <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
-            <Link href="/log-in">
-              <Dropdown.Item>Log In</Dropdown.Item>
-            </Link>
-            <Link href="/sign-up">
-              <Dropdown.Item>Sign Up</Dropdown.Item>
-            </Link>
+            {session ? (
+              <>
+                <Dropdown.Header>
+                  {/* <span className="block text-lg">Gertrude Pickle</span> */}
+                  <span className="block truncate text-lg font-medium">
+                    {session.user.email}
+                  </span>
+                </Dropdown.Header>
+                <Dropdown.Item>Settings</Dropdown.Item>
+                {session.user.user_metadata.role_id === 2 ? (
+                  <>
+                    <Dropdown.Divider />
+                    <Link href="/add-listing">
+                      <Dropdown.Item>Add Listing</Dropdown.Item>
+                    </Link>
+                  </>
+                ) : (
+                  ''
+                )}
+
+                <Dropdown.Divider />
+                <Dropdown.Item>Sign out</Dropdown.Item>
+              </>
+            ) : (
+              <>
+                <Link href="/log-in">
+                  <Dropdown.Item>Log In</Dropdown.Item>
+                </Link>
+                <Link href="/sign-up">
+                  <Dropdown.Item>Sign Up</Dropdown.Item>
+                </Link>
+              </>
+            )}
           </Dropdown>
         </div>
       </Navbar>
