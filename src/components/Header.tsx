@@ -25,7 +25,7 @@ const Header = () => {
         {showSidebar ? <HamburgerSidebar /> : null}
         <div className="flex gap-3 items-center">
           <button onClick={() => setShowSidebar(!showSidebar)}>
-            <RxHamburgerMenu className="invert scale-125 mx-2" />
+            <RxHamburgerMenu className="invert scale-125 mx-2 dark:text-gray-500" />
           </button>
           <Navbar.Brand href="/" className="flex gap-3 items-center">
             {
