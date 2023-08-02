@@ -24,7 +24,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        {' '}
         <link rel="icon" href="./rs-logo.svg" type="image/svg+xml" />
       </head>
 
