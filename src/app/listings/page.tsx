@@ -3,7 +3,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import ListingsContainer from '../../components/ListingsContainter';
-import { getAllProperties } from 'lib/models';
+import { getAllImages, getAllProperties } from 'lib/models';
 import { ListingType, SearchPreferenceProps } from '../../../types/types';
 import { toBoolean } from 'utils/searchPreferenceHelpers';
 import { filterPropertyListings } from 'utils/filterHelper';
@@ -14,10 +14,16 @@ export default function SearchResults() {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log('search filters', searchFilters)
       const data = await filterPropertyListings(searchFilters);
+      const images = await getAllImages();
+      
+      data.forEach((listing) => {
+        listing.image = images.filter((image) => image.id === listing.id);
+      });
 
+      console.log(data, {data})
       setListings(data);
-      console.log({listings})
     };
     const searchFilters: SearchPreferenceProps = {
       preferences: {
@@ -47,18 +53,19 @@ export default function SearchResults() {
           elevator: toBoolean(params.get('elevator') as string),
           wheelchair_accessible: toBoolean(
             params.get('wheelchair_accessible') as string,
-          ),
-          electric_heating: toBoolean(params.get('electric_heating') as string),
-          gas_heating: toBoolean(params.get('gas_heating') as string),
-          visitor_parking: toBoolean(params.get('visitor_parking') as string),
-          allocated_parking: toBoolean(params.get('allocated') as string),
-          street_parking: toBoolean(params.get('exterior_parking') as string),
+            ),
+            electric_heating: toBoolean(params.get('electric_heating') as string),
+            gas_heating: toBoolean(params.get('gas_heating') as string),
+            visitor_parking: toBoolean(params.get('visitor_parking') as string),
+            allocated_parking: toBoolean(params.get('allocated') as string),
+            street_parking: toBoolean(params.get('exterior_parking') as string),
+          },
         },
-      },
-    };
-    fetchData();
-  }, [params]);
-
+      };
+      fetchData();
+    }, [params]);
+    
+    console.log({listings})
 
 
 

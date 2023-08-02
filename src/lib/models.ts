@@ -9,6 +9,7 @@ import {
 } from '../../types/types';
 import { FilterOperation } from './filterObjects';
 import { Database } from '../../types/supabase';
+import { Images } from '../../types/types';
 //import { types } from 'util';
 
 type PropertiesWithDistanceFromReturnType =
@@ -87,6 +88,16 @@ const getAllProperties = async (): Promise<ListingType[]> => {
   return data;
 };
 
+const getAllImages = async (): Promise<Images> => {
+  const { data, error } = await supabaseClient.from('all_images').select('*');
+  if (error) {
+    console.log(`Error getting roles: ${error.message}`);
+    throw error;
+  }
+
+  return data;
+};
+
 const getAllPropertiesJoinedData = async (): Promise<any[]> => {
   const { data, error } = await supabaseClient
     .from('property_view')
@@ -116,12 +127,10 @@ const getFilteredProperties = async (filters: any[]): Promise<any[]> => {
     'properties_with_distance_from',
     geoParams,
   );
-
   if (error) {
     console.log(`Error getting property types: ${error.message}`);
     throw error;
   }
-
   filters.forEach((filter) => {
     const filterOp = filter.operation;
 
@@ -129,6 +138,7 @@ const getFilteredProperties = async (filters: any[]): Promise<any[]> => {
       switch (filterOp) {
         case FilterOperation.bool:
         case FilterOperation.match:
+          console.log(`Checking ${filter.field} with args: ${filter.args}`)
           if (filter.args.length > 1)
             return filter.args.includes(row[filter.field]);
           if (filter.args.length === 1)
@@ -143,8 +153,10 @@ const getFilteredProperties = async (filters: any[]): Promise<any[]> => {
             row[filter.field] <= filter.args[1]
           );
           break;
+        case FilterOperation.geo_distance:
+          return true;
         default:
-          return data;
+          return true;
       }
     });
   });
@@ -271,4 +283,5 @@ export {
   getFilteredProperties,
   getRoleByDescription,
   getAllRoles,
+  getAllImages,
 };

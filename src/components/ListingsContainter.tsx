@@ -1,10 +1,27 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import Property from './Property';
 import { ContainerProps } from '../../types/types';
+import {getAllImages} from '../lib/models'
+import { Images } from '../../types/types';
 
 const ListingsContainer: FC<ContainerProps> = ({ listings }) => {
-  console.dir({ listings })
+  // const [allImages, setAllImages] = useState<Images>([])
+  
+
+    // const getImages = async() => {
+    //   const images = await getAllImages()
+    //   setAllImages(images)
+    // }
+    // getImages()
+
+
+//   listings = listings.map(listing => ({
+//     ...listing,
+//     image: allImages.filter(image => image.id === listing.id)
+// })
+// )
+
   return (
     <div>
       {listings.map((listing, index) => (

@@ -1,4 +1,4 @@
-import { FC, useState, ChangeEvent } from 'react';
+import { FC, useState, ChangeEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   Button,
@@ -29,25 +29,37 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
     ),
   );
   const [isToggled, setIsToggled] = useState<boolean>(false);
-  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState<string[]>([...preferences.property_details.type])
+  
+  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState<string[]>([...preferences.property_details.type]);
+  
+  console.log('Types from prefs: ',preferences.property_details.type)
+  console.log('Types from selectedPropertyTypes: ',selectedPropertyTypes)
 
   const handlePropertyTypes = (event: ChangeEvent<HTMLInputElement>) => {
+    const selectedValue = event.target?.value;  // Get event value here
+
     setSelectedPropertyTypes((prevSelectedTypes) => {
-      const selectedValue = event.target?.value
-      if (prevSelectedTypes.includes(selectedValue)) 
-        return prevSelectedTypes.filter((type) => type !== selectedValue)
-      return [...prevSelectedTypes, selectedValue]
-  })
-  }
+      if (prevSelectedTypes.includes(selectedValue))
+        return prevSelectedTypes.filter((type) => type !== selectedValue);
+      return [...prevSelectedTypes, selectedValue];
+    });
+  };
+
 
   const redirect = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const search = makeIntoProps(e.nativeEvent?.target);
     const query = makeIntoQuery(search.preferences, 'preferences');
     const address = search.preferences.location;
-    const editedPropertyTypes = selectedPropertyTypes.map(type=>{type.replace(' ', '_')})
+    const editedPropertyTypes = selectedPropertyTypes.map((type) => {
+      type.replace(' ', '_');
+    });
     let { lat, lng } = await convertAddress(address as string);
-    router.push(`/listings?=&lat=${lat}&lon=${lng}&property_type=${selectedPropertyTypes.join('=')}${query}`);
+    router.push(
+      `/listings?=&lat=${lat}&lon=${lng}&property_type=${selectedPropertyTypes.join(
+        '=',
+      )}${query}`,
+    );
   };
 
   return (
@@ -216,8 +228,10 @@ const SearchPreferencesForm: FC<SearchFormProps> = ({ preferences }) => {
                     id={typeValue}
                     name="property_type"
                     value={type}
-                    defaultChecked
-                    onChange={(e)=>{handlePropertyTypes(e)}}
+                    //defaultChecked
+                    onChange={(e) => {
+                      handlePropertyTypes(e);
+                    }}
                   />
                   <Label>{type}</Label>
                 </div>

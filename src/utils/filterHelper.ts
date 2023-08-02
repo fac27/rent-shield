@@ -24,7 +24,6 @@ const filterPropertyListings = (searchParams: SearchPreferenceProps) => {
   const filters = parseSearchParamObject(searchPrefs, currentSearchFilters);
 
   // Call model function to apply filters to property listings view
-
   return getFilteredProperties(filters);
 };
 
