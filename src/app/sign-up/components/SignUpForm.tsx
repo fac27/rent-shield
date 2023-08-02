@@ -140,29 +140,7 @@ export default function SignUpForm() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <TextInput
-              id="email2"
-              placeholder="Email"
-              required
-              shadow
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              name="email2"
-            />
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="password2" value="Your password" />
-              </div>
-              <TextInput
-                id="password2"
-                required
-                shadow
-                type="password"
-                name="password2"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+
             <p className="dark:text-white block">{newError}</p>
             <Button
               as={Link}
