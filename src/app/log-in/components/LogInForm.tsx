@@ -92,10 +92,20 @@ export default function SignInForm() {
             />
           </div>
           <span className="dark:text-white">{newError}</span>
-          <Button className="self-end" color="purple">
-            <Link href="/sign-up"> Don&apos;t have an account yet? </Link>
+          <Button
+            as={Link}
+            href="/sign-up"
+            className="self-end"
+            color="success"
+            outline
+          >
+            Don&apos;t have an account yet?
           </Button>
-          <Button type="submit" onClick={handleLogin}>
+          <Button
+            gradientDuoTone="purpleToPink"
+            type=" submit"
+            onClick={handleLogin}
+          >
             Log In
           </Button>
         </form>

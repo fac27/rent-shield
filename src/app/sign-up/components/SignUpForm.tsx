@@ -140,15 +140,24 @@ export default function SignUpForm() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+
             <p className="dark:text-white block">{newError}</p>
-            <Button className="self-end" color="purple">
-              <Link href="/log-in"> Already have an account? </Link>
+            <Button
+              as={Link}
+              href="/log-in"
+              className="self-end"
+              gradientDuoTone="success"
+              outline
+            >
+              Already have an account?
             </Button>
-            <Button type="submit">Register new account</Button>
+            <Button gradientDuoTone="purpleToPink" type="submit">
+              Register new account
+            </Button>
           </form>
         </Card>
       ) : (
-        <div>please check your email</div>
+        <h2>please check your email</h2>
       )}
     </main>
   )

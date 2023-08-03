@@ -1,6 +1,11 @@
 import type { FormFields } from '../../types/types'
 import supabase from 'lib/supabaseClient'
 
+/**
+ * Description
+ * @param {any} table:'status'|'type'
+ * @returns {any}
+ */
 const getAllFrom = async (table: 'status' | 'type') => {
   const { data, error } = await supabase.from(table).select('description')
   // if error return default values (really it shouldnt get to that stage if cant connect to supabase throw global error.)

@@ -155,7 +155,6 @@ const AddListingForm = () => {
           if (!upload)
             throw Error('Failed uploading image, image probably already exists')
 
-          console.log('supabase results: ', upload.path)
           const { error } = await supabaseCompClient.from('image').insert({
             url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}storage/v1/object/public/images/${upload.path}`,
             property_id: id,
@@ -273,6 +272,7 @@ const AddListingForm = () => {
             }
           })}
           <Button
+            gradientDuoTone="purpleToPink"
             type="submit"
             style={{ backgroundColor: hasError ? 'red' : '' }}
           >
