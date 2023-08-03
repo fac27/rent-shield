@@ -48,3 +48,8 @@ We Over estimated complexity by _13.79%_ and under estimated time by _11.33%_ wi
 
 The development of Rent Shield is currently in early stages and is guided towards fullfiling the following user stories:
 <img width="1057" alt="Screenshot 2023-07-26 at 16 46 40" src="https://github.com/fac27/rent-shield/assets/114600712/c6488095-75bd-49c0-baab-f8deca27acca">
+
+### Handover
+Details for the project and product process can be found [here](https://github.com/fac27/rent-shield/blob/main/handover.md)
+There is also a .env example file with the variables
+The dev team have created unresolved issues under the label 'handover'
