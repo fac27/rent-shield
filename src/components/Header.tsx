@@ -18,17 +18,17 @@ const Header = () => {
   const router = useRouter()
   const supabase = createClientComponentClient<Database>()
 
-  // useEffect(() => {
-  // check whether user is logged in
-  const getSession = async () => {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession()
-    if (session) return setSession(session)
-  }
-  getSession()
-  // }, [])
-
+  useEffect(() => {
+    // check whether user is logged in
+    const getSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      if (session) return setSession(session)
+      console.log(session.user.user_metadata.role_id)
+    }
+    getSession()
+  }, [])
   const handleLogout = async () => {
     await supabase.auth.signOut()
     setSession(null)
@@ -39,9 +39,9 @@ const Header = () => {
       <Navbar fluid rounded>
         {showSidebar ? <HamburgerSidebar /> : null}
         <div className="flex gap-3 items-center">
-          <button onClick={() => setShowSidebar(!showSidebar)}>
+          {/* <button onClick={() => setShowSidebar(!showSidebar)}>
             <RxHamburgerMenu className="invert scale-125 mx-2 dark:text-gray-500" />
-          </button>
+          </button> */}
           <Navbar.Brand href="/" className="flex gap-3 items-center">
             {
               <Image
@@ -76,7 +76,13 @@ const Header = () => {
                   {session.user.email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item>Settings</Dropdown.Item>
+              <Link href="/search-preferences">
+                <Dropdown.Item>Search</Dropdown.Item>
+              </Link>
+              <Link href="/favourites">
+                <Dropdown.Item>favourites</Dropdown.Item>
+              </Link>
+
               {session.user.user_metadata.role_id === 2 ? (
                 <>
                   <Dropdown.Divider />
