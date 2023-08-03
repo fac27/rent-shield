@@ -40,12 +40,11 @@ All Pull Requests must meet the following requirements before being merged into 
 
 Development of Rent Shield is tracked using github projects. [This project board](https://github.com/orgs/fac27/projects/36/views/) is updated regularly and informs the roadmap for new features and code base improvements.
 
+We kept to our sprint planning relatively tight and kept to our user stories.
+In summary:
+We Over estimated complexity by _13.79%_ and under estimated time by _11.33%_ with a total of 29 points worth of tickets.
+
 ### MVP
 
 The development of Rent Shield is currently in early stages and is guided towards fullfiling the following user stories:
-
-1. As a user I want to search properties by location, budget, number of bedrooms, and property type
-2. As a renter I want to login so that I can save/favourite properties
-3. As a landlord I want to be able to login and upload my property so that renters can see it
-
 <img width="1057" alt="Screenshot 2023-07-26 at 16 46 40" src="https://github.com/fac27/rent-shield/assets/114600712/c6488095-75bd-49c0-baab-f8deca27acca">
